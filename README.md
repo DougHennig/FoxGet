@@ -6,6 +6,12 @@ The idea is that you run FoxGet when want to add a library to an application. Yo
 
 Currently, there's no UI, so to use FoxGet, open the project for your application and DO the installer for the library you want to add to the application (for example, CSVProcessorInstaller to install [Antonio Lopes' CSV Processor](https://github.com/atlopes/csv)). After a moment, you should see that some files were added to the project and there’s a Packages subdirectory of the project folder containing Packages.xml and the downloaded files in a folder for the component.
 
+You may wonder why FoxGet puts the library into a Packages subdirectory of the project folder rather than in a common location other applications could reference. There are several reasons:
+
+- That's the way NuGet works.
+- If your application is in source control (such as Git), it isn't easy to include paths outside the application path in the repository.
+- You may want to use different versions of a library in different applications, especially if how you call the library changes between versions.
+
 If you interested in writing your own installer, check out the various installer PRGs to see how little code there is, as FoxGet.prg takes care of most of the tasks. For some of them (e.g. CSVProcessor and DynamicForm), it's just specifying what files to download and which to add to the project. Others (e.g. ParallelFox and VFPXWorkbookXLSX) have more work to do, such as unzipping the download and copy some or all of the files to the package folder.
 
 There are a few things to do:
