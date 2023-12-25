@@ -8,7 +8,7 @@
 		<version/>
 		<pubdate>2023-04-19</pubdate>
 		<homeurl>https://github.com/atlopes/csv</homeurl>
-		<installurl>https://raw.githubusercontent.com/DougHennig/FoxGet/Installers/csvprocessorinstaller.prg</installurl>
+		<installurl>https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/csvprocessorinstaller.prg</installurl>
 	</foxgetpackages>
 	<foxgetpackages>
 		<name>DPIAwareManager</name>
@@ -18,7 +18,7 @@
 		<version/>
 		<pubdate>2023-03-10</pubdate>
 		<homeurl>https://github.com/atlopes/DPIAwareManager</homeurl>
-		<installurl>https://raw.githubusercontent.com/DougHennig/FoxGet/Installers/dpiawaremanagerinstaller.prg</installurl>
+		<installurl>https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/dpiawaremanagerinstaller.prg</installurl>
 	</foxgetpackages>
 	<foxgetpackages>
 		<name>DynamicForms</name>
@@ -28,7 +28,7 @@
 		<version>1.9.1</version>
 		<pubdate>2017-08-30</pubdate>
 		<homeurl>https://github.com/VFPX/DynamicForms</homeurl>
-		<installurl>https://raw.githubusercontent.com/DougHennig/FoxGet/Installers/dynamicformsinstaller.prg</installurl>
+		<installurl>https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/dynamicformsinstaller.prg</installurl>
 	</foxgetpackages>
 	<foxgetpackages>
 		<name>ParallelFox</name>
@@ -38,7 +38,7 @@
 		<version>2.0</version>
 		<pubdate>2023-10-01</pubdate>
 		<homeurl>https://github.com/VFPX/ParallelFox</homeurl>
-		<installurl>https://raw.githubusercontent.com/DougHennig/FoxGet/Installers/parallelfoxinstaller.prg</installurl>
+		<installurl>https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/parallelfoxinstaller.prg</installurl>
 	</foxgetpackages>
 	<foxgetpackages>
 		<name>ErrorHandler</name>
@@ -48,7 +48,7 @@
 		<version>2023-02-18</version>
 		<pubdate>2023-02-18</pubdate>
 		<homeurl>https://github.com/DougHennig/ErrorHandler</homeurl>
-		<installurl>https://raw.githubusercontent.com/DougHennig/FoxGet/Installers/errorhandlerinstaller.prg</installurl>
+		<installurl>https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/errorhandlerinstaller.prg</installurl>
 	</foxgetpackages>
 	<foxgetpackages>
 		<name>XLSXWorkbook</name>
@@ -58,6 +58,6 @@
 		<version>R39</version>
 		<pubdate>2023-09-08</pubdate>
 		<homeurl>https://github.com/ggreen86/XLSX-Workbook-Class</homeurl>
-		<installurl>https://raw.githubusercontent.com/DougHennig/FoxGet/Installers/vfpxworkbookxlsxinstaller.prg</installurl>
+		<installurl>https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/vfpxworkbookxlsxinstaller.prg</installurl>
 	</foxgetpackages>
 </VFPData>
