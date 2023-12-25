@@ -379,11 +379,10 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 	PROCEDURE cmdInstall.Click
 		* Download the installer.
 		
-		set step on 
-		lcInstaller       = Thisform.cWorkingFolder + justfname(trim(FoxGetPackages.InstallURL))
+		lcInstaller       = Thisform.cWorkingFolder + justfname(trim(Packages.InstallURL))
 		loFiles           = createobject('Collection')
 		loFile            = createobject('FoxGetFile')
-		loFile.cURL       = trim(FoxGetPackages.InstallURL)
+		loFile.cURL       = trim(Packages.InstallURL)
 		loFile.cLocalFile = lcInstaller
 		loFiles.Add(loFile)
 		loInternet = newobject('Internet', 'Internet.prg')
@@ -394,11 +393,11 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		endif not llOK
 		
 		loInstaller = newobject(juststem(lcInstaller), lcInstaller)
-		loInstaller.cPackageName = trim(FoxGetPackages.Name)
-		loInstaller.cVersion     = trim(FoxGetPackages.Version)
+		loInstaller.cPackageName = trim(Packages.Name)
+		loInstaller.cVersion     = trim(Packages.Version)
 		bindevent(loInstaller, 'Update', Thisform, 'Update')
 		loInstaller.Install()
-		Thisform.GetInstalledPackages()
+		Thisform.GetPackages()
 		Thisform.Refresh()
 		
 	ENDPROC
