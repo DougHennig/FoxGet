@@ -4,6 +4,8 @@
 * Installer prg for each tool sort of like Thor updater. Based on class with properties like url and methods like
 * beforegetfile and aftergetfile. Ui can search, download, remove, or go to tool website.
 
+*** NOTE: subclass must have same name as PRG
+
 
 #define ccCRLF							chr(13) + chr(10)
 #define cnBUFFER_SIZE					32767
@@ -25,14 +27,15 @@
 define class FoxGet as Custom
 	oFiles          = NULL
 	oProject        = NULL
-	cErrorMessage   = ''
 	cWorkingPath    = ''
 	cExtractionPath = ''
 	cPackagesPath   = ''
 	cPackageName    = ''
 	cPackagePath    = ''
+	cVersion        = ''
 	cProjectFolder  = ''
 	cLogFile        = ''
+	cBaseURL        = ''
 
 	function Init
 		local llOK, ;
@@ -60,61 +63,6 @@ define class FoxGet as Custom
 		This.cPackageName    = strtran(This.Name, 'Installer', '', -1, -1, 1)
 		This.cPackagePath    = This.cPackagesPath + addbs(This.cPackageName)
 
-* Create our working folder if necessary.
-
-		llOK = .T.
-		if not directory(This.cWorkingPath)
-			try
-				md (This.cWorkingPath)
-			catch to loException
-				This.cErrorMessage = 'Cannot create ' + This.cWorkingPath + ;
-					': ' + loException.Message
-				llOK = .F.
-			endtry
-		endif not directory(This.cWorkingPath)
-		if not llOK
-			return
-		endif not llOK
-
-* Create the packages folder if necessary.
-
-		if not directory(This.cPackagesPath)
-			try
-				md (This.cPackagesPath)
-			catch to loException
-				This.Log('Error creating packages folder: ' + loException.Message)
-				llOK = .F.
-			endtry
-		endif not directory(This.cPackagesPath)
-		if not llOK
-			return
-		endif not llOK
-
-* Delete the package folder if it exists (there may be obsolete files from an
-* earlier install) then create it.
-
-		if directory(This.cPackagePath)
-			This.FileOperation(This.cPackagePath, '', 'DELETE')
-		endif directory(This.cPackagePath)
-		try
-			md (This.cPackagePath)
-		catch to loException
-			This.Log('Error creating package folder ' + This.cPackageName + ': ' + ;
-				loException.Message)
-			llOK = .F.
-		endtry
-		if not llOK
-			return
-		endif not llOK
-
-* Erase the log file.
-
-		This.cLogFile = This.cPackagesPath + 'log.txt'
-		try
-			erase (This.cLogFile)
-		catch
-		endtry
-
 * Allow the subclass to do its own setup tasks.
 
 		This.Setup()
@@ -133,7 +81,7 @@ define class FoxGet as Custom
 	function AddFile(tcURL, tlAddToProject, tcFolder)
 		local loFile
 		loFile               = createobject('FoxGetFile')
-		loFile.cURL          = tcURL
+		loFile.cURL          = iif('http' $ tcURL, '', This.cBaseURL) + tcURL
 		loFile.lAddToProject = tlAddToProject
 		loFile.cLocalFile    = evl(tcFolder, This.cWorkingPath) + This.Decode(justfname(tcURL))
 		This.oFiles.Add(loFile)
@@ -146,6 +94,71 @@ define class FoxGet as Custom
 * folder) is done by the InstallPackage method, which is overridden in a subclass.
 
 	function Install
+		This.Update('===== Installing ' + This.cPackageName)
+
+* Create our working folder if necessary.
+
+		llOK = .T.
+		if not directory(This.cWorkingPath)
+			try
+				md (This.cWorkingPath)
+			catch to loException
+				lcMessage = 'Cannot create ' + This.cWorkingPath + ': ' + ;
+					loException.Message
+				This.Update(lcMessage)
+				This.Log(lcMessage)
+				llOK = .F.
+			endtry
+		endif not directory(This.cWorkingPath)
+		if not llOK
+			return .F.
+		endif not llOK
+
+* Create the packages folder if necessary.
+
+		if not directory(This.cPackagesPath)
+			try
+				md (This.cPackagesPath)
+			catch to loException
+				lcMessage = 'Error creating packages folder: ' + loException.Message
+				This.Update(lcMessage)
+				This.Log(lcMessage)
+				llOK = .F.
+			endtry
+		endif not directory(This.cPackagesPath)
+		if not llOK
+			return .F.
+		endif not llOK
+
+* Delete the package folder if it exists (there may be obsolete files from an
+* earlier install) then create it.
+
+		if directory(This.cPackagePath)
+			This.FileOperation(This.cPackagePath, '', 'DELETE')
+		endif directory(This.cPackagePath)
+		try
+			md (This.cPackagePath)
+		catch to loException
+			lcMessage = 'Error creating package folder ' + This.cPackageName + ': ' + ;
+				loException.Message
+			This.Update(lcMessage)
+			This.Log(lcMessage)
+			llOK = .F.
+		endtry
+		if not llOK
+			return .F.
+		endif not llOK
+
+* Erase the log file.
+
+		This.cLogFile = This.cPackagesPath + 'log.txt'
+		try
+			erase (This.cLogFile)
+		catch
+		endtry
+
+* Do the installation.
+
 		llOK = This.DownloadFiles()
 		llOK = llOK and This.ExtractFiles()
 		llOK = llOK and This.InstallPackage()
@@ -166,6 +179,34 @@ define class FoxGet as Custom
 
 	function InstallPackage
 	endfunc
+
+
+* Uninstall the package: remove the files from the project and delete the package folder.
+
+	function Uninstall
+*** TODO: need these methods
+*** TODO: remove from version control
+		llOK = This.RemoveFilesFromProject()
+		llOK = llOK and This.UninstallPackage()
+*** TODO: have this method support removal or add a new method
+		llOK = llOK and This.UpdatePackages()
+		llOK = llOK and This.RemoveFolder()
+		if llOK
+			messagebox(This.cPackageName + ' was uninstalled successfully.', 64, 'FoxGet')
+		else
+			messagebox(This.cPackageName + ' was not uninstalled. ' + ;
+				'The log file will be displayed.', 64, 'FoxGet')
+			modify file (This.cLogFile) nowait
+		endif llOK
+		return llOK
+	endfunc
+
+
+* Abstract method overridden in a subclass.
+
+	function UninstallPackage
+	endfunc
+
 
 * Download all files.
 
@@ -442,7 +483,7 @@ define class FoxGet as Custom
 	endfunc
 
 
-* Updates the packages file.
+* Update the packages file.
 
 	function UpdatePackages
 		local lcPackagesFile, ;
@@ -453,8 +494,7 @@ define class FoxGet as Custom
 		lnSelect       = select()
 		llResult       = .T.
 		This.Log('Updating packages file')
-*** TODO: what else do we need? Version?
-		create cursor Packages (Name C(60))
+		create cursor Packages (Name C(60), Version C(10), Date D)
 		if file(lcPackagesFile)
 			try
 				xmltocursor(lcPackagesFile, 'Packages', 512 + 8192)
@@ -469,7 +509,9 @@ define class FoxGet as Custom
 			if not found()
 				insert into Packages ;
 					values ;
-						(This.cPackageName)
+						(This.cPackageName, ;
+						This.cVersion, ;
+						date())
 			endif not found()
 			try
 				cursortoxml('Packages', lcPackagesFile, 1, 512)

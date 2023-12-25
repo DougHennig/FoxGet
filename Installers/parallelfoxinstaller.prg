@@ -1,20 +1,21 @@
 lcPath = addbs(justpath(sys(16)))
-set procedure to (lcPath + 'foxget.prg') additive
+set procedure to (forcepath('foxget.prg', fullpath('..\Source\', lcPath)))  additive
 loInstaller = createobject('ParallelFoxInstaller')
 loInstaller.Install()
 
 define class ParallelFoxInstaller as FoxGet of FoxGet.prg
+	cBaseURL = 'https://raw.githubusercontent.com/VFPX/ParallelFox/master/'
 
 * Define the files to download. Note that URLs are case-sensitive.
 
 	function Setup
 *** TODO: have a zip file instead
-		This.AddFile('https://raw.githubusercontent.com/VFPX/ParallelFox/master/parallelfox.VCT')
-		This.AddFile('https://raw.githubusercontent.com/VFPX/ParallelFox/master/parallelfox.vcx', .T.)
-		This.AddFile('https://raw.githubusercontent.com/VFPX/ParallelFox/master/parallelfox.exe')
-		This.AddFile('https://raw.githubusercontent.com/VFPX/ParallelFox/master/install.PRG')
-		This.AddFile('https://raw.githubusercontent.com/VFPX/ParallelFox/master/ffi/parfoxcode.DBF')
-		This.AddFile('https://raw.githubusercontent.com/VFPX/ParallelFox/master/ffi/parfoxcode.FPT')
+		This.AddFile('parallelfox.VCT')
+		This.AddFile('parallelfox.vcx', .T.)
+		This.AddFile('parallelfox.exe')
+		This.AddFile('install.PRG')
+		This.AddFile('ffi/parfoxcode.DBF')
+		This.AddFile('ffi/parfoxcode.FPT')
 *** TODO: need DMULT.DLL?
 	endfunc
 

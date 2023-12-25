@@ -1,14 +1,15 @@
 lcPath = addbs(justpath(sys(16)))
-set procedure to (lcPath + 'foxget.prg') additive
+set procedure to (forcepath('foxget.prg', fullpath('..\Source\', lcPath)))  additive
 loInstaller = createobject('ErrorHandlerInstaller')
 loInstaller.Install()
 
 define class ErrorHandlerInstaller as FoxGet of FoxGet.prg
+	cBaseURL = 'https://raw.githubusercontent.com/DougHennig/ErrorHandler/master/ThorUpdater/'
 
 * Define the files to download. Note that URLs are case-sensitive.
 
 	function Setup
-		This.AddFile('https://raw.githubusercontent.com/DougHennig/ErrorHandler/master/ThorUpdater/ErrorHandler.zip')
+		This.AddFile('ErrorHandler.zip')
 	endfunc
 
 * Custom installation tasks: copy the files from the extraction folder to the

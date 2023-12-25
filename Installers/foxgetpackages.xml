@@ -1,0 +1,63 @@
+<?xml version = "1.0" encoding="Windows-1252" standalone="yes"?>
+<VFPData>
+	<foxgetpackages>
+		<name>CSVProcessor</name>
+		<author>Antonio Lopes</author>
+		<descrip>A VFP class to process CSV files.</descrip>
+		<keywords>csv,import,export</keywords>
+		<version/>
+		<pubdate>2023-04-19</pubdate>
+		<homeurl>https://github.com/atlopes/csv</homeurl>
+		<installurl>csvprocessorinstaller.prg</installurl>
+	</foxgetpackages>
+	<foxgetpackages>
+		<name>DPIAwareManager</name>
+		<author>Antonio Lopes</author>
+		<descrip>A DPI-Aware manager for VFP applications.</descrip>
+		<keywords>dpi</keywords>
+		<version/>
+		<pubdate>2023-03-10</pubdate>
+		<homeurl>https://github.com/atlopes/DPIAwareManager</homeurl>
+		<installurl>DPIAwareManagerInstaller.prg</installurl>
+	</foxgetpackages>
+	<foxgetpackages>
+		<name>DynamicForms</name>
+		<author>Matt Slay</author>
+		<descrip>Dynamically generate UI forms from objects or cursors via a "markup syntax” in your code.</descrip>
+		<keywords/>
+		<version>1.9.1</version>
+		<pubdate>2017-08-30</pubdate>
+		<homeurl>https://github.com/VFPX/DynamicForms</homeurl>
+		<installurl>dynamicformsinstaller.prg</installurl>
+	</foxgetpackages>
+	<foxgetpackages>
+		<name>ParallelFox</name>
+		<author>Joel Leach</author>
+		<descrip>Parallel Processing Library for Visual FoxPro</descrip>
+		<keywords/>
+		<version>2.0</version>
+		<pubdate>2023-10-01</pubdate>
+		<homeurl>https://github.com/VFPX/ParallelFox</homeurl>
+		<installurl>parallelfoxinstaller.prg</installurl>
+	</foxgetpackages>
+	<foxgetpackages>
+		<name>ErrorHandler</name>
+		<author>Doug Hennig</author>
+		<descrip>ErrorHandler provides a highly configurable and customizable error handler for any VFP application</descrip>
+		<keywords/>
+		<version>2023-02-18</version>
+		<pubdate>2023-02-18</pubdate>
+		<homeurl>https://github.com/DougHennig/ErrorHandler</homeurl>
+		<installurl>errorhandlerinstaller.prg</installurl>
+	</foxgetpackages>
+	<foxgetpackages>
+		<name>XLSXWorkbook</name>
+		<author>Greg Green</author>
+		<descrip>VFP Class to Create an XLSX Workbook without Excel Automation or Installed</descrip>
+		<keywords>Excel,import,export</keywords>
+		<version>R39</version>
+		<pubdate>2023-09-08</pubdate>
+		<homeurl>https://github.com/ggreen86/XLSX-Workbook-Class</homeurl>
+		<installurl>vfpxworkbookxlsxinstaller.prg</installurl>
+	</foxgetpackages>
+</VFPData>
