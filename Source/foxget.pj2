@@ -39,18 +39,22 @@ FOR EACH loProject IN _VFP.Projects FOXOBJECT
 ENDFOR
 
 STRTOFILE( '', '__newproject.f2b' )
-BUILD PROJECT foxget.PJX FROM '__newproject.f2b'
+BUILD PROJECT foxget.pjx FROM '__newproject.f2b'
 FOR EACH loProject IN _VFP.Projects FOXOBJECT
 	loProject.Close()
 ENDFOR
 
-MODIFY PROJECT 'foxget.PJX' NOWAIT NOSHOW NOPROJECTHOOK
+MODIFY PROJECT 'foxget.pjx' NOWAIT NOSHOW NOPROJECTHOOK
 
-loProject = _VFP.Projects('foxget.PJX')
+loProject = _VFP.Projects('foxget.pjx')
 
 WITH loProject.FILES
+	.ADD('api_apprun.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
+	.ADD('clsheap.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
+	.ADD('fileoperation.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('foxget.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('foxget.scx')		&& *< FileMetadata: Type="K" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
+	.ADD('internet.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	.ADD('vfpxbaselibrary.vcx')		&& *< FileMetadata: Type="V" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
 	*</BuildProj>
 
@@ -82,7 +86,7 @@ WITH loProject
 ENDWITH
 
 
-_VFP.Projects('foxget.PJX').Close()
+_VFP.Projects('foxget.pjx').Close()
 *ERASE '__newproject.f2b'
 CD (lcCurdir)
 RETURN

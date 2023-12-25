@@ -51,10 +51,12 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 	*<DefinedPropArrayMethod>
 		*m: getpackages		&& Creates a cursor of packages
 		*m: update		&& Displays the installation progress
+		*p: cworkingfolder		&& A temporary working folder
 	*</DefinedPropArrayMethod>
 
 	*<PropValue>
 		Caption = "FoxGet"
+		cworkingfolder = 
 		DataSession = 2
 		DoCreate = .T.
 		Height = 567
@@ -64,6 +66,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		_memberdata = <VFPData>
 			<memberdata name="update" display="Update"/>
 			<memberdata name="getpackages" display="GetPackages"/>
+			<memberdata name="cworkingfolder" display="cWorkingFolder"/>
 		</VFPData>
 	*</PropValue>
 
@@ -299,20 +302,58 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 	ENDPROC
 
 	PROCEDURE Init
+		local llOK, ;
+			lcPackagesFile, ;
+			loFiles, ;
+			loFile, ;
+			loException as Exception, ;
+			loInternet
 		dodefault()
-		*** TODO: use browser control instead of editbox for descrip
 		
-		*** TODO: download xml and convert to cursor. VFPX Project Deployment: convert table to xml and put into FoxGet(?) folder. Doc: update table to add new installers
-		use foxgetpackages
+		*** TODO: remove
+		lcPath = addbs(justpath(substr(sys(16), at(' ', sys(16), 2) + 1)))
+		set path to (lcPath)
 		
+		* Create a folder for working files.
+		
+		llOK = .T.
+		This.cWorkingFolder = addbs(sys(2023)) + 'FoxGet\'
+		if not directory(This.cWorkingFolder)
+			try
+				md (This.cWorkingFolder)
+			catch to loException
+				messagebox('Cannot create ' + This.cWorkingFolder + ': ' + loException.Message, ;
+					16, 'FoxGet')
+				llOK = .F.
+			endtry
+		endif not directory(This.cWorkingFolder)
+		if not llOK
+			return .F.
+		endif not llOK
+		
+		* Download the FoxGet packages list.
+		
+		set procedure to (lcPath + 'foxget.prg') additive
+		lcPackagesFile    = This.cWorkingFolder + 'foxgetpackages.xml'
+		loFiles           = createobject('Collection')
+		loFile            = createobject('FoxGetFile')
+		loFile.cURL       = 'https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/foxgetpackages.xml'
+		loFile.cLocalFile = lcPackagesFile
+		loFiles.Add(loFile)
+		loInternet = newobject('Internet', 'Internet.prg')
+		llOK = loInternet.Download(loFiles)
+		if not llOK
+			messagebox(loInternet.cErrorMessage, 16, 'FoxGet')
+			return .F.
+		endif not llOK
+		
+		* Create a packages cursor and populate the listbox.
+		
+		xmltocursor(lcPackagesFile, 'foxgetpackages', 512)
 		This.GetPackages()
-		
-		select Name, upper(Name) ;
-			from FoxGetPackages ;
-			order by 2 ;
-			into array This.lstPackages.aItems
-		This.lstPackages.Requery()
 		This.lstPackages.ListIndex = 1
+		
+		* Declare the ShellExecute function.
 		
 		declare integer ShellExecute in Shell32.dll ;
 			integer hwnd, ;
@@ -320,10 +361,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 			string lpFile, ;
 			string lpParameters, ;
 			string lpDirectory, ;
-			long nShowCmd 
-		
-		lcPath = addbs(justpath(substr(sys(16), at(' ', sys(16), 2) + 1)))
-		set procedure to (lcPath + 'foxget.prg') additive
+			long nShowCmd
 		
 	ENDPROC
 
@@ -339,8 +377,22 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 	ENDPROC
 
 	PROCEDURE cmdInstall.Click
-		*** TODO: download installer
-		lcInstaller = 'Installers\' + trim(FoxGetPackages.InstallURL)
+		* Download the installer.
+		
+		set step on 
+		lcInstaller       = Thisform.cWorkingFolder + justfname(trim(FoxGetPackages.InstallURL))
+		loFiles           = createobject('Collection')
+		loFile            = createobject('FoxGetFile')
+		loFile.cURL       = trim(FoxGetPackages.InstallURL)
+		loFile.cLocalFile = lcInstaller
+		loFiles.Add(loFile)
+		loInternet = newobject('Internet', 'Internet.prg')
+		llOK = loInternet.Download(loFiles)
+		if not llOK
+			messagebox(loInternet.cErrorMessage, 16, 'FoxGet')
+			return .F.
+		endif not llOK
+		
 		loInstaller = newobject(juststem(lcInstaller), lcInstaller)
 		loInstaller.cPackageName = trim(FoxGetPackages.Name)
 		loInstaller.cVersion     = trim(FoxGetPackages.Version)
