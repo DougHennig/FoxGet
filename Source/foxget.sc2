@@ -368,11 +368,14 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		* Download the FoxGet packages list.
 		
 		set procedure to foxget.prg additive
-		lcPackagesFile    = This.cWorkingFolder + 'foxgetpackages.xml'
 		loFiles           = createobject('Collection')
 		loFile            = createobject('FoxGetFile')
-		loFile.cURL       = 'https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/foxgetpackages.xml'
-		loFile.cLocalFile = lcPackagesFile
+		loFile.cURL       = 'https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/foxgetpackages.dbf'
+		loFile.cLocalFile = This.cWorkingFolder + 'foxgetpackages.dbf'
+		loFiles.Add(loFile)
+		loFile            = createobject('FoxGetFile')
+		loFile.cURL       = 'https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/foxgetpackages.fpt'
+		loFile.cLocalFile = This.cWorkingFolder + 'foxgetpackages.fpt'
 		loFiles.Add(loFile)
 		loInternet = newobject('Internet', 'Internet.prg')
 		llOK = loInternet.Download(loFiles)
@@ -381,9 +384,8 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 			return .F.
 		endif not llOK
 		
-		* Create a packages cursor and populate the listbox.
+		* Populate the listbox.
 		
-		xmltocursor(lcPackagesFile, 'foxgetpackages', 512)
 		This.GetPackages()
 		This.lstPackages.ListIndex = 1
 		
@@ -506,7 +508,6 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 	ENDPROC
 
 	PROCEDURE cmdUpdate.Click
-		set step on 
 		llOK = Thisform.Uninstall(.T.)
 		if llOK
 			Thisform.Install()

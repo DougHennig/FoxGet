@@ -236,15 +236,9 @@ define class FoxGet as Custom
 
 		llResult = .T.
 		if directory(This.cExtractionPath)
-			try
-*** TODO: check return
-				FileOperation(This.cExtractionPath, '', 'DELETE')
-			catch to loException
-				This.Log('Error deleting files in ' + This.cExtractionPath + ;
-					': ' + loException.Message)
-				llResult = .F.
-			endtry
+			llResult = FileOperation(This.cExtractionPath, '', 'DELETE')
 			if not llResult
+				This.Log('Error deleting files in ' + This.cExtractionPath)
 				return .F.
 			endif not llResult
 		endif directory(This.cExtractionPath)
@@ -375,6 +369,7 @@ define class FoxGet as Custom
 		return llReturn
 	endfunc
 
+
 * Add the specified file(s) to the project repository if there is one.
 
 	function AddToRepository(tcSource)
@@ -482,12 +477,11 @@ define class FoxGet as Custom
 		lcMessage = '===== Uninstalling ' + This.cPackageName
 		raiseevent(This, 'Update', lcMessage)
 		This.Log(lcMessage)
-set step on 
 		llOK = This.RemoveFilesFromProject()
 		llOK = llOK and This.UninstallPackage()
 		llOK = llOK and This.UpdatePackages(.T.)
 		llOK = llOK and This.RemovePackagePath(.T.)
-*** TODO: remove from version control
+		llOK = llOK and This.RemoveFromRepository()
 		if llOK
 			messagebox(This.cPackageName + ' was uninstalled successfully.', 64, 'FoxGet')
 		else
@@ -539,6 +533,7 @@ set step on
 		try
 			loFile = This.oProject.Files.Item(lcFile)
 			loFile.Remove()
+			This.RemoveFromRepository(lcFile)
 			llReturn = .T.
 		catch to loException
 			raiseevent(This, 'Update', 'Removing file from project failed: see log file for details')
@@ -546,6 +541,13 @@ set step on
 				loException.Message)
 		endtry
 		return llReturn
+	endfunc
+
+
+* Remove the specified file from the project repository if there is one.
+
+	function RemoveFromRepository(tcSource)
+*** TODO
 	endfunc
 
 
