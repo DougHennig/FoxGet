@@ -31,7 +31,7 @@ If there's a newer version of the package available, the Update button is enable
 ## Creating an installer
 If you interested in writing your own installer, check out the various installer PRGs to see how little code there is, as FoxGet.prg takes care of most of the tasks. For some of them (e.g. CSVProcessor and DynamicForm), it's just specifying what files to download and which to add to the project. Others (e.g. ParallelFox and XLSXWorkbook) have more work to do, such as unzipping the download and copy some or all of the files to the package folder.
 
-Here's a simple installer. It just downloads a single file, dpiawaremanager.prg from https://raw.githubusercontent.com/atlopes/DPIAwareManager/master/source, and adds it to the project.
+Here's a simple installer. It just downloads a single file and adds it to the project.
 
 ```
 define class DPIAwareManagerInstaller as FoxGet of FoxGet.prg
