@@ -58,6 +58,6 @@
 		<version>R39</version>
 		<pubdate>2023-09-08</pubdate>
 		<homeurl>https://github.com/ggreen86/XLSX-Workbook-Class</homeurl>
-		<installurl>https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/vfpxworkbookxlsxinstaller.prg</installurl>
+		<installurl>https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/xlsxworkbookinstaller.prg</installurl>
 	</foxgetpackages>
 </VFPData>

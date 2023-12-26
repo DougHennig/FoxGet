@@ -50,23 +50,30 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 
 	*<DefinedPropArrayMethod>
 		*m: getpackages		&& Creates a cursor of packages
+		*m: install		&& Install the selected package
+		*m: uninstall		&& Uninstall the selected package
 		*m: update		&& Displays the installation progress
+		*p: cprojectfolder		&& The project folder
 		*p: cworkingfolder		&& A temporary working folder
 	*</DefinedPropArrayMethod>
 
 	*<PropValue>
 		Caption = "FoxGet"
+		cprojectfolder = 
 		cworkingfolder = 
 		DataSession = 2
 		DoCreate = .T.
 		Height = 567
-		Icon = shopping_basket.ico
+		Icon = foxget.ico
 		Name = "FOXGET"
 		Width = 816
 		_memberdata = <VFPData>
 			<memberdata name="update" display="Update"/>
 			<memberdata name="getpackages" display="GetPackages"/>
 			<memberdata name="cworkingfolder" display="cWorkingFolder"/>
+			<memberdata name="cprojectfolder" display="cProjectFolder"/>
+			<memberdata name="uninstall" display="Uninstall"/>
+			<memberdata name="install" display="Install"/>
 		</VFPData>
 	*</PropValue>
 
@@ -269,17 +276,25 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 	PROCEDURE getpackages		&& Creates a cursor of packages
 		* Create a cursor of installed packages.
 		
-		*** TODO: path
-		lcPackagesFile = 'packages\packages.xml'
+		local lcPackagesFile, ;
+			lcJoin, ;
+			lcSearch, ;
+			lcWhere
+		lcPackagesFile = This.cProjectFolder + 'packages\packages.xml'
 		if file(lcPackagesFile)
-			xmltocursor(lcPackagesFile, 'installed', 512)
-		else
-			create cursor Installed (Name C(1), Version C(1), Date D)
+			xmltocursor(lcPackagesFile, 'Installed', 512)
 		endif file(lcPackagesFile)
+		if not used('Installed')
+			create cursor Installed (Name C(1), Version C(1), Date D)
+		endif not used('Installed')
 		
-		* Create a cursor of all or just installed packages.
+		* Create a cursor of all or just installed packages, supporting a search string.
 		
-		lcJoin = iif(This.chkShowOnlyInstalled.Value, 'inner', 'left outer')
+		lcJoin   = iif(This.chkShowOnlyInstalled.Value, 'inner', 'left outer')
+		lcSearch = iif(empty(This.txtSearch.Value), '', "'%" + lower(alltrim(This.txtSearch.Value)) + "%'")
+		lcWhere  = iif(empty(lcSearch), '', 'where lower(FoxGetPackages.Keywords) like ' + lcSearch + ;
+			' or lower(FoxGetPackages.Descrip) like ' + lcSearch + ;
+			' or lower(FoxGetPackages.Name) like ' + lcSearch)
 		select FoxGetPackages.Name, ;
 				Installed.Version as InstalledVersion, ;
 				Installed.Date as InstalledDate, ;
@@ -292,13 +307,14 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 				FoxGetPackages.InstallURL ;
 			from FoxGetPackages ;
 			&lcJoin join Installed on upper(Installed.Name) = upper(FoxGetPackages.Name) ;
+			&lcWhere ;
 			into cursor Packages
 		select Name, upper(Name) ;
 			from Packages ;
 			order by 2 ;
 			into array This.lstPackages.aItems
 		This.lstPackages.Requery()
-		
+		 
 	ENDPROC
 
 	PROCEDURE Init
@@ -310,9 +326,15 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 			loInternet
 		dodefault()
 		
-		*** TODO: remove
-		lcPath = addbs(justpath(substr(sys(16), at(' ', sys(16), 2) + 1)))
-		set path to (lcPath)
+		* Get a reference to the active project; bug out if there isn't one.
+		
+		if type('_vfp.ActiveProject') <> 'O'
+			messagebox('There is no active project. FoxGet requires an active project to add packages to.', ;
+				16, 'FoxGet')
+			return .F.
+		endif type('_vfp.ActiveProject') <> 'O'
+		This.cProjectFolder = addbs(justpath(_vfp.ActiveProject.Name))
+			&& we use Name not HomeDir since HomeDir could point to an older location
 		
 		* Create a folder for working files.
 		
@@ -333,7 +355,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		
 		* Download the FoxGet packages list.
 		
-		set procedure to (lcPath + 'foxget.prg') additive
+		set procedure to foxget.prg additive
 		lcPackagesFile    = This.cWorkingFolder + 'foxgetpackages.xml'
 		loFiles           = createobject('Collection')
 		loFile            = createobject('FoxGetFile')
@@ -365,21 +387,16 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		
 	ENDPROC
 
-	PROCEDURE update		&& Displays the installation progress
-		lparameters tcMessage
-		This.edtProgress.Value = This.edtProgress.Value + tcMessage + chr(13)
-		
-	ENDPROC
-
-	PROCEDURE chkShowOnlyInstalled.anychange
-		Thisform.GetPackages()
-		
-	ENDPROC
-
-	PROCEDURE cmdInstall.Click
+	PROCEDURE install		&& Install the selected package
 		* Download the installer.
 		
-		lcInstaller       = Thisform.cWorkingFolder + justfname(trim(Packages.InstallURL))
+		local lcInstaller, ;
+			loFiles, ;
+			loFile, ;
+			loInternet, ;
+			llOK, ;
+			loInstaller
+		lcInstaller       = This.cWorkingFolder + justfname(trim(Packages.InstallURL))
 		loFiles           = createobject('Collection')
 		loFile            = createobject('FoxGetFile')
 		loFile.cURL       = trim(Packages.InstallURL)
@@ -392,13 +409,72 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 			return .F.
 		endif not llOK
 		
+		* Run the installer.
+		
 		loInstaller = newobject(juststem(lcInstaller), lcInstaller)
 		loInstaller.cPackageName = trim(Packages.Name)
 		loInstaller.cVersion     = trim(Packages.Version)
-		bindevent(loInstaller, 'Update', Thisform, 'Update')
+		bindevent(loInstaller, 'Update', This, 'Update')
 		loInstaller.Install()
+		
+		* Copy the installer to the package folder so we can uninstall if necessary.
+		
+		copy file (lcInstaller) to (loInstaller.cPackagePath + justfname(lcInstaller))
+		
+		* Refresh the packages list.
+		
+		This.GetPackages()
+		This.Refresh()
+		
+	ENDPROC
+
+	PROCEDURE uninstall		&& Uninstall the selected package
+		* Run the uninstaller. Note that we have to run it out of a temporary folder so we can delete
+		* the package folder.
+		
+		lparameters tlNoRefresh
+		local lcPackage, ;
+			lcSource, ;
+			lcInstaller, ;
+			llOK, ;
+			loInstaller
+		lcPackage   = trim(Packages.Name)
+		lcSource    = This.cProjectFolder + 'Packages\' + addbs(lcPackage) + lcPackage + 'Installer.prg'
+		lcInstaller = forcepath(lcSource, This.cWorkingFolder)
+		try
+			copy file (lcSource) to (lcInstaller)
+			llOK = .T.
+		catch
+		endtry
+		if llOK
+			loInstaller = newobject(juststem(lcInstaller), lcInstaller)
+			loInstaller.cPackageName = lcPackage
+			bindevent(loInstaller, 'Update', This, 'Update')
+			llOK = loInstaller.Uninstall()
+			if llOK and not tlNoRefresh
+				This.GetPackages()
+				This.Refresh()
+			endif llOK ...
+		else
+			messagebox('Cannot create working copy of uninstaller.', 16, 'FoxGet')
+		endif llOK
+		return llOK
+		
+	ENDPROC
+
+	PROCEDURE update		&& Displays the installation progress
+		lparameters tcMessage
+		This.edtProgress.Value = This.edtProgress.Value + tcMessage + chr(13)
+		
+	ENDPROC
+
+	PROCEDURE chkShowOnlyInstalled.anychange
 		Thisform.GetPackages()
-		Thisform.Refresh()
+		
+	ENDPROC
+
+	PROCEDURE cmdInstall.Click
+		Thisform.Install()
 		
 	ENDPROC
 
@@ -408,7 +484,8 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 	ENDPROC
 
 	PROCEDURE cmdUninstall.Click
-		*** TODO
+		Thisform.Uninstall()
+		
 	ENDPROC
 
 	PROCEDURE cmdUninstall.Refresh
@@ -417,7 +494,12 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 	ENDPROC
 
 	PROCEDURE cmdUpdate.Click
-		*** TODO
+		set step on 
+		llOK = Thisform.Uninstall(.T.)
+		if llOK
+			Thisform.Install()
+		endif llOK
+		
 	ENDPROC
 
 	PROCEDURE cmdUpdate.Refresh
@@ -469,8 +551,9 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		
 	ENDPROC
 
-	PROCEDURE txtSearch.InteractiveChange
-		*** TODO: need anychange and implement search
+	PROCEDURE txtSearch.anychange
+		Thisform.GetPackages()
+		
 	ENDPROC
 
 ENDDEFINE

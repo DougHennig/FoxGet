@@ -7,32 +7,45 @@
 *** NOTE: subclass must have same name as PRG
 
 
-#define ccCRLF							chr(13) + chr(10)
+#define ccCRLF	chr(13) + chr(10)
 
 
 define class FoxGet as Custom
 	oFiles          = NULL
+		&& a collection to hold files to download/process
 	oProject        = NULL
+		&& a reference to the active project
 	cWorkingPath    = ''
+		&& a temporary path for working files
 	cExtractionPath = ''
+		&& the path to extract files into
 	cPackagesPath   = ''
+		&& the path for packages for the project
 	cPackageName    = ''
+		&& the name of the package to install
 	cPackagePath    = ''
+		&& the path for the package
 	cVersion        = ''
+		&& the package version
 	cProjectFolder  = ''
+		&& the folder for the project
 	cLogFile        = ''
+		&& the log file
 	cBaseURL        = ''
+		&& the base URL to download files from.
+
+
+* Initialize the class.
 
 	function Init
-		local llOK, ;
-			loException as Exception
 
-* Get a reference to the active project; bug out if there isn't one (the caller
-* has to check cErrorMessage).
+* Get a reference to the active project; bug out if there isn't one.
 
 		if type('_vfp.ActiveProject') <> 'O'
-			This.cErrorMessage = 'No active project'
-			return
+			lcMessage = 'No active project'
+			messagebox(lcMessage, 16, 'FoxGet')
+			This.Log(lcMessage)
+			return .F.
 		endif type('_vfp.ActiveProject') <> 'O'
 		This.oProject = _vfp.ActiveProject
 
@@ -40,14 +53,15 @@ define class FoxGet as Custom
 
 		This.oFiles = createobject('Collection')
 
-* Define the locations of some folders.
+* Define the locations of some folders and set the default package name.
 
 		This.cWorkingPath    = addbs(sys(2023)) + 'FoxGet\'
 		This.cExtractionPath = This.cWorkingPath + 'Extraction\'
-		This.cProjectFolder  = addbs(This.oProject.HomeDir)
-		This.cPackagesPath   = This.cProjectFolder + 'Packages\'
 		This.cPackageName    = strtran(This.Name, 'Installer', '', -1, -1, 1)
-		This.cPackagePath    = This.cPackagesPath + addbs(This.cPackageName)
+		This.cProjectFolder = addbs(justpath(This.oProject.Name))
+			&& we use Name not HomeDir since HomeDir could point to an older location
+		This.cPackagesPath  = This.cProjectFolder + 'Packages\'
+		This.cPackagePath   = This.cPackagesPath + addbs(This.cPackageName)
 
 * Allow the subclass to do its own setup tasks.
 
@@ -80,10 +94,15 @@ define class FoxGet as Custom
 * folder) is done by the InstallPackage method, which is overridden in a subclass.
 
 	function Install
-		This.Update('===== Installing ' + This.cPackageName)
+		local lcMessage, ;
+			llOK, ;
+			loException
 
 * Create our working folder if necessary.
 
+		lcMessage = '===== Installing ' + This.cPackageName
+		raiseevent(This, 'Update', lcMessage)
+		This.Log(lcMessage)
 		llOK = .T.
 		if not directory(This.cWorkingPath)
 			try
@@ -91,7 +110,7 @@ define class FoxGet as Custom
 			catch to loException
 				lcMessage = 'Cannot create ' + This.cWorkingPath + ': ' + ;
 					loException.Message
-				This.Update(lcMessage)
+				raiseevent(This, 'Update', lcMessage)
 				This.Log(lcMessage)
 				llOK = .F.
 			endtry
@@ -107,7 +126,7 @@ define class FoxGet as Custom
 				md (This.cPackagesPath)
 			catch to loException
 				lcMessage = 'Error creating packages folder: ' + loException.Message
-				This.Update(lcMessage)
+				raiseevent(This, 'Update', lcMessage)
 				This.Log(lcMessage)
 				llOK = .F.
 			endtry
@@ -119,15 +138,16 @@ define class FoxGet as Custom
 * Delete the package folder if it exists (there may be obsolete files from an
 * earlier install) then create it.
 
-		if directory(This.cPackagePath)
-			FileOperation(This.cPackagePath, '', 'DELETE')
-		endif directory(This.cPackagePath)
+		llOK = This.RemovePackagePath()
+		if not llOK
+			return .F.
+		endif not llOK
 		try
 			md (This.cPackagePath)
 		catch to loException
 			lcMessage = 'Error creating package folder ' + This.cPackageName + ': ' + ;
 				loException.Message
-			This.Update(lcMessage)
+			raiseevent(This, 'Update', lcMessage)
 			This.Log(lcMessage)
 			llOK = .F.
 		endtry
@@ -167,30 +187,24 @@ define class FoxGet as Custom
 	endfunc
 
 
-* Uninstall the package: remove the files from the project and delete the package folder.
+* Deletes the package folder and its contents.
 
-	function Uninstall
-*** TODO: need these methods
-*** TODO: remove from version control
-		llOK = This.RemoveFilesFromProject()
-		llOK = llOK and This.UninstallPackage()
-*** TODO: have this method support removal or add a new method
-		llOK = llOK and This.UpdatePackages()
-		llOK = llOK and This.RemoveFolder()
-		if llOK
-			messagebox(This.cPackageName + ' was uninstalled successfully.', 64, 'FoxGet')
+	function RemovePackagePath(tlUpdate)
+		local llOK
+		if directory(This.cPackagePath)
+			if tlUpdate
+				raiseevent(This, 'Update', 'Deleting folder ' + This.cPackagePath)
+			endif tlUpdate
+			llOK = FileOperation(This.cPackagePath, '', 'DELETE')
+			if not llOK
+				lcMessage = 'Cannot delete package folder ' + This.cPackagePath
+				raiseevent(This, 'Update', lcMessage)
+				This.Log(lcMessage)
+			endif not llOK
 		else
-			messagebox(This.cPackageName + ' was not uninstalled. ' + ;
-				'The log file will be displayed.', 64, 'FoxGet')
-			modify file (This.cLogFile) nowait
-		endif llOK
+			llOK = .T.
+		endif directory(This.cPackagePath)
 		return llOK
-	endfunc
-
-
-* Abstract method overridden in a subclass.
-
-	function UninstallPackage
 	endfunc
 
 
@@ -203,7 +217,7 @@ define class FoxGet as Custom
 		bindevent(loInternet, 'Update', This, 'Update')
 		llReturn = loInternet.Download(This.oFiles)
 		if not llReturn
-			This.Update(loInternet.cErrorMessage)
+			raiseevent(This, 'Update', loInternet.cErrorMessage)
 			This.Log(loInternet.cErrorMessage)
 		endif not llReturn
 		return llReturn
@@ -223,6 +237,7 @@ define class FoxGet as Custom
 		llResult = .T.
 		if directory(This.cExtractionPath)
 			try
+*** TODO: check return
 				FileOperation(This.cExtractionPath, '', 'DELETE')
 			catch to loException
 				This.Log('Error deleting files in ' + This.cExtractionPath + ;
@@ -369,7 +384,7 @@ define class FoxGet as Custom
 
 * Update the packages file.
 
-	function UpdatePackages
+	function UpdatePackages(tlRemove)
 		local lcPackagesFile, ;
 			lnSelect, ;
 			llResult, ;
@@ -388,15 +403,18 @@ define class FoxGet as Custom
 			endtry
 		endif file(lcPackagesFile)
 		if llResult
-*** TODO: check version too?
 			locate for upper(Name) = upper(This.cPackageName)
-			if not found()
-				insert into Packages ;
-					values ;
-						(This.cPackageName, ;
-						This.cVersion, ;
-						date())
-			endif not found()
+			do case
+				case found() and tlRemove
+					delete
+				case tlRemove
+				case not found()
+					insert into Packages ;
+						values ;
+							(This.cPackageName, ;
+							This.cVersion, ;
+							date())
+			endcase
 			try
 				cursortoxml('Packages', lcPackagesFile, 1, 512)
 			catch to loException
@@ -456,6 +474,80 @@ define class FoxGet as Custom
 	endfunc
 
 
+* Uninstall the package: remove the files from the project and delete the package folder.
+
+	function Uninstall
+		local lcMessage, ;
+			llOK
+		lcMessage = '===== Uninstalling ' + This.cPackageName
+		raiseevent(This, 'Update', lcMessage)
+		This.Log(lcMessage)
+		llOK = This.RemoveFilesFromProject()
+		llOK = llOK and This.UninstallPackage()
+		llOK = llOK and This.UpdatePackages(.T.)
+		llOK = llOK and This.RemovePackagePath(.T.)
+*** TODO: remove from version control
+		if llOK
+			messagebox(This.cPackageName + ' was uninstalled successfully.', 64, 'FoxGet')
+		else
+			messagebox(This.cPackageName + ' was not uninstalled. ' + ;
+				'The log file will be displayed.', 64, 'FoxGet')
+			modify file (This.cLogFile) nowait
+		endif llOK
+		return llOK
+	endfunc
+
+
+* Abstract method overridden in a subclass.
+
+	function UninstallPackage
+	endfunc
+
+
+* Remove the package files from the project.
+
+	function RemoveFilesFromProject()
+		local llReturn, ;
+			loFile
+		llReturn = .T.
+		for each loFile in This.oFiles foxobject
+			if loFile.lAddToProject
+				llReturn = This.RemoveFileFromProject(loFile.cLocalFile)
+				if not llReturn
+					exit
+				endif not llReturn
+			endif loFile.lAddToProject
+		next loFile
+		return llReturn
+	endfunc
+
+
+* Remove the specified file from the project.
+
+	function RemoveFileFromProject(tcFile)
+		local lcMessage, ;
+			lcFile, ;
+			llReturn
+		lcMessage = 'Removing ' + tcFile + ' from project'
+		raiseevent(This, 'Update', lcMessage)
+		This.Log(lcMessage)
+		lcFile = tcFile
+		if empty(justpath(lcFile))
+			lcFile = This.cPackagePath + lcFile
+		endif empty(justpath(lcFile))
+		try
+			loFile = This.oProject.Files.Item(lcFile)
+			loFile.Remove()
+			llReturn = .T.
+		catch to loException
+			raiseevent(This, 'Update', 'Removing file from project failed: see log file for details')
+			This.Log('Error removing ' + lcFile + ' from project: ' + ;
+				loException.Message)
+		endtry
+		return llReturn
+	endfunc
+
+
 * Decode an HTML-encoded filename.
 
 	function Decode(tcFile)
@@ -487,3 +579,4 @@ define class FoxGetFile as Custom
 	cLocalFile    = ''
 	lAddToProject = .F.
 enddefine
+ 

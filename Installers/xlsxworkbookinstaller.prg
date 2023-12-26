@@ -1,9 +1,9 @@
 lcPath = addbs(justpath(sys(16)))
 set procedure to (forcepath('foxget.prg', fullpath('..\Source\', lcPath)))  additive
-loInstaller = createobject('VFPXWorkbookXLSXInstaller')
+loInstaller = createobject('XLSXWorkbookInstaller')
 loInstaller.Install()
 
-define class VFPXWorkbookXLSXInstaller as FoxGet of FoxGet.prg
+define class XLSXWorkbookInstaller as FoxGet of FoxGet.prg
 	cBaseURL = 'https://raw.githubusercontent.com/ggreen86/XLSX-Workbook-Class/master/'
 
 * Define the file to download. Note that URLs are case-sensitive.
