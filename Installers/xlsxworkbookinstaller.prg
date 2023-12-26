@@ -21,4 +21,12 @@ define class XLSXWorkbookInstaller as FoxGet of FoxGet.prg
 		llOK = llOK and This.AddFileToProject('vfpxworkbookxlsx.vcx')
 		return llOK
 	endfunc
+
+* Custom uninstallation tasks: remove the VCX from the project.
+
+	function UninstallPackage
+		local llOK
+		llOK = This.RemoveFileFromProject('vfpxworkbookxlsx.vcx')
+		return llOK
+	endfunc
 enddefine

@@ -482,6 +482,7 @@ define class FoxGet as Custom
 		lcMessage = '===== Uninstalling ' + This.cPackageName
 		raiseevent(This, 'Update', lcMessage)
 		This.Log(lcMessage)
+set step on 
 		llOK = This.RemoveFilesFromProject()
 		llOK = llOK and This.UninstallPackage()
 		llOK = llOK and This.UpdatePackages(.T.)

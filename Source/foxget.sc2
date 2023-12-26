@@ -273,6 +273,12 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		Width = 270
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="textbox" />
 	
+	PROCEDURE Destroy
+		release procedure foxget.prg
+		dodefault()
+		
+	ENDPROC
+
 	PROCEDURE getpackages		&& Creates a cursor of packages
 		* Create a cursor of installed packages.
 		
@@ -314,7 +320,13 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 			order by 2 ;
 			into array This.lstPackages.aItems
 		This.lstPackages.Requery()
-		 
+		
+		* Position the cursor to the selected package.
+		
+		if This.lstPackages.ListIndex > 0
+			This.lstPackages.AnyChange()
+		endif This.lstPackages.ListIndex > 0
+		
 	ENDPROC
 
 	PROCEDURE Init

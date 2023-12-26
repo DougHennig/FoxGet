@@ -31,4 +31,20 @@ define class ErrorHandlerInstaller as FoxGet of FoxGet.prg
 		endif llOK
 		return llOK
 	endfunc
+
+* Custom uninstallation tasks: remove files from the project.
+
+	function InstallPackage
+		local llOK
+		llOK = This.RemoveFileFromProject('sferrormgr.vcx')
+		llOK = llOK and This.RemoveFileFromProject('sflocalize.vcx')
+		llOK = llOK and This.RemoveFileFromProject('sfconsole.vcx')
+*** TODO: only remove if we added it
+		llOK = llOK and This.RemoveFileFromProject('sfmail.prg')
+*** TODO: only remove if we added it
+		llOK = llOK and This.RemoveFileFromProject('wwdotnetbridge.prg')
+		llOK = llOK and This.RemoveFileFromProject('errorheader.gif')
+		llOK = llOK and This.RemoveFileFromProject('resource.dbf')
+		return llOK
+	endfunc
 enddefine
