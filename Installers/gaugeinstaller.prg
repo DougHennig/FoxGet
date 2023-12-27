@@ -4,7 +4,7 @@ loInstaller = createobject('GaugeInstaller')
 loInstaller.Install()
 
 define class GaugeInstaller as FoxGet of FoxGet.prg
-	cBaseURL = 'https://raw.githubusercontent.com/VFPX/Gauge/master/ThorUpdater'
+	cBaseURL = 'https://raw.githubusercontent.com/VFPX/Gauge/master/ThorUpdater/'
 
 * Define the files to download. Note that URLs are case-sensitive.
 
