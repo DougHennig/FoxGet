@@ -96,7 +96,8 @@ define class FoxGet as Custom
 	function Install
 		local lcMessage, ;
 			llOK, ;
-			loException
+			loException as Exception, ;
+			lcInstaller
 
 * Create our working folder if necessary.
 
@@ -169,13 +170,15 @@ define class FoxGet as Custom
 		llOK = llOK and This.ExtractFiles()
 		llOK = llOK and This.InstallPackage()
 		llOK = llOK and This.AddFilesToProject()
-		lcInstaller = This.cWorkingPath + This.cPackageName + 'Installer.prg'
-		try
-			copy file (lcInstaller) to (This.cPackagePath + justfname(lcInstaller))
-				&& Copy the installer to the package folder so we can uninstall if necessary.
-		catch
-			llOK = .F.
-		endtry
+		if llOK
+			lcInstaller = This.cWorkingPath + This.cPackageName + 'Installer.prg'
+			try
+				copy file (lcInstaller) to (This.cPackagePath + justfname(lcInstaller))
+					&& Copy the installer to the package folder so we can uninstall if necessary.
+			catch
+				llOK = .F.
+			endtry
+		endif llOK
 		llOK = llOK and This.AddToRepository(This.cPackagesPath + 'Packages.xml')
 		llOK = llOK and This.AddToRepository(This.cPackagePath + justfname(lcInstaller))
 		llOK = llOK and This.UpdatePackages()

@@ -4,7 +4,7 @@ loInstaller = createobject('nfJSONInstaller')
 loInstaller.Install()
 
 define class nfJSONInstaller as FoxGet of FoxGet.prg
-	cBaseURL = 'https://raw.githubusercontent.com/VFPX/nfJson/master/'
+	cBaseURL = 'https://raw.githubusercontent.com/VFPX/nfJson/master/nfJson/'
 
 * Define the files to download. Note that URLs are case-sensitive. Also, we'll
 * download directly to the package folder since there's nothing to unzip, and
