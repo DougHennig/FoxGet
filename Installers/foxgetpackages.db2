@@ -229,7 +229,7 @@
 			<NAME>DynamicForms</NAME>
 			<AUTHOR>Matt Slay</AUTHOR>
 			<DESCRIP><![CDATA[Dynamically generate UI forms from objects or cursors via a "markup syntax” in your code.]]></DESCRIP>
-			<KEYWORDS></KEYWORDS>
+			<KEYWORDS><![CDATA[dynamic,form]]></KEYWORDS>
 			<VERSION>1.9.1</VERSION>
 			<PUBDATE>2017/08/30</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;DynamicForms</HOMEURL>
@@ -241,7 +241,7 @@
 			<NAME>ParallelFox</NAME>
 			<AUTHOR>Joel Leach</AUTHOR>
 			<DESCRIP><![CDATA[Parallel Processing Library for Visual FoxPro]]></DESCRIP>
-			<KEYWORDS></KEYWORDS>
+			<KEYWORDS><![CDATA[parallel,processing]]></KEYWORDS>
 			<VERSION>2.0</VERSION>
 			<PUBDATE>2023/10/01</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;ParallelFox</HOMEURL>
@@ -253,7 +253,7 @@
 			<NAME>ErrorHandler</NAME>
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[ErrorHandler provides a highly configurable and customizable error handler for any VFP application]]></DESCRIP>
-			<KEYWORDS></KEYWORDS>
+			<KEYWORDS><![CDATA[error,handling]]></KEYWORDS>
 			<VERSION>2023-02-18</VERSION>
 			<PUBDATE>2023/02/18</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;ErrorHandler</HOMEURL>
@@ -282,6 +282,30 @@
 			<PUBDATE>2022/09/17</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;SFMail</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;sfmailinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+		</RECORD>
+
+		<RECORD>
+			<NAME>nfJson</NAME>
+			<AUTHOR>Marco Plaza</AUTHOR>
+			<DESCRIP><![CDATA[Provides a set of fast performance, reliable and easy to use Json functions using pure VFP]]></DESCRIP>
+			<KEYWORDS><![CDATA[JSON]]></KEYWORDS>
+			<VERSION></VERSION>
+			<PUBDATE>2023/07/26</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;nfJson</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;nfjsoninstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+		</RECORD>
+
+		<RECORD>
+			<NAME>Gauge</NAME>
+			<AUTHOR>Doug Hennig</AUTHOR>
+			<DESCRIP><![CDATA[Draws gauges in VFP applications]]></DESCRIP>
+			<KEYWORDS><![CDATA[gauge,control,graphics]]></KEYWORDS>
+			<VERSION></VERSION>
+			<PUBDATE>2020/04/13</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;Gauge</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;gaugeinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
 		</RECORD>
 
