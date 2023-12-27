@@ -6,6 +6,10 @@ The idea is that you run FoxGet when want to add a library to an application. Yo
 
 Note: in this documentation, "package" means a library you want to add to your application.
 
+## How is FoxGet different from Thor Check for Updates
+
+*** TODO
+
 ## Using FoxGet
 
 Open the project for your application and DO FoxGet.app in the FoxGet folder.
@@ -100,6 +104,11 @@ Here are some notes:
 - InstallPackage is a method where you can put custom installation tasks. FoxGet automatically extracts a ZIP file to a temporary folder so in this method we'll copy just certain files (vfpxworkbookxlsx.vcx, vct, and h) to the package folder; we'll skip the documentation and sample code. We'll also add the vcx to the project. Since each step could fail for some reason, we check the return value and only continue if it succeeded.
 - UninstallPackage is a method where you can put custom uninstallation tasks. In this case, since we manually added the file to the project, we have to call RemoveFileFromProject to remove it.
 
+This one is more complicated: *** ErrorHandler
+
+```
+```
+
 To create your own installer, do one of the following:
 
 - Fork this repository, create the installer PRG in the Installers folder, add a record for it to FoxGetPackages.dbf in the Installers folder, and create a pull request.
@@ -112,9 +121,13 @@ There are a few things to do:
 -   Add to Thor Check for Updates
 -	Writing installers for more components
 -	Some components need to go into a common place rather than the Packages subdirectory of a project folder. For example, ParallelFox.exe since it’s a COM object that gets registered.
--	Adding files to the project’s repository if there is one.
+-	Adding files to the project's repository if there is one.
 
 ## Release History
+
+### 2023-12-27
+
+* Added support for dependencies.
 
 ### 2023-12-26
 

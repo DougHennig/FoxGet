@@ -13,6 +13,8 @@
 define class FoxGet as Custom
 	oFiles          = NULL
 		&& a collection to hold files to download/process
+	oDependencies   = NULL
+		&& a collection of other packages this depends on
 	oProject        = NULL
 		&& a reference to the active project
 	cWorkingPath    = ''
@@ -49,9 +51,10 @@ define class FoxGet as Custom
 		endif type('_vfp.ActiveProject') <> 'O'
 		This.oProject = _vfp.ActiveProject
 
-* Create a collection to hold files to download/process.
+* Create collections to hold files to download/process and dependencies.
 
-		This.oFiles = createobject('Collection')
+		This.oFiles        = createobject('Collection')
+		This.oDependencies = createobject('Collection')
 
 * Define the locations of some folders and set the default package name.
 
@@ -86,6 +89,13 @@ define class FoxGet as Custom
 		loFile.cLocalFile    = evl(tcFolder, This.cWorkingPath) + This.Decode(justfname(tcURL))
 		This.oFiles.Add(loFile)
 		return loFile
+	endfunc
+
+
+* Add a dependency on another package.
+
+	function AddDependency(tcPackage)
+		This.oDependencies.Add(tcPackage)
 	endfunc
 
 
