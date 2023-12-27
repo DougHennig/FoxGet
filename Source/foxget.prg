@@ -475,13 +475,6 @@ define class FoxGet as Custom
 		llOK = llOK and This.UpdatePackages(.T.)
 		llOK = llOK and This.RemovePackagePath(.T.)
 		llOK = llOK and This.RemoveFromRepository()
-		if llOK
-			messagebox(This.cPackageName + ' was uninstalled successfully.', 64, 'FoxGet')
-		else
-			messagebox(This.cPackageName + ' was not uninstalled. ' + ;
-				'The log file will be displayed.', 64, 'FoxGet')
-			modify file (This.cLogFile) nowait
-		endif llOK
 		return llOK
 	endfunc
 

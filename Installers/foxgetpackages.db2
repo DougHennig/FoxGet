@@ -175,6 +175,26 @@
 			<Autoinc_Nextval>0</Autoinc_Nextval>
 			<Autoinc_Step>0</Autoinc_Step>
 		</FIELD>
+		<FIELD>
+			<Name>DEPENDENT</Name>
+			<Type>M</Type>
+			<Width>4</Width>
+			<Decimals>0</Decimals>
+			<Null>.F.</Null>
+			<NoCPTran>.F.</NoCPTran>
+			<Field_Valid_Exp></Field_Valid_Exp>
+			<Field_Valid_Text></Field_Valid_Text>
+			<Field_Default_Value></Field_Default_Value>
+			<Table_Valid_Exp></Table_Valid_Exp>
+			<Table_Valid_Text></Table_Valid_Text>
+			<LongTableName></LongTableName>
+			<Ins_Trig_Exp></Ins_Trig_Exp>
+			<Upd_Trig_Exp></Upd_Trig_Exp>
+			<Del_Trig_Exp></Del_Trig_Exp>
+			<TableComment></TableComment>
+			<Autoinc_Nextval>0</Autoinc_Nextval>
+			<Autoinc_Step>0</Autoinc_Step>
+		</FIELD>
 	</FIELDS>
 
 
@@ -190,6 +210,7 @@
 			<PUBDATE>2023/04/19</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;atlopes&#47;csv</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;csvprocessorinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
 		</RECORD>
 
 		<RECORD>
@@ -201,6 +222,7 @@
 			<PUBDATE>2023/03/10</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;atlopes&#47;DPIAwareManager</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;dpiawaremanagerinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
 		</RECORD>
 
 		<RECORD>
@@ -212,6 +234,7 @@
 			<PUBDATE>2017/08/30</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;DynamicForms</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;dynamicformsinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
 		</RECORD>
 
 		<RECORD>
@@ -223,6 +246,7 @@
 			<PUBDATE>2023/10/01</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;ParallelFox</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;parallelfoxinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
 		</RECORD>
 
 		<RECORD>
@@ -234,6 +258,7 @@
 			<PUBDATE>2023/02/18</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;ErrorHandler</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;errorhandlerinstaller.prg</INSTALLURL>
+			<DEPENDENT><![CDATA[SFMail]]></DEPENDENT>
 		</RECORD>
 
 		<RECORD>
@@ -245,6 +270,19 @@
 			<PUBDATE>2023/09/08</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;ggreen86&#47;XLSX-Workbook-Class</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;xlsxworkbookinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+		</RECORD>
+
+		<RECORD>
+			<NAME>SFMail</NAME>
+			<AUTHOR>Doug Hennig</AUTHOR>
+			<DESCRIP><![CDATA[A library to send emails from VFP applications]]></DESCRIP>
+			<KEYWORDS><![CDATA[Email]]></KEYWORDS>
+			<VERSION></VERSION>
+			<PUBDATE>2022/09/17</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;SFMail</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;sfmailinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
 		</RECORD>
 
 	</RECORDS>

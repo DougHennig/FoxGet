@@ -47,6 +47,8 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 	*< OBJECTDATA: ObjPath="chkShowOnlyInstalled" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="txtSearch" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="lblSearch" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="lblDependenciesLabel" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="lblDependencies" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
 		*m: getpackages		&& Creates a cursor of packages
@@ -65,7 +67,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		DoCreate = .T.
 		Height = 567
 		Icon = foxget.ico
-		Name = "FOXGET"
+		Name = "FoxGet"
 		Width = 816
 		_memberdata = <VFPData>
 			<memberdata name="update" display="Update"/>
@@ -112,7 +114,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		DisabledBackColor = 255,255,255, ;
 		DisabledForeColor = 0,0,0, ;
 		Enabled = .F., ;
-		Height = 75, ;
+		Height = 60, ;
 		Left = 385, ;
 		Name = "edtDescrip", ;
 		ScrollBars = 0, ;
@@ -130,7 +132,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		Left = 483, ;
 		Name = "edtKeywords", ;
 		ScrollBars = 0, ;
-		Top = 143, ;
+		Top = 127, ;
 		Width = 322
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="editbox" />
 
@@ -146,7 +148,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		Caption = "Author", ;
 		Left = 485, ;
 		Name = "lblAuthor", ;
-		Top = 180
+		Top = 160
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblAuthorLabel' AS vfpxbaselabel WITH ;
@@ -154,7 +156,22 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		FontBold = .T., ;
 		Left = 385, ;
 		Name = "lblAuthorLabel", ;
-		Top = 180
+		Top = 160
+		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+
+	ADD OBJECT 'lblDependencies' AS vfpxbaselabel WITH ;
+		Caption = "Dependencies", ;
+		Left = 485, ;
+		Name = "lblDependencies", ;
+		Top = 220
+		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+
+	ADD OBJECT 'lblDependenciesLabel' AS vfpxbaselabel WITH ;
+		Caption = "Dependencies:", ;
+		FontBold = .T., ;
+		Left = 385, ;
+		Name = "lblDependenciesLabel", ;
+		Top = 220
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblDescripLabel' AS vfpxbaselabel WITH ;
@@ -217,14 +234,14 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		FontBold = .T., ;
 		Left = 385, ;
 		Name = "lblKeywordsLabel", ;
-		Top = 145
+		Top = 129
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblPubDate' AS vfpxbaselabel WITH ;
 		Caption = "PubDate", ;
 		Left = 485, ;
 		Name = "lblPubDate", ;
-		Top = 200
+		Top = 180
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblPubDateLabel' AS vfpxbaselabel WITH ;
@@ -232,7 +249,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		FontBold = .T., ;
 		Left = 385, ;
 		Name = "lblPubDateLabel", ;
-		Top = 200
+		Top = 180
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblSearch' AS vfpxbaselabel WITH ;
@@ -246,15 +263,15 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		Caption = "Version", ;
 		Left = 485, ;
 		Name = "lblVersion", ;
-		Top = 220
+		Top = 200
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblVersionLabel' AS vfpxbaselabel WITH ;
 		Caption = "Version:", ;
 		FontBold = .T., ;
-		Left = 386, ;
+		Left = 385, ;
 		Name = "lblVersionLabel", ;
-		Top = 220
+		Top = 200
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lstPackages' AS vfpxbaselistbox WITH ;
@@ -310,7 +327,8 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 				FoxGetPackages.Version, ;
 				FoxGetPackages.PubDate, ;
 				FoxGetPackages.HomeURL, ;
-				FoxGetPackages.InstallURL ;
+				FoxGetPackages.InstallURL, ;
+				FoxGetPackages.Dependent ;
 			from FoxGetPackages ;
 			&lcJoin join Installed on upper(Installed.Name) = upper(FoxGetPackages.Name) ;
 			&lcWhere ;
@@ -383,6 +401,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 			messagebox(loInternet.cErrorMessage, 16, 'FoxGet')
 			return .F.
 		endif not llOK
+		use (This.cWorkingFolder + 'foxgetpackages')
 		
 		* Populate the listbox.
 		
@@ -402,14 +421,35 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 	ENDPROC
 
 	PROCEDURE install		&& Install the selected package
-		* Download the installer.
+		* Install the current or specified package.
 		
-		local lcInstaller, ;
+		lparameters tcPackage
+		local llDependency, ;
+			lnRecno, ;
+			lcInstaller, ;
 			loFiles, ;
 			loFile, ;
 			loInternet, ;
 			llOK, ;
-			loInstaller
+			loInstaller, ;
+			laDependencies, ;
+			lnDependencies, ;
+			lcPackage
+		
+		* Find the specified package.
+		
+		llDependency = not empty(tcPackage)
+		if llDependency
+			select Packages
+			lnRecno = recno()
+			locate for upper(Name) = upper(tcPackage)
+			if not found()
+				return
+			endif not found()
+		endif llDependency
+		
+		* Download the installer.
+		
 		lcInstaller       = This.cWorkingFolder + justfname(trim(Packages.InstallURL))
 		loFiles           = createobject('Collection')
 		loFile            = createobject('FoxGetFile')
@@ -429,29 +469,71 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		loInstaller.cPackageName = trim(Packages.Name)
 		loInstaller.cVersion     = trim(Packages.Version)
 		bindevent(loInstaller, 'Update', This, 'Update')
-		loInstaller.Install()
+		llOK = loInstaller.Install()
 		
 		* Copy the installer to the package folder so we can uninstall if necessary.
 		
-		copy file (lcInstaller) to (loInstaller.cPackagePath + justfname(lcInstaller))
+		if llOK
+			copy file (lcInstaller) to (loInstaller.cPackagePath + justfname(lcInstaller))
+		
+		* Now handle dependencies.
+		
+		*** TODO: what if package #1 expects package #2 in same folder?
+			lnDependencies = alines(laDependencies, Packages.Dependent)
+			for each lcPackage in laDependencies foxobject
+				if not empty(lcPackage)
+					llOK = llOK and This.Install(lcPackage)
+				endif not empty(lcPackage)
+			next lcPackage
 		
 		* Refresh the packages list.
 		
-		This.GetPackages()
-		This.Refresh()
+			if llOK
+				This.GetPackages()
+				This.Refresh()
+			endif llOK
+		endif llOK
+		if llOK
+			messagebox(loInstaller.cPackageName + ' was installed successfully.', 64, 'FoxGet')
+		else
+			messagebox(loInstaller.cPackageName + ' was not installed. ' + ;
+				'The log file will be displayed.', 64, 'FoxGet')
+			modify file (loInstaller.cLogFile) nowait
+		endif llOK
+		if llDependency
+			go lnRecno in Packages
+		endif llDependency
 		
 	ENDPROC
 
 	PROCEDURE uninstall		&& Uninstall the selected package
-		* Run the uninstaller. Note that we have to run it out of a temporary folder so we can delete
-		* the package folder.
+		* Uninstall the current or specified package.
 		
-		lparameters tlNoRefresh
-		local lcPackage, ;
+		lparameters tlNoRefresh, ;
+			tcPackage
+		local llDependency, ;
+			lnRecno, ;
+			lcPackage, ;
 			lcSource, ;
 			lcInstaller, ;
 			llOK, ;
 			loInstaller
+		
+		* Find the specified package.
+		
+		llDependency = not empty(tcPackage)
+		if llDependency
+			select Packages
+			lnRecno = recno()
+			locate for upper(Name) = upper(tcPackage)
+			if not found()
+				return
+			endif not found()
+		endif llDependency
+		
+		* Run the uninstaller. Note that we have to run it out of a temporary folder so we can delete
+		* the package folder.
+		
 		lcPackage   = trim(Packages.Name)
 		lcSource    = This.cProjectFolder + 'Packages\' + addbs(lcPackage) + lcPackage + 'Installer.prg'
 		lcInstaller = forcepath(lcSource, This.cWorkingFolder)
@@ -465,6 +547,21 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 			loInstaller.cPackageName = lcPackage
 			bindevent(loInstaller, 'Update', This, 'Update')
 			llOK = loInstaller.Uninstall()
+		
+		* Uninstall dependencies if we're supposed to.
+		
+			if llOK and not empty(Packages.Dependent) and ;
+				messagebox('Uninstall dependencies (' + Packages.Dependent + ') as well?', 4 + 32, 'FoxGet') = 6
+				lnDependencies = alines(laDependencies, Packages.Dependent)
+				for each lcPackage in laDependencies foxobject
+					if not empty(lcPackage)
+						llOK = llOK and This.Uninstall(.T., lcPackage)
+					endif not empty(lcPackage)
+				next lcPackage
+			endif llOK
+		
+		* Refresh the packages list.
+		
 			if llOK and not tlNoRefresh
 				This.GetPackages()
 				This.Refresh()
@@ -472,6 +569,16 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		else
 			messagebox('Cannot create working copy of uninstaller.', 16, 'FoxGet')
 		endif llOK
+		if llOK
+			messagebox(This.cPackageName + ' was uninstalled successfully.', 64, 'FoxGet')
+		else
+			messagebox(This.cPackageName + ' was not uninstalled. ' + ;
+				'The log file will be displayed.', 64, 'FoxGet')
+			modify file (This.cLogFile) nowait
+		endif llOK
+		if llDependency
+			go lnRecno in Packages
+		endif llDependency
 		return llOK
 		
 	ENDPROC
@@ -525,6 +632,11 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 
 	PROCEDURE lblAuthor.Refresh
 		This.Caption = Packages.Author
+		
+	ENDPROC
+
+	PROCEDURE lblDependencies.Refresh
+		This.Caption = Packages.Dependent
 		
 	ENDPROC
 
