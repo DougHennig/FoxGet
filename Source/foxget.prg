@@ -168,8 +168,17 @@ define class FoxGet as Custom
 		llOK = This.DownloadFiles()
 		llOK = llOK and This.ExtractFiles()
 		llOK = llOK and This.InstallPackage()
-		llOK = llOK and This.UpdatePackages()
 		llOK = llOK and This.AddFilesToProject()
+		lcInstaller = This.cWorkingPath + This.cPackageName + 'Installer.prg'
+		try
+			copy file (lcInstaller) to (This.cPackagePath + justfname(lcInstaller))
+				&& Copy the installer to the package folder so we can uninstall if necessary.
+		catch
+			llOK = .F.
+		endtry
+		llOK = llOK and This.AddToRepository(This.cPackagesPath + 'Packages.xml')
+		llOK = llOK and This.AddToRepository(This.cPackagePath + justfname(lcInstaller))
+		llOK = llOK and This.UpdatePackages()
 		return llOK
 	endfunc
 
@@ -328,7 +337,6 @@ define class FoxGet as Custom
 		llOK = This.CopyFile(This.cExtractionPath + tcSource, This.cPackagePath)
 		if llOK
 			This.Log('Copying files complete')
-			This.AddToRepository(tcSource)
 		endif llOK
 		return llOK
 	endfunc
@@ -360,13 +368,6 @@ define class FoxGet as Custom
 			This.Log('Error copying file: ' + loException.Message)
 		endtry
 		return llReturn
-	endfunc
-
-
-* Add the specified file(s) to the project repository if there is one.
-
-	function AddToRepository(tcSource)
-*** TODO
 	endfunc
 
 
@@ -402,6 +403,8 @@ define class FoxGet as Custom
 							(This.cPackageName, ;
 							This.cVersion, ;
 							date())
+				otherwise
+					replace Version with This.cVersion, Date with date()
 			endcase
 			try
 				cursortoxml('Package', lcPackagesFile, 1, 512)
@@ -441,7 +444,8 @@ define class FoxGet as Custom
 	function AddFileToProject(tcFile)
 		local lcMessage, ;
 			lcFile, ;
-			llReturn
+			llReturn, ;
+			lcMessage
 		lcMessage = 'Adding ' + tcFile + ' to project'
 		raiseevent(This, 'Update', lcMessage)
 		This.Log(lcMessage)
@@ -450,15 +454,32 @@ define class FoxGet as Custom
 			lcFile = This.cPackagePath + lcFile
 		endif empty(justpath(lcFile))
 		try
-			loFile = This.oProject.Files.Add(lcFile)
-			loFile.Exclude = .F.
-			llReturn = .T.
+			if type('_screen.oProjectExplorers[1].Name') = 'C'
+				loFile    = _screen.oProjectExplorers[1].AddItem(lcFile)
+				llReturn  = not isnull(loFile)
+				lcMessage = 'Project Explorer failed to add file'
+			else	
+				loFile = This.oProject.Files.Add(lcFile)
+				loFile.Exclude = .F.
+				llReturn = .T.
+				This.AddToRepository(tcFile)
+			endif type('_screen.oProjectExplorers[1].Name') = 'C'
 		catch to loException
+			lcMessage = loException.Message
+		endtry
+		if not llReturn
 			raiseevent(This, 'Update', 'Adding file to project failed: see log file for details')
 			This.Log('Error adding ' + lcFile + ' to project: ' + ;
-				loException.Message)
-		endtry
+				lcMessage)
+		endif not llReturn
 		return llReturn
+	endfunc
+
+
+* Add the specified file to the project repository if there is one.
+
+	function AddToRepository(tcFile)
+set step on 
 	endfunc
 
 
@@ -517,6 +538,7 @@ define class FoxGet as Custom
 			lcFile = This.cPackagePath + lcFile
 		endif empty(justpath(lcFile))
 		try
+*** TODO: integrate with Project Explorer
 			loFile = This.oProject.Files.Item(lcFile)
 			loFile.Remove()
 			This.RemoveFromRepository(lcFile)
@@ -532,8 +554,8 @@ define class FoxGet as Custom
 
 * Remove the specified file from the project repository if there is one.
 
-	function RemoveFromRepository(tcSource)
-*** TODO
+	function RemoveFromRepository(tcFile)
+*** TODO: do we need this: when we commit, the files will just be missing. If so, we need to remove uninstaller.prg before deleting folder
 	endfunc
 
 
@@ -544,7 +566,6 @@ define class FoxGet as Custom
 		lcFile = strtran(tcFile, '%20', '')
 			&& PowerShell Extract-Archive can't handle spaces in filenames so
 			&& we'll strip them out
-*** TODO: handle others
 		return lcFile
 	endfunc
 

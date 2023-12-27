@@ -432,7 +432,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 			loInternet, ;
 			llOK, ;
 			loInstaller, ;
-			laDependencies, ;
+			laDependencies[1], ;
 			lnDependencies, ;
 			lcPackage
 		
@@ -470,15 +470,11 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		loInstaller.cVersion     = trim(Packages.Version)
 		bindevent(loInstaller, 'Update', This, 'Update')
 		llOK = loInstaller.Install()
-		
-		* Copy the installer to the package folder so we can uninstall if necessary.
-		
 		if llOK
-			copy file (lcInstaller) to (loInstaller.cPackagePath + justfname(lcInstaller))
 		
-		* Now handle dependencies.
+		* Now handle dependencies. Note that if a dependent package is already installed,
+		* it'll be installed again.
 		
-		*** TODO: what if package #1 expects package #2 in same folder?
 			lnDependencies = alines(laDependencies, Packages.Dependent)
 			for each lcPackage in laDependencies foxobject
 				if not empty(lcPackage)
@@ -517,7 +513,10 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 			lcSource, ;
 			lcInstaller, ;
 			llOK, ;
-			loInstaller
+			loInstaller, ;
+			laDependencies[1], ;
+			lnDependencies, ;
+			lcPackage
 		
 		* Find the specified package.
 		
@@ -570,9 +569,9 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 			messagebox('Cannot create working copy of uninstaller.', 16, 'FoxGet')
 		endif llOK
 		if llOK
-			messagebox(This.cPackageName + ' was uninstalled successfully.', 64, 'FoxGet')
+			messagebox(loInstaller.cPackageName + ' was uninstalled successfully.', 64, 'FoxGet')
 		else
-			messagebox(This.cPackageName + ' was not uninstalled. ' + ;
+			messagebox(loInstaller.cPackageName + ' was not uninstalled. ' + ;
 				'The log file will be displayed.', 64, 'FoxGet')
 			modify file (This.cLogFile) nowait
 		endif llOK
@@ -586,6 +585,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 	PROCEDURE update		&& Displays the installation progress
 		lparameters tcMessage
 		This.edtProgress.Value = This.edtProgress.Value + tcMessage + chr(13)
+		This.edtProgress.SelStart = len(This.edtProgress.Value)
 		
 	ENDPROC
 

@@ -1,20 +1,14 @@
-# FoxGet
+# FoxGet Package Manager
 
 If you've worked with Visual Studio, you've likely used NuGet, which is a package manager for .NET. The idea is that you can search for libraries you'd like to add to your application, download and install them, and then have them managed (automatically download again if files are missing, update to a new version, etc.). FoxGet is the VFP equivalent of NuGet.
 
-The idea is that you run FoxGet when want to add a library to an application. You search for a library you're interested in and if one is found, you can download, install, and add it to your project with a single mouse click. Of course, you'll have to do the coding part such as calling the library yourself.
+The idea is that you run FoxGet when you want to add a library to an application. You search for a library you're interested in and if one is found, you can download, install, and add it to your project with a single mouse click. Of course, you'll have to do the coding part such as calling the library yourself.
 
 Note: in this documentation, "package" means a library you want to add to your application.
-
-## How is FoxGet different from Thor Check for Updates
-
-*** TODO
 
 ## Using FoxGet
 
 Open the project for your application and DO FoxGet.app in the FoxGet folder.
-
-*** TODO: new screen shot
 
 ![](foxget.png)
 
@@ -34,8 +28,20 @@ To uninstall the selected package, click the Uninstall button. The files added t
 
 If there's a newer version of the package available, the Update button is enabled. Clicking it uninstalls the package then installs the new version.
 
+## Dependencies
+Some projects depend on other projects. For example, [ErrorHandler](https://github.com/DougHennig/ErrorHandler) uses [SFMail](https://github.com/DougHennig/SFMail). FoxGetPackages.dbf, which contains information about each package, has a Dependent column containing the names of other packages a package is dependent on. When you install a package, all dependencies are also installed (any that are already installed are reinstalled). When you uninstall a package, you are asked if you want to uninstall dependencies as well.
+
+Note that dependencies go in their own package folders, so you'll likely need to set a path to those folders if you run the application in the VFP IDE.
+
+## How is FoxGet different from Thor Check for Updates
+
+[Thor](https://github.com/VFPX/Thor) has a Check for Updates (CFU) feature that can install and update projects. While this works very well for "tools", projects that are used within the VFP IDE like GoFish, it is less suitable for installing "components", projects that add features to your applications:
+
+- Thor installs projects in a subdirectory of its own folder rather than under your application, making source code control and pathing trickier.
+- Thor doesn't list all projects, only those the project manager has configured to work with Thor CFU. FoxGet doesn't list all projects either, but projects can be expanded without updating the repository of the project.
+
 ## Creating an installer
-If you interested in writing your own installer, check out the various installer PRGs to see how little code there is, as FoxGet.prg takes care of most of the tasks. For some of them (e.g. CSVProcessor and DynamicForm), it's just specifying what files to download and which to add to the project. Others (e.g. ParallelFox and XLSXWorkbook) have more work to do, such as unzipping the download and copy some or all of the files to the package folder.
+If you interested in writing your own installer, check out the various installer PRGs in the Installers folder to see how little code there is, as FoxGet.prg takes care of most of the tasks. For some of them (e.g. CSVProcessor and DynamicForm), it's just specifying what files to download and which to add to the project. Others (e.g. ParallelFox and XLSXWorkbook) have more work to do, such as unzipping the download and copy some or all of the files to the package folder.
 
 Here's a simple installer. It just downloads a single file and adds it to the project.
 
@@ -58,15 +64,15 @@ Here are some notes:
 
 - The installer program defines a subclass of FoxGet in FoxGet.prg.
 
-- The installer class name and PRG must be the same and match the name in the Name column of FoxGetPackages.dbf with an "Installer" extension. For example for the DPIAwareManager package, the installer name is DPIAwareManagerInstaller.prg and the class in that file is named DPIAwareManagerInstaller.
+- The installer class name and PRG must be the same and match the name in the Name column of FoxGetPackages.dbf with an "Installer" extension. For example, for the DPIAwareManager package, the installer name is DPIAwareManagerInstaller.prg and the class in that file is named DPIAwareManagerInstaller.
 
 - Setup performs custom setup tasks and is normally used to define what files to download. The AddFile method called by Setup accepts three parameters:
 
-    - The URL of the file to download. Note that URLs are case-sensitive. Also, if you're downloading more than one file from the same site, set the BaseURL property as this class does and the just specify the filename to download in AddFile. Note that for GitHub, the file isn't located at https://github.com/<i>repository</i>/<i>branch</i>/<i>somefile</i> but instead at https://raw.githubusercontent.com/<i>repository</i>/<i>branch</i>/<i>somefile</i>.
+    - The URL of the file to download. Note that URLs are case-sensitive. Also, if you're downloading more than one file from the same site, set the BaseURL property as this class does and then just specify the filename to download in AddFile. Note that for GitHub, the file isn't located at https://github.com/<i>repository</i>/<i>branch</i>/<i>somefile</i> but instead at https://raw.githubusercontent.com/<i>repository</i>/<i>branch</i>/<i>somefile</i>.
     - .T. to add this file to the project.
     - Optionally, a path to download this file to. If it isn't specified, the file is downloaded to a temporary path. In this case, since we don't have anything else to do with the file (such as extracting it if it's a ZIP file), we'll download directly to the folder for the package, specified in the cPackagePath property.
 
-FoxGet creates the Packages folder if it doesn't already exists, create a folder for the package in Packages, downloads all files you specified by calling AddFile, adds them to the project if the second parameter to AddFile is .T., and updates Packages\Packages.xml. So, in this installer, there's nothing custom we have to do other than specifying the file to download.
+FoxGet creates the Packages folder if it doesn't already exists, creates a folder for the package in Packages, downloads all files you specified by calling AddFile, adds them to the project if the second parameter to AddFile is .T., and updates Packages\Packages.xml. So, in this installer, there's nothing custom we have to do other than specifying the file to download.
 
 Here's a more complicated installer.
 
@@ -106,8 +112,6 @@ Here are some notes:
 - InstallPackage is a method where you can put custom installation tasks. FoxGet automatically extracts a ZIP file to a temporary folder so in this method we'll copy just certain files (vfpxworkbookxlsx.vcx, vct, and h) to the package folder; we'll skip the documentation and sample code. We'll also add the vcx to the project. Since each step could fail for some reason, we check the return value and only continue if it succeeded.
 - UninstallPackage is a method where you can put custom uninstallation tasks. In this case, since we manually added the file to the project, we have to call RemoveFileFromProject to remove it.
 
-*** TODO: discuss dependencies
-
 To create your own installer, do one of the following:
 
 - Fork this repository, create the installer PRG in the Installers folder, add a record for it to FoxGetPackages.dbf in the Installers folder, and create a pull request.
@@ -117,10 +121,10 @@ To create your own installer, do one of the following:
 
 There are a few things to do:
 
--   Add to Thor Check for Updates
--	Writing installers for more components
--	Some components need to go into a common place rather than the Packages subdirectory of a project folder. For example, ParallelFox.exe since it’s a COM object that gets registered.
--	Adding files to the project's repository if there is one.
+-   Add to Thor Check for Updates.
+-	Writing installers for more components.
+-	Some components need to go into a common place rather than the Packages subdirectory of a project folder. For example, ParallelFox.exe since it's a COM object that gets registered.
+-	Add files to the project's repository if there is one.
 
 ## Release History
 
