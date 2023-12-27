@@ -180,13 +180,6 @@ define class FoxGet as Custom
 		llOK = llOK and This.InstallPackage()
 		llOK = llOK and This.UpdatePackages()
 		llOK = llOK and This.AddFilesToProject()
-		if llOK
-			messagebox(This.cPackageName + ' was installed successfully.', 64, 'FoxGet')
-		else
-			messagebox(This.cPackageName + ' was not installed. ' + ;
-				'The log file will be displayed.', 64, 'FoxGet')
-			modify file (This.cLogFile) nowait
-		endif llOK
 		return llOK
 	endfunc
 
@@ -398,10 +391,10 @@ define class FoxGet as Custom
 		lnSelect       = select()
 		llResult       = .T.
 		This.Log('Updating packages file')
-		create cursor Packages (Name C(60), Version C(10), Date D)
+		create cursor Package (Name C(60), Version C(10), Date D)
 		if file(lcPackagesFile)
 			try
-				xmltocursor(lcPackagesFile, 'Packages', 512 + 8192)
+				xmltocursor(lcPackagesFile, 'Package', 512 + 8192)
 			catch
 				This.Log('Invalid packages.xml file')
 				llResult = .F.
@@ -414,14 +407,14 @@ define class FoxGet as Custom
 					delete
 				case tlRemove
 				case not found()
-					insert into Packages ;
+					insert into Package ;
 						values ;
 							(This.cPackageName, ;
 							This.cVersion, ;
 							date())
 			endcase
 			try
-				cursortoxml('Packages', lcPackagesFile, 1, 512)
+				cursortoxml('Package', lcPackagesFile, 1, 512)
 			catch to loException
 				This.Log('Cannot write packages.xml: ' + loException.Message)
 			endtry
@@ -429,7 +422,7 @@ define class FoxGet as Custom
 		if not llResult
 			raiseevent(This, 'Update', 'Cannot update packages file: see log file for details')
 		endif not llResult
-		use in select('Packages')
+		use in select('Package')
 		select (lnSelect)
 		return llResult
 	endfunc
