@@ -10,12 +10,12 @@ define class ErrorHandlerInstaller as FoxGet of FoxGet.prg
 
 	function Setup
 		This.AddFile('ErrorHandler.zip')
-		This.AddDependency('SFMail')
 	endfunc
 
 * Custom installation tasks: copy the files from the extraction folder to the
 * package folder, add some of them to the project, and erase the ones we don't
-* want.
+* want. Note we don't install SFMail files; they'll be installed as a
+* dependency.
 
 	function InstallPackage
 		local llOK
@@ -23,8 +23,6 @@ define class ErrorHandlerInstaller as FoxGet of FoxGet.prg
 		llOK = llOK and This.AddFileToProject('sferrormgr.vcx')
 		llOK = llOK and This.AddFileToProject('sflocalize.vcx')
 		llOK = llOK and This.AddFileToProject('sfconsole.vcx')
-*		llOK = llOK and This.AddFileToProject('sfmail.prg')
-*		llOK = llOK and This.AddFileToProject('wwdotnetbridge.prg')
 		llOK = llOK and This.AddFileToProject('errorheader.gif')
 		llOK = llOK and This.AddFileToProject('resource.dbf')
 		if llOK
@@ -41,10 +39,6 @@ define class ErrorHandlerInstaller as FoxGet of FoxGet.prg
 		llOK = This.RemoveFileFromProject('sferrormgr.vcx')
 		llOK = llOK and This.RemoveFileFromProject('sflocalize.vcx')
 		llOK = llOK and This.RemoveFileFromProject('sfconsole.vcx')
-*** TODO: only remove if we added it
-		llOK = llOK and This.RemoveFileFromProject('sfmail.prg')
-*** TODO: only remove if we added it
-		llOK = llOK and This.RemoveFileFromProject('wwdotnetbridge.prg')
 		llOK = llOK and This.RemoveFileFromProject('errorheader.gif')
 		llOK = llOK and This.RemoveFileFromProject('resource.dbf')
 		return llOK
