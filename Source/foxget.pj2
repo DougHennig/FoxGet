@@ -49,14 +49,14 @@ MODIFY PROJECT 'foxget.pjx' NOWAIT NOSHOW NOPROJECTHOOK
 loProject = _VFP.Projects('foxget.pjx')
 
 WITH loProject.FILES
-	.ADD('api_apprun.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="546" User="" />
-	.ADD('clsheap.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="546" User="" />
-	.ADD('fileoperation.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="546" User="" />
+	.ADD('api_apprun.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
+	.ADD('clsheap.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
+	.ADD('fileoperation.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	.ADD('foxget.ico')		&& *< FileMetadata: Type="x" Cpid="1252" Timestamp="0" ID="0" ObjRev="0" User="" />
-	.ADD('foxget.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="546" User="" />
-	.ADD('foxget.scx')		&& *< FileMetadata: Type="K" Cpid="1252" Timestamp="0" ID="0" ObjRev="546" User="" />
-	.ADD('internet.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="546" User="" />
-	.ADD('vfpxbaselibrary.vcx')		&& *< FileMetadata: Type="V" Cpid="1252" Timestamp="0" ID="0" ObjRev="546" User="" />
+	.ADD('foxget.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
+	.ADD('foxget.scx')		&& *< FileMetadata: Type="K" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
+	.ADD('internet.prg')		&& *< FileMetadata: Type="P" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
+	.ADD('vfpxbaselibrary.vcx')		&& *< FileMetadata: Type="V" Cpid="1252" Timestamp="0" ID="0" ObjRev="544" User="" />
 	*</BuildProj>
 
 	.ITEM('__newproject.f2b').Remove()

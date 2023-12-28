@@ -1,0 +1,74 @@
+lparameters toUpdateObject
+
+* Set the properties of the passed updater object.
+
+with toUpdateObject
+	.VersionNumber    = '1.0 - 20231228'
+	.AvailableVersion = 'FoxGet-1.0-update-20231228'
+	.Notes            = GetNotes()
+	.RegisterWithThor = GetRegisterWithThor()
+endwith
+return toUpdateObject
+
+* Get the notes for the project.
+
+procedure GetNotes
+local lcNotes
+text to lcNotes noshow
+# FoxGet Package Manager
+
+FoxGet is a package manager for VFP similar to the NuGet Package Manager for .NET.
+
+## Releases
+
+### 2023-12-28
+
+* Initial release.
+
+endtext
+return lcNotes
+
+* Register the tool with Thor. Note: Thor replaces ##InstallFolder## with the
+* installation path for the tool when this code is executed.
+
+
+procedure GetRegisterWithThor
+ local lcCommand
+ text to lcCommand noshow
+* "FoxGet" is a tool created by VFPX Deployment:
+* Create the tool under Thor Tools.
+
+loThorInfo = Execscript (_Screen.cThorDispatcher, 'Thor Register=')
+with loThorInfo
+
+* Required properties.
+
+	.PRGName    = 'Thor_Tool_FoxGet'
+	.FolderName = '##InstallFolder##'
+	.Prompt     = 'FoxGet'
+
+* Optional properties.
+
+	.Description = 'FoxGet'
+
+* These are used to group and sort tools when they are displayed in menus or
+* the Thor form.
+
+	.Category        = 'Applications'
+	.CanRunAtStartUp = .F.
+
+* This is the code to execute when the tool is selected.
+
+	.Code = "do ('##InstallFolder##FoxGet.app')"
+
+* Register the tool with Thor.
+
+	llRegister = .Register()
+endwith
+ endtext
+
+ return lcCommand
+endproc &&GetRegisterWithThor
+
+
+*created by VFPX Deployment, 12/28/2023 9:43:46 AM
