@@ -282,7 +282,7 @@
 			<PUBDATE>2022/09/17</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;SFMail</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;sfmailinstaller.prg</INSTALLURL>
-			<DEPENDENT></DEPENDENT>
+			<DEPENDENT><![CDATA[wwDotNetBridge]]></DEPENDENT>
 		</RECORD>
 
 		<RECORD>
@@ -306,6 +306,18 @@
 			<PUBDATE>2020/04/13</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;Gauge</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;gaugeinstaller.prg</INSTALLURL>
+			<DEPENDENT><![CDATA[wwDotNetBridge]]></DEPENDENT>
+		</RECORD>
+
+		<RECORD>
+			<NAME>wwDotNetBridge</NAME>
+			<AUTHOR>Rick Strahl</AUTHOR>
+			<DESCRIP><![CDATA[.NET Interop for Visual FoxPro made easy]]></DESCRIP>
+			<KEYWORDS><![CDATA[.NET,Interop]]></KEYWORDS>
+			<VERSION></VERSION>
+			<PUBDATE>2023/04/21</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;RickStrahl&#47;wwDotnetBridge</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;wwdotnetbridgeinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
 		</RECORD>
 

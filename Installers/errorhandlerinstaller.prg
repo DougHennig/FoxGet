@@ -14,8 +14,7 @@ define class ErrorHandlerInstaller as FoxGet of FoxGet.prg
 
 * Custom installation tasks: copy the files from the extraction folder to the
 * package folder, add some of them to the project, and erase the ones we don't
-* want. Note we don't install SFMail files; they'll be installed as a
-* dependency.
+* want. Note we delete SFMail files; they'll be installed as a dependency.
 
 	function InstallPackage
 		local llOK
@@ -28,6 +27,13 @@ define class ErrorHandlerInstaller as FoxGet of FoxGet.prg
 		if llOK
 			erase (This.cPackagePath + 'sample.*')
 			erase (This.cPackagePath + '*.??2')
+			erase (This.cPackagePath + 'BouncyCastle.Crypto.dll')
+			erase (This.cPackagePath + 'MailKit.dll')
+			erase (This.cPackagePath + 'MimeKit.dll')
+			erase (This.cPackagePath + 'SMTPLibrary2.dll')
+			erase (This.cPackagePath + 'clrhost.dll')
+			erase (This.cPackagePath + 'sfmail.prg')
+			erase (This.cPackagePath + 'wwDotNetBridge.*')
 		endif llOK
 		return llOK
 	endfunc

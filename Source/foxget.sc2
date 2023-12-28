@@ -573,7 +573,6 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 			if curPackages.RefCount = 1
 				llOK = loInstaller.Uninstall()
 			else
-		set step on 
 				loInstaller.UpdatePackages(.T.)
 				llUninstalled = .F.
 			endif curPackages.RefCount = 1
