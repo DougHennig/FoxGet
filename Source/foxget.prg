@@ -179,7 +179,7 @@ define class FoxGet as Custom
 				llOK = .F.
 			endtry
 		endif llOK
-		llOK = llOK and This.AddToRepository(This.cPackagesPath + 'Packages.xml')
+		llOK = llOK and This.AddToRepository(This.cPackagesPath + 'Packages.dbf')
 		llOK = llOK and This.AddToRepository(This.cPackagePath + justfname(lcInstaller))
 		llOK = llOK and This.UpdatePackages()
 		return llOK
@@ -380,45 +380,43 @@ define class FoxGet as Custom
 		local lcPackagesFile, ;
 			lnSelect, ;
 			llResult, ;
-			loException as Exception
-		lcPackagesFile = This.cPackagesPath + 'packages.xml'
+			lcMessage
+		lcPackagesFile = This.cPackagesPath + 'packages.dbf'
 		lnSelect       = select()
 		llResult       = .T.
 		This.Log('Updating packages file')
-		create cursor Package (Name C(60), Version C(10), Date D)
 		if file(lcPackagesFile)
+			select 0
+			use (lcPackagesFile)
+		else
 			try
-				xmltocursor(lcPackagesFile, 'Package', 512 + 8192)
+				create table (lcPackagesFile) (Name C(60), Version C(10), Date D, RefCount I)
 			catch
-				This.Log('Invalid packages.xml file')
+				lcMessage = 'Cannot create packages file'
+				This.Log(lcMessage)
+				raiseevent(This, 'Update', lcMessage)
 				llResult = .F.
 			endtry
 		endif file(lcPackagesFile)
 		if llResult
 			locate for upper(Name) = upper(This.cPackageName)
 			do case
+*** TODO: handle RefCount
 				case found() and tlRemove
 					delete
 				case tlRemove
 				case not found()
-					insert into Package ;
+					insert into Packages ;
 						values ;
 							(This.cPackageName, ;
 							This.cVersion, ;
 							date())
 				otherwise
-					replace Version with This.cVersion, Date with date()
+					replace Version with This.cVersion, Date with date(), ;
+						RefCount with RefCount + 1
 			endcase
-			try
-				cursortoxml('Package', lcPackagesFile, 1, 512)
-			catch to loException
-				This.Log('Cannot write packages.xml: ' + loException.Message)
-			endtry
 		endif llResult
-		if not llResult
-			raiseevent(This, 'Update', 'Cannot update packages file: see log file for details')
-		endif not llResult
-		use in select('Package')
+		use in select('Packages')
 		select (lnSelect)
 		return llResult
 	endfunc

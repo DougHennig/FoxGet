@@ -9,29 +9,25 @@ define class ParallelFoxInstaller as FoxGet of FoxGet.prg
 * Define the files to download. Note that URLs are case-sensitive.
 
 	function Setup
-*** TODO: have a zip file instead
-		This.AddFile('parallelfox.VCT')
-		This.AddFile('parallelfox.vcx', .T.)
-		This.AddFile('parallelfox.exe')
-		This.AddFile('install.PRG')
+		This.AddFile('parallelfox.VCT', .F., This.cPackagePath)
+		This.AddFile('parallelfox.vcx', .T., This.cPackagePath)
+		This.AddFile('parallelfox.exe', .F., This.cPackagePath)
+		This.AddFile('install.PRG',     .F., This.cPackagePath)
 		This.AddFile('ffi/parfoxcode.DBF')
 		This.AddFile('ffi/parfoxcode.FPT')
-*** TODO: need DMULT.DLL?
 	endfunc
+
+* Custom installation tasks: copy just the class library and EXE from
+* the download folder to the package folder and add the VCX to the project.
 
 	function InstallPackage
 		local llOK
-*** TODO: because ParallelFox is a COM object, either use COM-free or install in a common folder
-		llOK = This.CopyFile(This.cWorkingPath + 'parallelfox.*', This.cPackagePath)
-		llOK = llOK and This.CopyFile(This.cWorkingPath + 'install.prg', This.cPackagePath)
+		md (This.cPackagePath + 'ffi')
+		llOK = This.CopyFile(This.cWorkingPath + 'parfoxcode.*', This.cPackagePath + 'ffi')
 		if llOK
-			md (This.cPackagePath + 'ffi')
-			llOK = This.CopyFile(This.cWorkingPath + 'parfoxcode.*', This.cPackagePath + 'ffi')
-			if llOK
-				do (This.cPackagePath + 'install')
-				erase (This.cPackagePath + 'install.*')
-				This.FileOperation(This.cPackagePath + 'ffi', '', 'DELETE')
-			endif llOK
+			do (This.cPackagePath + 'install')
+			erase (This.cPackagePath + 'install.*')
+			This.FileOperation(This.cPackagePath + 'ffi', '', 'DELETE')
 		endif llOK
 		return llOK
 	endfunc
