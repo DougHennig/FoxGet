@@ -49,6 +49,8 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 	*< OBJECTDATA: ObjPath="lblSearch" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="lblDependenciesLabel" UniqueID="" Timestamp="" />
 	*< OBJECTDATA: ObjPath="lblDependencies" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="lblNotes" UniqueID="" Timestamp="" />
+	*< OBJECTDATA: ObjPath="edtNotes" UniqueID="" Timestamp="" />
 
 	*<DefinedPropArrayMethod>
 		*m: getdependencies		&& Get dependencies for the specified package
@@ -66,7 +68,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		cworkingfolder = 
 		DataSession = 2
 		DoCreate = .T.
-		Height = 567
+		Height = 653
 		Icon = foxget.ico
 		Name = "FoxGet"
 		Width = 816
@@ -93,21 +95,21 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		Caption = "Install", ;
 		Left = 385, ;
 		Name = "cmdInstall", ;
-		Top = 303
+		Top = 393
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="commandbutton" />
 
 	ADD OBJECT 'cmdUninstall' AS vfpxbasecommandbutton WITH ;
 		Caption = "Uninstall", ;
 		Left = 485, ;
 		Name = "cmdUninstall", ;
-		Top = 303
+		Top = 393
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="commandbutton" />
 
 	ADD OBJECT 'cmdUpdate' AS vfpxbasecommandbutton WITH ;
 		Caption = "Update", ;
 		Left = 585, ;
 		Name = "cmdUpdate", ;
-		Top = 303
+		Top = 393
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="commandbutton" />
 
 	ADD OBJECT 'edtDescrip' AS vfpxbaseeditbox WITH ;
@@ -117,7 +119,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		DisabledForeColor = 0,0,0, ;
 		Enabled = .F., ;
 		Height = 60, ;
-		Left = 385, ;
+		Left = 383, ;
 		Name = "edtDescrip", ;
 		ScrollBars = 0, ;
 		Top = 60, ;
@@ -138,11 +140,25 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		Width = 322
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="editbox" />
 
+	ADD OBJECT 'edtNotes' AS vfpxbaseeditbox WITH ;
+		BorderStyle = 0, ;
+		ControlSource = "curPackages.Notes", ;
+		DisabledBackColor = 255,255,255, ;
+		DisabledForeColor = 0,0,0, ;
+		Enabled = .F., ;
+		Height = 60, ;
+		Left = 383, ;
+		Name = "edtNotes", ;
+		ScrollBars = 0, ;
+		Top = 320, ;
+		Width = 420
+		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="editbox" />
+
 	ADD OBJECT 'edtProgress' AS vfpxbaseeditbox WITH ;
 		Height = 200, ;
 		Left = 10, ;
 		Name = "edtProgress", ;
-		Top = 355, ;
+		Top = 445, ;
 		Width = 795
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="editbox" />
 
@@ -179,7 +195,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 	ADD OBJECT 'lblDescripLabel' AS vfpxbaselabel WITH ;
 		Caption = "Description:", ;
 		FontBold = .T., ;
-		Left = 387, ;
+		Left = 385, ;
 		Name = "lblDescripLabel", ;
 		Top = 40
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
@@ -239,6 +255,14 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		Top = 129
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
 
+	ADD OBJECT 'lblNotes' AS vfpxbaselabel WITH ;
+		Caption = "Notes:", ;
+		FontBold = .T., ;
+		Left = 385, ;
+		Name = "lblNotes", ;
+		Top = 300
+		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+
 	ADD OBJECT 'lblPubDate' AS vfpxbaselabel WITH ;
 		Caption = "PubDate", ;
 		Left = 485, ;
@@ -277,7 +301,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lstPackages' AS vfpxbaselistbox WITH ;
-		Height = 290, ;
+		Height = 378, ;
 		Left = 10, ;
 		Name = "lstPackages", ;
 		Top = 42, ;
@@ -349,6 +373,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 				FoxGetPackages.HomeURL, ;
 				FoxGetPackages.InstallURL, ;
 				FoxGetPackages.Dependent, ;
+				FoxGetPackages.Notes, ;
 				Installed.RefCount ;
 			from FoxGetPackages ;
 			&lcJoin join Installed on upper(Installed.Name) = upper(FoxGetPackages.Name) ;

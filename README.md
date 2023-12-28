@@ -10,13 +10,15 @@ Note: in this documentation, "package" means a library you want to add to your a
 
 Open the project for your application and DO FoxGet.app in the FoxGet folder.
 
+*** TODO: new screen shot
+
 ![](foxget.png)
 
 Select a package to see information about it at the right, including the version and date the package was installed in the project if it was installed. Click the link for _Project URL_ to go to the home URL for the package.
 
 You can search for a package by name, tag, or description by typing in the Search textbox. To show only packages installed in the current project, turn on _Show only installed packages_.
 
-To install the selected package, click Install; that button is disabled if the package has already been installed. After a moment, you should see that some files were added to the project and there's a Packages subdirectory of the project folder containing Packages.xml and the downloaded files in a folder for the component. The package folder also contains a file named <i>Package</i>Installer.prg, which is used to uninstall the package.
+To install the selected package, click Install; that button is disabled if the package has already been installed. After a moment, you should see that some files were added to the project and there's a Packages subdirectory of the project folder containing Packages.dbf and the downloaded files in a folder for the component. The package folder also contains a file named <i>Package</i>Installer.prg, which is used to uninstall the package.
 
 You may wonder why FoxGet puts the library into a Packages subdirectory of the project folder rather than in a common location other applications could reference. There are several reasons:
 
@@ -24,12 +26,12 @@ You may wonder why FoxGet puts the library into a Packages subdirectory of the p
 - If your application is in source control (such as Git), it isn't easy to include paths outside the application path in the repository.
 - You may want to use different versions of a library in different applications, especially if how you call the library changes between versions.
 
-To uninstall the selected package, click the Uninstall button. The files added to the project by the installer are removed from the project, the package folder in the Packages subdirectory is deleted, and Packages.xml is updated.
+To uninstall the selected package, click the Uninstall button. The files added to the project by the installer are removed from the project, the package folder in the Packages subdirectory is deleted, and Packages.dbf is updated.
 
 If there's a newer version of the package available, the Update button is enabled. Clicking it uninstalls the package then installs the new version.
 
 ## Dependencies
-Some projects depend on other projects. For example, [ErrorHandler](https://github.com/DougHennig/ErrorHandler) uses [SFMail](https://github.com/DougHennig/SFMail). FoxGetPackages.dbf, which contains information about each package, has a Dependent column containing the names of other packages a package is dependent on. When you install a package, all dependencies are also installed (any that are already installed are reinstalled). When you uninstall a package, you are asked if you want to uninstall dependencies as well.
+Some projects depend on other projects. For example, [ErrorHandler](https://github.com/DougHennig/ErrorHandler) uses [SFMail](https://github.com/DougHennig/SFMail), which itself uses [wwDotNetBridge](https://github.com/RickStrahl/wwDotnetBridge). FoxGetPackages.dbf, which contains information about each package, has a Dependent column containing the names of other packages a package is dependent on. When you install a package, all dependencies are also installed (any that are already installed are reinstalled). When you uninstall a package, dependencies may be uninstalled as well, as long as no other packages depend upon them and they weren't installed as a standalone package.
 
 Note that dependencies go in their own package folders, so you'll likely need to set a path to those folders if you run the application in the VFP IDE.
 
@@ -72,7 +74,7 @@ Here are some notes:
     - .T. to add this file to the project.
     - Optionally, a path to download this file to. If it isn't specified, the file is downloaded to a temporary path. In this case, since we don't have anything else to do with the file (such as extracting it if it's a ZIP file), we'll download directly to the folder for the package, specified in the cPackagePath property.
 
-FoxGet creates the Packages folder if it doesn't already exists, creates a folder for the package in Packages, downloads all files you specified by calling AddFile, adds them to the project if the second parameter to AddFile is .T., and updates Packages\Packages.xml. So, in this installer, there's nothing custom we have to do other than specifying the file to download.
+FoxGet creates the Packages folder if it doesn't already exists, creates a folder for the package in Packages, downloads all files you specified by calling AddFile, adds them to the project if the second parameter to AddFile is .T., and updates Packages\Packages.dbf. So, in this installer, there's nothing custom we have to do other than specifying the file to download.
 
 Here's a more complicated installer.
 
@@ -123,10 +125,13 @@ There are a few things to do:
 
 -   Add to Thor Check for Updates.
 -	Writing installers for more components.
--	Some components need to go into a common place rather than the Packages subdirectory of a project folder. For example, ParallelFox.exe since it's a COM object that gets registered.
 -	Add files to the project's repository if there is one.
 
 ## Release History
+
+### 2023-12-28
+
+* Continued work on dependencies.
 
 ### 2023-12-27
 
