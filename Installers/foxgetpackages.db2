@@ -195,6 +195,26 @@
 			<Autoinc_Nextval>0</Autoinc_Nextval>
 			<Autoinc_Step>0</Autoinc_Step>
 		</FIELD>
+		<FIELD>
+			<Name>NOTES</Name>
+			<Type>M</Type>
+			<Width>4</Width>
+			<Decimals>0</Decimals>
+			<Null>.F.</Null>
+			<NoCPTran>.F.</NoCPTran>
+			<Field_Valid_Exp></Field_Valid_Exp>
+			<Field_Valid_Text></Field_Valid_Text>
+			<Field_Default_Value></Field_Default_Value>
+			<Table_Valid_Exp></Table_Valid_Exp>
+			<Table_Valid_Text></Table_Valid_Text>
+			<LongTableName></LongTableName>
+			<Ins_Trig_Exp></Ins_Trig_Exp>
+			<Upd_Trig_Exp></Upd_Trig_Exp>
+			<Del_Trig_Exp></Del_Trig_Exp>
+			<TableComment></TableComment>
+			<Autoinc_Nextval>0</Autoinc_Nextval>
+			<Autoinc_Step>0</Autoinc_Step>
+		</FIELD>
 	</FIELDS>
 
 
@@ -211,6 +231,7 @@
 			<HOMEURL>https:&#47;&#47;github.com&#47;atlopes&#47;csv</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;csvprocessorinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
 		</RECORD>
 
 		<RECORD>
@@ -223,6 +244,7 @@
 			<HOMEURL>https:&#47;&#47;github.com&#47;atlopes&#47;DPIAwareManager</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;dpiawaremanagerinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
 		</RECORD>
 
 		<RECORD>
@@ -235,6 +257,7 @@
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;DynamicForms</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;dynamicformsinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
 		</RECORD>
 
 		<RECORD>
@@ -247,6 +270,7 @@
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;ParallelFox</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;parallelfoxinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
+			<NOTES><![CDATA[Deploy and register ParallelFox.exe]]></NOTES>
 		</RECORD>
 
 		<RECORD>
@@ -259,6 +283,7 @@
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;ErrorHandler</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;errorhandlerinstaller.prg</INSTALLURL>
 			<DEPENDENT><![CDATA[SFMail]]></DEPENDENT>
+			<NOTES><![CDATA[Deploy BouncyCastle.Crypto.dll, MailKit.dll, MimeKit.dll, SMTPLibrary2.dll (SFMail folder), ClrHost.dll, wwDotNetBridge.dll (wwDotNetBridge folder), Intry.dll, VFPEncryption71fll, and VFPExMAPI.fll (ErrorHandler folder)]]></NOTES>
 		</RECORD>
 
 		<RECORD>
@@ -271,6 +296,7 @@
 			<HOMEURL>https:&#47;&#47;github.com&#47;ggreen86&#47;XLSX-Workbook-Class</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;xlsxworkbookinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
 		</RECORD>
 
 		<RECORD>
@@ -283,6 +309,7 @@
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;SFMail</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;sfmailinstaller.prg</INSTALLURL>
 			<DEPENDENT><![CDATA[wwDotNetBridge]]></DEPENDENT>
+			<NOTES><![CDATA[Deploy BouncyCastle.Crypto.dll, MailKit.dll, MimeKit.dll, SMTPLibrary2.dll (SFMail folder), ClrHost.dll, and wwDotNetBridge.dll (wwDotNetBridge folder)]]></NOTES>
 		</RECORD>
 
 		<RECORD>
@@ -295,6 +322,7 @@
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;nfJson</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;nfjsoninstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
 		</RECORD>
 
 		<RECORD>
@@ -307,6 +335,7 @@
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;Gauge</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;gaugeinstaller.prg</INSTALLURL>
 			<DEPENDENT><![CDATA[wwDotNetBridge]]></DEPENDENT>
+			<NOTES><![CDATA[Deploy ClrHost.dll, wwDotNetBridge.dll (wwDotNetBridge folder), and Gauge.dll (Gauge folder)]]></NOTES>
 		</RECORD>
 
 		<RECORD>
@@ -319,6 +348,7 @@
 			<HOMEURL>https:&#47;&#47;github.com&#47;RickStrahl&#47;wwDotnetBridge</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;wwdotnetbridgeinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
+			<NOTES><![CDATA[Deploy ClrHost.dll and wwDotNetBridge.dll (wwDotNetBridge folder)]]></NOTES>
 		</RECORD>
 
 	</RECORDS>
