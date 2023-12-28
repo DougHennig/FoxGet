@@ -390,7 +390,7 @@ define class FoxGet as Custom
 			use (lcPackagesFile) again
 		else
 			try
-				create table (lcPackagesFile) (Name C(60), Version C(10), Date D, RefCount I)
+				create table (lcPackagesFile) (Name C(60), Version C(20), Date D, RefCount I)
 			catch
 				lcMessage = 'Cannot create packages file'
 				This.Log(lcMessage)
@@ -485,6 +485,7 @@ define class FoxGet as Custom
 * Add the specified file to the project repository if there is one.
 
 	function AddToRepository(tcFile)
+*** TODO: do this
 	endfunc
 
 

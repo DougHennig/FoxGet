@@ -98,7 +98,7 @@
 		<FIELD>
 			<Name>VERSION</Name>
 			<Type>C</Type>
-			<Width>10</Width>
+			<Width>20</Width>
 			<Decimals>0</Decimals>
 			<Null>.F.</Null>
 			<NoCPTran>.F.</NoCPTran>
@@ -278,7 +278,7 @@
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[ErrorHandler provides a highly configurable and customizable error handler for any VFP application]]></DESCRIP>
 			<KEYWORDS><![CDATA[error,handling]]></KEYWORDS>
-			<VERSION>2023-02-18</VERSION>
+			<VERSION>1.0.20230218</VERSION>
 			<PUBDATE>2023/02/18</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;ErrorHandler</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;errorhandlerinstaller.prg</INSTALLURL>
@@ -304,7 +304,7 @@
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[A library to send emails from VFP applications]]></DESCRIP>
 			<KEYWORDS><![CDATA[Email]]></KEYWORDS>
-			<VERSION></VERSION>
+			<VERSION>1.0.20220917</VERSION>
 			<PUBDATE>2022/09/17</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;SFMail</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;sfmailinstaller.prg</INSTALLURL>
@@ -330,7 +330,7 @@
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[Draws gauges in VFP applications]]></DESCRIP>
 			<KEYWORDS><![CDATA[gauge,control,graphics]]></KEYWORDS>
-			<VERSION></VERSION>
+			<VERSION>1.0.6984</VERSION>
 			<PUBDATE>2020/04/13</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;Gauge</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;gaugeinstaller.prg</INSTALLURL>
@@ -343,12 +343,25 @@
 			<AUTHOR>Rick Strahl</AUTHOR>
 			<DESCRIP><![CDATA[.NET Interop for Visual FoxPro made easy]]></DESCRIP>
 			<KEYWORDS><![CDATA[.NET,Interop]]></KEYWORDS>
-			<VERSION></VERSION>
+			<VERSION>7.33.0.0</VERSION>
 			<PUBDATE>2023/04/21</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;RickStrahl&#47;wwDotnetBridge</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;wwdotnetbridgeinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
 			<NOTES><![CDATA[Deploy ClrHost.dll and wwDotNetBridge.dll (wwDotNetBridge folder)]]></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>OOPMenu</NAME>
+			<AUTHOR>Doug Hennig</AUTHOR>
+			<DESCRIP><![CDATA[Provides Object-Oriented menus for use in Visual Foxpro 9.0 development]]></DESCRIP>
+			<KEYWORDS><![CDATA[menu]]></KEYWORDS>
+			<VERSION>1.0.8453</VERSION>
+			<PUBDATE>2023/02/22</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;OOPMenu</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;oopmenuinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
 		</RECORD>
 
 	</RECORDS>

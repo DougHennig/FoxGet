@@ -27,7 +27,7 @@ define class ParallelFoxInstaller as FoxGet of FoxGet.prg
 		if llOK
 			do (This.cPackagePath + 'install')
 			erase (This.cPackagePath + 'install.*')
-			This.FileOperation(This.cPackagePath + 'ffi', '', 'DELETE')
+			FileOperation(This.cPackagePath + 'ffi', '', 'DELETE')
 		endif llOK
 		return llOK
 	endfunc
