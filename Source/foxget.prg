@@ -387,7 +387,7 @@ define class FoxGet as Custom
 		This.Log('Updating packages file')
 		if file(lcPackagesFile)
 			select 0
-			use (lcPackagesFile)
+			use (lcPackagesFile) again
 		else
 			try
 				create table (lcPackagesFile) (Name C(60), Version C(10), Date D, RefCount I)
@@ -401,19 +401,24 @@ define class FoxGet as Custom
 		if llResult
 			locate for upper(Name) = upper(This.cPackageName)
 			do case
-*** TODO: handle RefCount
 				case found() and tlRemove
-					delete
+					replace RefCount with RefCount - 1 in Packages
+					if Packages.RefCount = 0
+						delete in Packages
+					endif Packages.RefCount = 0
 				case tlRemove
 				case not found()
 					insert into Packages ;
 						values ;
 							(This.cPackageName, ;
 							This.cVersion, ;
-							date())
+							date(), ;
+							1)
 				otherwise
-					replace Version with This.cVersion, Date with date(), ;
-						RefCount with RefCount + 1
+					replace Version with This.cVersion, ;
+							Date with date(), ;
+							RefCount with RefCount + 1 ;
+						in Packages
 			endcase
 		endif llResult
 		use in select('Packages')
@@ -480,7 +485,6 @@ define class FoxGet as Custom
 * Add the specified file to the project repository if there is one.
 
 	function AddToRepository(tcFile)
-set step on 
 	endfunc
 
 

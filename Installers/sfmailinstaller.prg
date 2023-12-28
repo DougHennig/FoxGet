@@ -4,29 +4,18 @@ loInstaller = createobject('SFMailInstaller')
 loInstaller.Install()
 
 define class SFMailInstaller as FoxGet of FoxGet.prg
-	cBaseURL = 'https://raw.githubusercontent.com/DougHennig/SFMail/master/ThorUpdater/'
+	cBaseURL = 'https://raw.githubusercontent.com/DougHennig/SFMail/master/'
 
-* Define the files to download. Note that URLs are case-sensitive.
+* Define the files to download. Note that URLs are case-sensitive. Note that we
+* don't download the wwDotNetBridge files; they'll be installed as a
+* dependency.
 
 	function Setup
-		This.AddFile('SFMail.zip')
-	endfunc
-
-* Custom installation tasks: copy the files from the extraction folder to the
-* package folder and add SFMail.prg to the project.
-
-	function InstallPackage
-		local llOK
-		llOK = This.CopyExtractedFiles('*.*')
-		llOK = llOK and This.AddFileToProject('sfmail.prg')
-		return llOK
-	endfunc
-
-* Custom uninstallation tasks: remove SFMail.prg from the project.
-
-	function UninstallPackage
-		local llOK
-		llOK = This.RemoveFileFromProject('sfmail.prg')
-		return llOK
+		This.AddFile('BouncyCastle.Crypto.dll', .F., This.cPackagePath)
+		This.AddFile('MailKit.dll',             .F., This.cPackagePath)
+		This.AddFile('MimeKit.dll',             .F., This.cPackagePath)
+		This.AddFile('SMTPLibrary2.dll',        .F., This.cPackagePath)
+		This.AddFile('sfmail.prg',              .T., This.cPackagePath)
+		This.AddFile('vfpexmapi.fll',           .T., This.cPackagePath)
 	endfunc
 enddefine
