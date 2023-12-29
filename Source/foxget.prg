@@ -219,7 +219,7 @@ define class FoxGet as Custom
 		local loInternet, ;
 			llReturn
 		loInternet = newobject('Internet', 'Internet.prg')
-		bindevent(loInternet, 'Update', This, 'Update')
+		bindevent(loInternet, 'Update', This, 'UpdateAndLog')
 		llReturn = loInternet.Download(This.oFiles)
 		if not llReturn
 			raiseevent(This, 'Update', loInternet.cErrorMessage)
@@ -582,6 +582,13 @@ define class FoxGet as Custom
 	function Update(tcMessage)
 	endfunc
 
+
+* Do both log and update.
+
+	function UpdateAndLog(tcMessage)
+		This.Log(tcMessage)
+		raiseevent(This, 'Update', tcMessage)
+	endfunc
 
 * Write to the log file.
 	

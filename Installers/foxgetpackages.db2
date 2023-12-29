@@ -355,7 +355,7 @@
 			<NAME>OOPMenu</NAME>
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[Provides Object-Oriented menus for use in Visual Foxpro 9.0 development]]></DESCRIP>
-			<KEYWORDS><![CDATA[menu]]></KEYWORDS>
+			<KEYWORDS><![CDATA[menus,object oriented,OOP]]></KEYWORDS>
 			<VERSION>1.0.8453</VERSION>
 			<PUBDATE>2023/02/22</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;OOPMenu</HOMEURL>
@@ -427,6 +427,71 @@
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;foxbarcodeqrinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
 			<NOTES><![CDATA[Deploy BarCodeLibrary.dll and QRCodeLib.dll (FoxBarCodeQR folder)]]></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>ChilkatVFP</NAME>
+			<AUTHOR>Bill Anderson</AUTHOR>
+			<DESCRIP><![CDATA[ChilkatVFP is a Visual Foxpro class that wraps the Chilkat library.]]></DESCRIP>
+			<KEYWORDS><![CDATA[internet,control]]></KEYWORDS>
+			<VERSION>1.3</VERSION>
+			<PUBDATE>2023/11/15</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;billand88&#47;ChilkatVFP</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;chilkatvfpinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES><![CDATA[Requires a license for Chilkat]]></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>FoxCharts</NAME>
+			<AUTHOR>Cesar Chalom and Alex Yudin</AUTHOR>
+			<DESCRIP><![CDATA[A class that allows VFP developers to directly draw charts and graphs]]></DESCRIP>
+			<KEYWORDS><![CDATA[charts,GDI,control,drawing]]></KEYWORDS>
+			<VERSION>1.47b</VERSION>
+			<PUBDATE>2018/03/04</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;FoxCharts</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;foxchartsinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES><![CDATA[Deploy system.app (FoxCharts folder)]]></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>cboMultiSel</NAME>
+			<AUTHOR>G. Willcockson</AUTHOR>
+			<DESCRIP><![CDATA[Multi-Select Combobox: The ability to select multiple items from a table/cursor rowsource into a single, character-separated (concatenated) value]]></DESCRIP>
+			<KEYWORDS><![CDATA[combobox,control]]></KEYWORDS>
+			<VERSION></VERSION>
+			<PUBDATE>2023/08/17</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;cboMultiSel</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;cbomultiselinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>Log4VFP</NAME>
+			<AUTHOR>Doug Hennig</AUTHOR>
+			<DESCRIP><![CDATA[Provides a VFP wrapper for the Log4NET diagnostic logging library]]></DESCRIP>
+			<KEYWORDS><![CDATA[logging,diagnostic]]></KEYWORDS>
+			<VERSION></VERSION>
+			<PUBDATE>2021/01/30</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;Log4VFP</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;log4vfpinstaller.prg</INSTALLURL>
+			<DEPENDENT><![CDATA[wwDotNetBridge]]></DEPENDENT>
+			<NOTES><![CDATA[Deploy Log4VFP.dll, Log4NET.dll (Log4VFP folder), ClrHost.dll, and wwDotNetBridge.dll (wwDotNetBridge folder)]]></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>OOPReports</NAME>
+			<AUTHOR>Doug Hennig</AUTHOR>
+			<DESCRIP><![CDATA[Provides object-oriented report creation and modification]]></DESCRIP>
+			<KEYWORDS><![CDATA[reports,object oriented,OOP]]></KEYWORDS>
+			<VERSION>1.0.8199</VERSION>
+			<PUBDATE>2022/06/13</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;OOPReports</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;oopreportsinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
 		</RECORD>
 
 	</RECORDS>
