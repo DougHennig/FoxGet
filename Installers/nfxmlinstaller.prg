@@ -4,7 +4,7 @@ loInstaller = createobject('nfXMLInstaller')
 loInstaller.Install()
 
 define class nfXMLInstaller as FoxGet of FoxGet.prg
-	cBaseURL = 'https://raw.githubusercontent.com/VFPX/nfJson/master/nfXML/nfXml/'
+	cBaseURL = 'https://raw.githubusercontent.com/VFPX/nfXML/master/nfXml/'
 
 * Define the files to download. Note that URLs are case-sensitive. Also, we'll
 * download directly to the package folder since there's nothing to unzip, and
