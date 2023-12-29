@@ -494,6 +494,45 @@
 			<NOTES></NOTES>
 		</RECORD>
 
+		<RECORD>
+			<NAME>UTCDateTime</NAME>
+			<AUTHOR>Antonio Lopes</AUTHOR>
+			<DESCRIP><![CDATA[UTCDatetime is a VFP extension to handle UTC dates and time, including historical points in time, and conversion from and to local time in any timezone.]]></DESCRIP>
+			<KEYWORDS><![CDATA[datetime,UTC]]></KEYWORDS>
+			<VERSION></VERSION>
+			<PUBDATE>2023/05/26</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;atlopes&#47;UTCDatetime</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;utcdatetimeinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>FoxRegEx</NAME>
+			<AUTHOR>Irwin1985</AUTHOR>
+			<DESCRIP><![CDATA[A wrapper for RegEx built in VBScript.]]></DESCRIP>
+			<KEYWORDS><![CDATA[RegEx,regular expressions]]></KEYWORDS>
+			<VERSION></VERSION>
+			<PUBDATE>2020/04/27</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;Irwin1985&#47;FoxRegEx</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;foxregexinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>nfXML</NAME>
+			<AUTHOR>Marco Plaza</AUTHOR>
+			<DESCRIP><![CDATA[Provides powerful and simple to use functions to parse / serialize complex XML]]></DESCRIP>
+			<KEYWORDS><![CDATA[xml]]></KEYWORDS>
+			<VERSION></VERSION>
+			<PUBDATE>2020/12/22</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;nfXML</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;nfxmlinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
+		</RECORD>
+
 	</RECORDS>
 
 
