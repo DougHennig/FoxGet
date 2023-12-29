@@ -12,9 +12,9 @@ define class FoxChartsInstaller as FoxGet of FoxGet.prg
 * no custom tasks to perform.
 
 	function Setup
-		This.AddFile('system.app',    .F., This.cPackagePath)
-		This.AddFile('foxcharts.vcx', .F., This.cPackagePath)
-		This.AddFile('foxcharts.vct', .T., This.cPackagePath)
+		This.AddFile('System.app',    .F., This.cPackagePath)
+		This.AddFile('foxcharts.vct', .F., This.cPackagePath)
+		This.AddFile('foxcharts.vcx', .T., This.cPackagePath)
 		This.AddFile('gdiplusx.VCT',  .F., This.cPackagePath)
 		This.AddFile('gdiplusx.vcx',  .T., This.cPackagePath)
 	endfunc
