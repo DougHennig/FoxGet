@@ -97,7 +97,9 @@ define class FoxGet as Custom
 		local lcMessage, ;
 			llOK, ;
 			loException as Exception, ;
-			lcInstaller
+			lcInstaller, ;
+			laFiles[1], ;
+			lnFiles
 
 * Create our working folder if necessary.
 
@@ -179,12 +181,50 @@ define class FoxGet as Custom
 				llOK = .F.
 			endtry
 		endif llOK
-		llOK = llOK and This.AddToRepository(This.cPackagesPath + 'Packages.dbf')
-		llOK = llOK and This.AddToRepository(This.cPackagePath + justfname(lcInstaller))
+
+* Add the files to the repository if there is one.
+
+		lnFiles = This.GetFilesInFolder(This.cPackagePath, @laFiles)
+		for lnI = 1 to lnFiles
+			This.AddToRepository(laFiles[lnI])
+		next lnI
+		This.AddToRepository(This.cPackagesPath + 'Packages.dbf')
+
+* Update the packages files.
+
 		llOK = llOK and This.UpdatePackages()
 		return llOK
 	endfunc
 
+
+* Fill an array with the files in the specified folder and all subdirectories.
+
+	function GetFilesInFolder(tcFolder, taFiles)
+		local lcFolder, ;
+			laFiles[1], ;
+			lnFiles, ;
+			lnExisting, ;
+			lnI, ;
+			laFolders[1], ;
+			lnFolders, ;
+			lcCurrFolder
+		lcFolder   = addbs(tcFolder)
+		lnFiles    = adir(laFiles, lcFolder + '*.*', '', 1)
+		lnExisting = alen(taFiles)
+		lnExisting = iif(lnExisting = 1, 0, lnExisting)
+		dimension taFiles[lnExisting + lnFiles]
+		for lnI = 1 to lnFiles
+			taFiles[lnExisting + lnI] = lcFolder + laFiles[lnI, 1]
+		next lnI
+		lnFolders = adir(laFolders, lcFolder + '*.*', 'D', 1)
+		for lnI = 1 to lnFolders
+			lcCurrFolder = laFolders[lnI, 1]
+			if 'D' $ laFolders[lnI, 5] and left(lcCurrFolder, 1) <> '.'
+				GetFilesInFolder(lcFolder + lcCurrFolder, @taFiles)
+			endif 'D' $ laFolders[lnI, 5] ...
+		next lnI
+		return alen(taFiles, 1)
+	endfunc
 
 * Abstract method overridden in a subclass.
 
@@ -311,7 +351,7 @@ define class FoxGet as Custom
 				'Microsoft.Powershell.Archive\Expand-Archive ' + ;
 				"-Path '" + tcSource + "' " + ;
 				"-DestinationPath '" + tcDestination + "'"
-			loAPI = createobject('API_AppRun', lcCommand, This.cWorkingPath, 'HID')
+			loAPI = newobject('API_AppRun', 'API_AppRun.prg', '', lcCommand, This.cWorkingPath, 'HID')
 			do case
 				case not empty(loAPI.icErrorMessage)
 					lcMessage = loAPI.icErrorMessage
@@ -468,7 +508,6 @@ define class FoxGet as Custom
 				loFile = This.oProject.Files.Add(lcFile)
 				loFile.Exclude = .F.
 				llReturn = .T.
-				This.AddToRepository(tcFile)
 			endif type('_screen.oProjectExplorers[1].Name') = 'C'
 		catch to loException
 			lcMessage = loException.Message
@@ -485,7 +524,22 @@ define class FoxGet as Custom
 * Add the specified file to the project repository if there is one.
 
 	function AddToRepository(tcFile)
-*** TODO: do this
+		local lcCommand, ;
+			loAPI, ;
+			llReturn, ;
+			lnCode
+		lcCommand = 'git add "' + tcFile + '"'
+		loAPI     = newobject('API_AppRun', 'API_AppRun.prg', '', lcCommand, '', 'HID')
+		llReturn  = loAPI.LaunchAppAndWait()
+		if llReturn
+			lnCode   = loAPI.CheckProcessExitCode()
+			llReturn = lnCode = 0
+			if not llReturn
+				This.Log('Adding ' + tcFile + ' to Git failed with error code ' + ;
+					transform(lnCode))
+			endif not llReturn
+		endif llReturn
+		return llReturn
 	endfunc
 
 
@@ -493,15 +547,21 @@ define class FoxGet as Custom
 
 	function Uninstall
 		local lcMessage, ;
-			llOK
+			llOK, ;
+			laFiles[1], ;
+			lnFiles
 		lcMessage = '===== Uninstalling ' + This.cPackageName
 		raiseevent(This, 'Update', lcMessage)
 		This.Log(lcMessage)
 		llOK = This.RemoveFilesFromProject()
 		llOK = llOK and This.UninstallPackage()
 		llOK = llOK and This.UpdatePackages(.T.)
+*** TODO: do we need to do this? See comment in RemoveFromRepository.
+*		lnFiles = This.GetFilesInFolder(This.cPackagePath, @laFiles)
+*		for lnI = 1 to lnFiles
+*			This.RemoveFromRepository(laFiles[lnI])
+*		next lnI
 		llOK = llOK and This.RemovePackagePath(.T.)
-		llOK = llOK and This.RemoveFromRepository()
 		return llOK
 	endfunc
 
@@ -547,7 +607,6 @@ define class FoxGet as Custom
 *** TODO: integrate with Project Explorer
 			loFile = This.oProject.Files.Item(lcFile)
 			loFile.Remove()
-			This.RemoveFromRepository(lcFile)
 			llReturn = .T.
 		catch to loException
 			raiseevent(This, 'Update', 'Removing file from project failed: see log file for details')
@@ -561,7 +620,7 @@ define class FoxGet as Custom
 * Remove the specified file from the project repository if there is one.
 
 	function RemoveFromRepository(tcFile)
-*** TODO: do we need this: when we commit, the files will just be missing. If so, we need to remove uninstaller.prg before deleting folder
+*** TODO: do we need this: when we commit, the files will just be missing.
 	endfunc
 
 
@@ -602,4 +661,4 @@ define class FoxGetFile as Custom
 	cLocalFile    = ''
 	lAddToProject = .F.
 enddefine
- 
+  
