@@ -364,6 +364,71 @@
 			<NOTES></NOTES>
 		</RECORD>
 
+		<RECORD>
+			<NAME>FoxCryptoNG</NAME>
+			<AUTHOR>Christof Wollenhaupt</AUTHOR>
+			<DESCRIP><![CDATA[Provides a simplified interface to Microsoft's Cryptography API: Next Generation]]></DESCRIP>
+			<KEYWORDS><![CDATA[cryptography]]></KEYWORDS>
+			<VERSION></VERSION>
+			<PUBDATE>2022/11/08</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;cwollenhaupt&#47;foxCryptoNG</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;foxcryptonginstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>Ribbon</NAME>
+			<AUTHOR>Doug Hennig</AUTHOR>
+			<DESCRIP><![CDATA[A Microsoft Office 365-like ribbon control for VFP forms]]></DESCRIP>
+			<KEYWORDS><![CDATA[ribbon,Office,control]]></KEYWORDS>
+			<VERSION>1.0.20231223</VERSION>
+			<PUBDATE>2023/12/23</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;Ribbon</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;ribboninstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES><![CDATA[Deploy system.app (Ribbon folder)]]></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>FastXTab</NAME>
+			<AUTHOR>Alexander Golovlev</AUTHOR>
+			<DESCRIP><![CDATA[A replacement for VFPXTab.prg that creates cross-tab tables and cursors]]></DESCRIP>
+			<KEYWORDS><![CDATA[crosstab,xtab]]></KEYWORDS>
+			<VERSION>1.6</VERSION>
+			<PUBDATE>2019/06/17</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;FastXTab</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;fastxtabinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>FoxBarCode</NAME>
+			<AUTHOR>Guillermo Carrero and Luis Maria Guayan</AUTHOR>
+			<DESCRIP><![CDATA[A 100% Visual FoxPro class that provides a tool for generating images with different bar code symbologies to be used in VFP forms and reports, or exported to other applications]]></DESCRIP>
+			<KEYWORDS><![CDATA[barcode]]></KEYWORDS>
+			<VERSION>1.19</VERSION>
+			<PUBDATE>2019/05/21</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;FoxBarCode</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;foxbarcodeinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>FoxBarCodeQR</NAME>
+			<AUTHOR>Guillermo Carrero and Luis Maria Guayan</AUTHOR>
+			<DESCRIP><![CDATA[FoxBarcodeQR is a supplement of FoxBarcode class only for QR Code barcodes. This class is an alternative solution for all developers who requested QR Code support.]]></DESCRIP>
+			<KEYWORDS><![CDATA[barcode,QR]]></KEYWORDS>
+			<VERSION>2.10</VERSION>
+			<PUBDATE>2021/02/27</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;FoxBarCodeQR</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;foxbarcodeqrinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES><![CDATA[Deploy BarCodeLibrary.dll and QRCodeLib.dll (FoxBarCodeQR folder)]]></NOTES>
+		</RECORD>
+
 	</RECORDS>
 
 
