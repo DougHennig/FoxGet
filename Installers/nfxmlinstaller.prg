@@ -14,7 +14,7 @@ define class nfXMLInstaller as FoxGet of FoxGet.prg
 	function Setup
 		This.AddFile('NFXML.H',         .F., This.cPackagePath)
 		This.AddFile('nfXmlCreate.PRG', .T., This.cPackagePath)
-		This.AddFile('nfXmnlRead.prg',  .T., This.cPackagePath)
+		This.AddFile('nfXmlRead.prg',  .T., This.cPackagePath)
 		This.AddFile('nfxpaths.prg',    .T., This.cPackagePath)
 	endfunc
 enddefine
