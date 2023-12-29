@@ -20,6 +20,6 @@ define class RibbonInstaller as FoxGet of FoxGet.prg
 		This.AddFile('sfribbondown.png',       .T., This.cPackagePath)
 		This.AddFile('sfribbondownlarge.png',  .T., This.cPackagePath)
 		This.AddFile('sfribbonright.png',      .T., This.cPackagePath)
-		This.AddFile('system.app',             .T., This.cPackagePath)
+		This.AddFile('system.app',             .F., This.cPackagePath)
 	endfunc
 enddefine

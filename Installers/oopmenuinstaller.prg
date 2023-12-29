@@ -4,7 +4,7 @@ loInstaller = createobject('OOPMenuInstaller')
 loInstaller.Install()
 
 define class OOPMenuInstaller as FoxGet of FoxGet.prg
-	cBaseURL = 'https://raw.githubusercontent.com/VFPX/OOPMenu/master/'
+	cBaseURL = 'https://raw.githubusercontent.com/VFPX/OOPMenu/master/Source/'
 
 * Define the files to download. Note that URLs are case-sensitive. Also, we'll
 * download directly to the package folder since there's nothing to unzip, and
