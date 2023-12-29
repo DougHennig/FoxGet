@@ -20,7 +20,6 @@ define class ChilkatVFPInstaller as FoxGet of FoxGet.prg
 		This.AddFile('ichilkat.vct', .F., This.cPackagePath)
 		This.AddFile('ichilkat.vcx', .T., This.cPackagePath)
 		This.AddFile('msgsvc.cdx',   .T., This.cPackagePath)
-		This.AddFile('msgsvc.fpt',   .T., This.cPackagePath)
 		This.AddFile('msgsvc.prg',   .T., This.cPackagePath)
 	endfunc
 enddefine
