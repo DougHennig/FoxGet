@@ -1,11 +1,5 @@
-*** Foxget package manager.
-* Adds files to pjx, checks for missing files and updates, call package manager at startup to set path in ide,
-* does whatever to download and install eg vfpxeorkbook has to be unzipped, has keywords to search for.
-* Installer prg for each tool sort of like Thor updater. Based on class with properties like url and methods like
-* beforegetfile and aftergetfile. Ui can search, download, remove, or go to tool website.
-
-*** NOTE: subclass must have same name as PRG
-
+* FoxGet package installer/uninstaller. This must be subclassed to work with a
+* specific package.
 
 #define ccCRLF	chr(13) + chr(10)
 
@@ -485,7 +479,7 @@ define class FoxGet as Custom
 	endfunc
 
 
-* Add the specified file to the project.
+* Add the specified file to the project. If Project Explorer is open, add it to that.
 
 	function AddFileToProject(tcFile)
 		local lcMessage, ;
@@ -590,7 +584,7 @@ define class FoxGet as Custom
 	endfunc
 
 
-* Remove the specified file from the project.
+* Remove the specified file from the project. If Project Explorer is open, remove it from that.
 
 	function RemoveFileFromProject(tcFile)
 		local lcMessage, ;
@@ -604,10 +598,14 @@ define class FoxGet as Custom
 			lcFile = This.cPackagePath + lcFile
 		endif empty(justpath(lcFile))
 		try
-*** TODO: integrate with Project Explorer
-			loFile = This.oProject.Files.Item(lcFile)
-			loFile.Remove()
-			llReturn = .T.
+			if type('_screen.oProjectExplorers[1].Name') = 'C' and ;
+				_screen.oProjectExplorers[1].SelectNodeForFile(lcFile)
+				llReturn = _screen.oProjectExplorers[1].RemoveItem(.T.)
+			else
+				loFile = This.oProject.Files.Item(lcFile)
+				loFile.Remove()
+				llReturn = .T.
+			endif type('_screen.oProjectExplorers[1].Name') = 'C' ...
 		catch to loException
 			raiseevent(This, 'Update', 'Removing file from project failed: see log file for details')
 			This.Log('Error removing ' + lcFile + ' from project: ' + ;
@@ -620,7 +618,7 @@ define class FoxGet as Custom
 * Remove the specified file from the project repository if there is one.
 
 	function RemoveFromRepository(tcFile)
-*** TODO: do we need this: when we commit, the files will just be missing.
+*** TODO: do we need this: when we commit, the files will just be missing, which is fine.
 	endfunc
 
 

@@ -658,7 +658,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 	ENDPROC
 
 	PROCEDURE cmdInstall.Refresh
-		This.Enabled = empty(nvl(curPackages.InstalledDate, {}))
+		This.Caption = iif(empty(nvl(curPackages.InstalledDate, {})), 'Install', 'Reinstall')
 		
 	ENDPROC
 

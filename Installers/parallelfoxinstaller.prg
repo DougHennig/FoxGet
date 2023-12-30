@@ -13,12 +13,13 @@ define class ParallelFoxInstaller as FoxGet of FoxGet.prg
 		This.AddFile('parallelfox.vcx', .T., This.cPackagePath)
 		This.AddFile('parallelfox.exe', .F., This.cPackagePath)
 		This.AddFile('install.PRG',     .F., This.cPackagePath)
+		This.AddFile('uninstall.PRG',   .F., This.cPackagePath)
 		This.AddFile('ffi/parfoxcode.DBF')
 		This.AddFile('ffi/parfoxcode.FPT')
 	endfunc
 
-* Custom installation tasks: copy just the class library and EXE from
-* the download folder to the package folder and add the VCX to the project.
+* Custom installation tasks: run Install.prg to register the COM object and
+* optionally add IntelliSense.
 
 	function InstallPackage
 		local llOK
@@ -30,5 +31,12 @@ define class ParallelFoxInstaller as FoxGet of FoxGet.prg
 			FileOperation(This.cPackagePath + 'ffi', '', 'DELETE')
 		endif llOK
 		return llOK
+	endfunc
+
+* Custom uninstallation tasks: run Uninstall.prg to unregister the COM object.
+
+	function UninstallPackage
+		do (This.cPackagePath + 'uninstall')
+		return .T.
 	endfunc
 enddefine

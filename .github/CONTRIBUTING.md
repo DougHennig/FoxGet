@@ -12,19 +12,13 @@
 
 - See the _Creating an installer_ topic in README.md for information on creating a new installer if that's what you're doing.
 
-*** TODO: UPDATE THIS
-
-- If you're making changes to FoxGet itself:
-
-    - If this is a new major release, edit the Version setting in *BuildProcess\ProjectSettings.txt*.
-
-    - If you added or removed files, update *BuildProcess\InstalledFiles.txt* as necessary.
+- If you're making changes to the FoxGet UI or FoxGet.prg and this is a new major release, edit the Version setting in *BuildProcess\ProjectSettings.txt*.
 
 - Describe the changes at the top of *ChangeLog.md*.
 
 - If you haven't already done so, install VFPX Deployment: choose Check for Updates from the Thor menu, turn on the checkbox for VFPX Deployment, and click Install.
 
-- Start VFP (not VFP Advanced) and CD to the project folder.
+- Start VFP 9 (not VFP Advanced) and CD to the project folder.
 
 - Run the VFPX Deployment tool to create the installation files: choose VFPX Project Deployment from the Thor Tools, Application menu. Alternately, execute ```EXECSCRIPT(_screen.cThorDispatcher, 'Thor_Tool_DeployVFPXProject')```.
 
