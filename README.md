@@ -121,11 +121,15 @@ Here are some notes:
 
 - UninstallPackage is a method where you can put custom uninstallation tasks. In this case, since we manually added the file to the project, we have to call RemoveFileFromProject to remove it.
 
-To create your own installer, do one of the following:
+To test your installer, create a record for it in MyPackages.dbf in the folder where FoxGet.app is located and specify the path to the installer PRG in the InstallURL field (for example, "C:\FoxGet\TestInstaller.prg"). Create a test project in a test folder, run FoxGet.app, and install your package. After testing is complete, you can delete the record in MyPackages.dbf (or not; see below).
 
-- Fork this repository, create the installer PRG in the Installers folder, add a record for it to FoxGetPackages.dbf in the Installers folder, and create a pull request.
+To deploy your installer, do one of the following:
+
+- Fork this repository, copy the installer PRG in the Installers folder, add a record for it to FoxGetPackages.dbf in the Installers folder, and create a pull request.
 
 - Create the installer, create a new Feature Request (under Issues) in this repository, attach the PRG, and specify the values for the FoxGetPackages record.
+
+- If you don't want to share your installer, just leave the record in MyPackages.dbf. The installer will only be available for you.
 
 ## Helping with this project
 

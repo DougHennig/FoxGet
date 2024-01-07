@@ -1026,14 +1026,6 @@ DEFINE CLASS vfpxbaseform AS form
 		</VFPData>
 	*</PropValue>
 	
-	PROCEDURE Init
-		* Set BorderStyle to non-resizable; we do it here rather than in the Property
-		* window so the form is resizable at design time.
-		
-		This.BorderStyle = 2
-		
-	ENDPROC
-
 	PROCEDURE KeyPress
 		* Close the form on Esc.
 		

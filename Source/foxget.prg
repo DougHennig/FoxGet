@@ -26,7 +26,9 @@ define class FoxGet as Custom
 	cLogFile        = ''
 		&& the log file
 	cBaseURL        = ''
-		&& the base URL to download files from.
+		&& the base URL to download files from
+	cInstaller      = ''
+		&& the path to the installer PRG
 
 
 * Initialize the class.
@@ -167,9 +169,8 @@ define class FoxGet as Custom
 		llOK = llOK and This.InstallPackage()
 		llOK = llOK and This.AddFilesToProject()
 		if llOK
-			lcInstaller = This.cWorkingPath + This.cPackageName + 'Installer.prg'
 			try
-				copy file (lcInstaller) to (This.cPackagePath + justfname(lcInstaller))
+				copy file (This.cInstaller) to (This.cPackagePath + justfname(This.cInstaller))
 					&& Copy the installer to the package folder so we can uninstall if necessary.
 			catch
 				llOK = .F.
@@ -214,7 +215,7 @@ define class FoxGet as Custom
 		for lnI = 1 to lnFolders
 			lcCurrFolder = laFolders[lnI, 1]
 			if 'D' $ laFolders[lnI, 5] and left(lcCurrFolder, 1) <> '.'
-				GetFilesInFolder(lcFolder + lcCurrFolder, @taFiles)
+				This.GetFilesInFolder(lcFolder + lcCurrFolder, @taFiles)
 			endif 'D' $ laFolders[lnI, 5] ...
 		next lnI
 		return alen(taFiles, 1)
@@ -384,26 +385,22 @@ define class FoxGet as Custom
 	function CopyFile(tcSource, tcDestination)
 		local lcDestination, ;
 			lcMessage, ;
-			loException as Exception, ;
 			llReturn
-
-* Strip any trailing backslash as it prevents COPY FILE from working.
-
 		if right(tcDestination, 1) = '\'
 			lcDestination = left(tcDestination, len(tcDestination) - 1)
+				&& Strip any trailing backslash as it prevents COPY FILE from working.
 		else
 			lcDestination = tcDestination
 		endif right(tcDestination, 1) = '\'
 		lcMessage = 'Copying ' + tcSource + ' to ' + lcDestination
 		raiseevent(This, 'Update', lcMessage)
 		This.Log(lcMessage)
-		try
-			copy file (tcSource) to (lcDestination)
-			llReturn = .T.
-		catch to loException
-			raiseevent(This, 'Update', 'Copying failed: see log file for details')
-			This.Log('Error copying file: ' + loException.Message)
-		endtry
+		llReturn = FileOperation(tcSource, lcDestination, 'copy')
+		if not llReturn
+			lcMessage = lcMessage + ' failed'
+			raiseevent(This, 'Update', lcMessage)
+			This.Log(lcMessage)
+		endif not llReturn
 		return llReturn
 	endfunc
 

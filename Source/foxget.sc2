@@ -58,11 +58,13 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		*m: install		&& Install the selected package
 		*m: uninstall		&& Uninstall the selected package
 		*m: update		&& Displays the installation progress
+		*p: cappfolder		&& The folder the app is running in
 		*p: cprojectfolder		&& The project folder
 		*p: cworkingfolder		&& A temporary working folder
 	*</DefinedPropArrayMethod>
 
 	*<PropValue>
+		cappfolder = 
 		Caption = "FoxGet"
 		cprojectfolder = 
 		cworkingfolder = 
@@ -70,7 +72,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		DoCreate = .T.
 		Height = 653
 		Icon = foxget.ico
-		Name = "FoxGet"
+		Name = "FOXGET"
 		Width = 816
 		_memberdata = <VFPData>
 			<memberdata name="update" display="Update"/>
@@ -80,6 +82,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 			<memberdata name="uninstall" display="Uninstall"/>
 			<memberdata name="install" display="Install"/>
 			<memberdata name="getdependencies" display="GetDependencies"/>
+			<memberdata name="cappfolder" display="cAppFolder"/>
 		</VFPData>
 	*</PropValue>
 
@@ -317,7 +320,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="textbox" />
 	
 	PROCEDURE Destroy
-		release procedure foxget.prg
+		release procedure foxget
 		dodefault()
 		
 	ENDPROC
@@ -355,28 +358,37 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 			create cursor Installed (Name C(1), Version C(1), Date D, RefCount I)
 		endif not used('Installed')
 		
+		* Join FoxGetPackages and MyPackages.
+		
+		select * ;
+			from FoxGetPackages ;
+		union all ;
+		select * ;
+			from MyPackages ;
+			into cursor MyFoxGetPackages
+		
 		* Create a cursor of all or just installed packages, supporting a search string.
 		
 		lcJoin   = iif(This.chkShowOnlyInstalled.Value, 'inner', 'left outer')
 		lcSearch = iif(empty(This.txtSearch.Value), '', "'%" + lower(alltrim(This.txtSearch.Value)) + "%'")
-		lcWhere  = iif(empty(lcSearch), '', 'where lower(FoxGetPackages.Keywords) like ' + lcSearch + ;
-			' or lower(FoxGetPackages.Descrip) like ' + lcSearch + ;
-			' or lower(FoxGetPackages.Name) like ' + lcSearch)
-		select FoxGetPackages.Name, ;
+		lcWhere  = iif(empty(lcSearch), '', 'where lower(MyFoxGetPackages.Keywords) like ' + lcSearch + ;
+			' or lower(MyFoxGetPackages.Descrip) like ' + lcSearch + ;
+			' or lower(MyFoxGetPackages.Name) like ' + lcSearch)
+		select MyFoxGetPackages.Name, ;
 				Installed.Version as InstalledVersion, ;
 				Installed.Date as InstalledDate, ;
-				FoxGetPackages.Author, ;
-				FoxGetPackages.Descrip, ;
-				FoxGetPackages.Keywords, ;
-				FoxGetPackages.Version, ;
-				FoxGetPackages.PubDate, ;
-				FoxGetPackages.HomeURL, ;
-				FoxGetPackages.InstallURL, ;
-				FoxGetPackages.Dependent, ;
-				FoxGetPackages.Notes, ;
+				MyFoxGetPackages.Author, ;
+				MyFoxGetPackages.Descrip, ;
+				MyFoxGetPackages.Keywords, ;
+				MyFoxGetPackages.Version, ;
+				MyFoxGetPackages.PubDate, ;
+				MyFoxGetPackages.HomeURL, ;
+				MyFoxGetPackages.InstallURL, ;
+				MyFoxGetPackages.Dependent, ;
+				MyFoxGetPackages.Notes, ;
 				Installed.RefCount ;
-			from FoxGetPackages ;
-			&lcJoin join Installed on upper(Installed.Name) = upper(FoxGetPackages.Name) ;
+			from MyFoxGetPackages ;
+			&lcJoin join Installed on upper(Installed.Name) = upper(MyFoxGetPackages.Name) ;
 			&lcWhere ;
 			into cursor curPackages
 		use in Installed
@@ -402,6 +414,11 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 			loException as Exception, ;
 			loInternet
 		dodefault()
+		
+		* Set BorderStyle to non-resizable; we do it here rather than in the Property
+		* window so the form is resizable at design time.
+		
+		This.BorderStyle = 2
 		
 		* Get a reference to the active project; bug out if there isn't one.
 		
@@ -432,7 +449,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		
 		* Download the FoxGet packages list.
 		
-		set procedure to foxget.prg additive
+		set procedure to foxget additive
 		loFiles           = createobject('Collection')
 		loFile            = createobject('FoxGetFile')
 		loFile.cURL       = 'https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/foxgetpackages.dbf'
@@ -449,6 +466,14 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 			return .F.
 		endif not llOK
 		use (This.cWorkingFolder + 'foxgetpackages')
+		
+		* Create MyPackages if it doesn't exist.
+		
+		This.cAppFolder = addbs(justpath(getwordnum(sys(16), 3)))
+		if not file(This.cAppFolder + 'MyPackages.dbf')
+			copy structure to (This.cAppFolder + 'MyPackages.dbf')
+		endif not file(This.cAppFolder + 'MyPackages.dbf')
+		use (This.cAppFolder + 'MyPackages.dbf') in 0
 		
 		* Populate the listbox.
 		
@@ -495,26 +520,31 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 			endif not found()
 		endif llDependency
 		
-		* Download the installer.
+		* Download the installer if necessary.
 		
-		lcInstaller       = This.cWorkingFolder + justfname(trim(curPackages.InstallURL))
-		loFiles           = createobject('Collection')
-		loFile            = createobject('FoxGetFile')
-		loFile.cURL       = trim(curPackages.InstallURL)
-		loFile.cLocalFile = lcInstaller
-		loFiles.Add(loFile)
-		loInternet = newobject('Internet', 'Internet.prg')
-		llOK = loInternet.Download(loFiles)
-		if not llOK
-			messagebox(loInternet.cErrorMessage, 16, 'FoxGet')
-			return .F.
-		endif not llOK
+		if lower(left(curPackages.InstallURL, 4)) = 'http'
+			lcInstaller       = This.cWorkingFolder + justfname(trim(curPackages.InstallURL))
+			loFiles           = createobject('Collection')
+			loFile            = createobject('FoxGetFile')
+			loFile.cURL       = trim(curPackages.InstallURL)
+			loFile.cLocalFile = lcInstaller
+			loFiles.Add(loFile)
+			loInternet = newobject('Internet', 'Internet.prg')
+			llOK = loInternet.Download(loFiles)
+			if not llOK
+				messagebox(loInternet.cErrorMessage, 16, 'FoxGet')
+				return .F.
+			endif not llOK
+		else
+			lcInstaller = trim(curPackages.InstallURL)
+		endif lower(left(curPackages.InstallURL, 4)) = 'http'
 		
 		* Run the installer.
 		
 		loInstaller = newobject(juststem(lcInstaller), lcInstaller)
 		loInstaller.cPackageName = trim(curPackages.Name)
 		loInstaller.cVersion     = trim(curPackages.Version)
+		loInstaller.cInstaller   = lcInstaller
 		bindevent(loInstaller, 'Update', This, 'Update')
 		llOK = loInstaller.Install()
 		if llOK
@@ -585,6 +615,10 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		lcPackage   = trim(curPackages.Name)
 		lcSource    = This.cProjectFolder + 'Packages\' + addbs(lcPackage) + lcPackage + 'Installer.prg'
 		lcInstaller = forcepath(lcSource, This.cWorkingFolder)
+		if not file(lcSource)
+			messagebox('The uninstaller (' + lcSource + ') does not exist.', 64, 'FoxGet')
+			return .F.
+		endif not file(lcSource)
 		try
 			copy file (lcSource) to (lcInstaller)
 			llOK = .T.
@@ -627,7 +661,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		endif llOK
 		do case
 			case not llOK
-				messagebox(loInstaller.cPackageName + ' was not uninstalled. ' + ;
+				messagebox(lcPackage + ' was not uninstalled. ' + ;
 					'The log file will be displayed.', 64, 'FoxGet')
 				modify file (This.cLogFile) nowait
 			case llUninstalled
