@@ -533,6 +533,19 @@
 			<NOTES></NOTES>
 		</RECORD>
 
+		<RECORD>
+			<NAME>JSON</NAME>
+			<AUTHOR>Victor Espina</AUTHOR>
+			<DESCRIP><![CDATA[This library allows to parse and creates JSON strings, along with handy utilities to consume JSON-based REST web services.]]></DESCRIP>
+			<KEYWORDS><![CDATA[JSON,REST]]></KEYWORDS>
+			<VERSION>1.28</VERSION>
+			<PUBDATE>2024/08/01</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;vespina&#47;json</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;jsoninstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
+		</RECORD>
+
 	</RECORDS>
 
 
