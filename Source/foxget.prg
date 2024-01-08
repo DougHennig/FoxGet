@@ -202,23 +202,29 @@ define class FoxGet as Custom
 			lnI, ;
 			laFolders[1], ;
 			lnFolders, ;
-			lcCurrFolder
+			lcCurrFolder, ;
+			lnReturn
 		lcFolder   = addbs(tcFolder)
 		lnFiles    = adir(laFiles, lcFolder + '*.*', '', 1)
 		lnExisting = alen(taFiles)
 		lnExisting = iif(lnExisting = 1, 0, lnExisting)
-		dimension taFiles[lnExisting + lnFiles]
-		for lnI = 1 to lnFiles
-			taFiles[lnExisting + lnI] = lcFolder + laFiles[lnI, 1]
-		next lnI
-		lnFolders = adir(laFolders, lcFolder + '*.*', 'D', 1)
-		for lnI = 1 to lnFolders
-			lcCurrFolder = laFolders[lnI, 1]
-			if 'D' $ laFolders[lnI, 5] and left(lcCurrFolder, 1) <> '.'
-				This.GetFilesInFolder(lcFolder + lcCurrFolder, @taFiles)
-			endif 'D' $ laFolders[lnI, 5] ...
-		next lnI
-		return alen(taFiles, 1)
+		if lnExisting + lnFiles > 0
+			dimension taFiles[lnExisting + lnFiles]
+			for lnI = 1 to lnFiles
+				taFiles[lnExisting + lnI] = lcFolder + laFiles[lnI, 1]
+			next lnI
+			lnFolders = adir(laFolders, lcFolder + '*.*', 'D', 1)
+			for lnI = 1 to lnFolders
+				lcCurrFolder = laFolders[lnI, 1]
+				if 'D' $ laFolders[lnI, 5] and left(lcCurrFolder, 1) <> '.'
+					This.GetFilesInFolder(lcFolder + lcCurrFolder, @taFiles)
+				endif 'D' $ laFolders[lnI, 5] ...
+			next lnI
+			lnReturn = alen(taFiles, 1)
+		else
+			lnReturn = 0
+		endif lnExisting + lnFiles > 0
+		return lnReturn
 	endfunc
 
 * Abstract method overridden in a subclass.
