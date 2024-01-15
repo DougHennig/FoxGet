@@ -12,6 +12,8 @@ define class ParallelFoxInstaller as FoxGet of FoxGet.prg
 		This.AddFile('parallelfox.VCT', .F., This.cPackagePath)
 		This.AddFile('parallelfox.vcx', .T., This.cPackagePath)
 		This.AddFile('parallelfox.exe', .F., This.cPackagePath)
+		This.AddFile('mtdll/parallelfoxmt.dll', .F., This.cPackagePath)
+		This.AddFile('vfpa/parallelfoxa.exe', .F., This.cPackagePath)
 		This.AddFile('install.PRG',     .F., This.cPackagePath)
 		This.AddFile('uninstall.PRG',   .F., This.cPackagePath)
 		This.AddFile('ffi/parfoxcode.DBF')
@@ -22,13 +24,19 @@ define class ParallelFoxInstaller as FoxGet of FoxGet.prg
 * optionally add IntelliSense.
 
 	function InstallPackage
-		local llOK
+		local llOK, lcCurDir
 		md (This.cPackagePath + 'ffi')
 		llOK = This.CopyFile(This.cWorkingPath + 'parfoxcode.*', This.cPackagePath + 'ffi')
 		if llOK
-			do (This.cPackagePath + 'install')
-			erase (This.cPackagePath + 'install.*')
-			FileOperation(This.cPackagePath + 'ffi', '', 'DELETE')
+			lcCurDir = FullPath("")
+			Try
+				Cd (This.cPackagePath)
+				do (This.cPackagePath + 'install')
+				erase (This.cPackagePath + 'install.*')
+				FileOperation(This.cPackagePath + 'ffi', '', 'DELETE')
+			Finally
+				Cd (lcCurDir)
+			EndTry
 		endif llOK
 		return llOK
 	endfunc
@@ -36,7 +44,14 @@ define class ParallelFoxInstaller as FoxGet of FoxGet.prg
 * Custom uninstallation tasks: run Uninstall.prg to unregister the COM object.
 
 	function UninstallPackage
-		do (This.cPackagePath + 'uninstall')
+		local lcCurDir
+		lcCurDir = FullPath("")
+		Try 
+			Cd (This.cPackagePath)
+			do (This.cPackagePath + 'uninstall')
+		Finally
+			Cd (lcCurDir)
+		EndTry 
 		return .T.
 	endfunc
 enddefine
