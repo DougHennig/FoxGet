@@ -19,7 +19,7 @@ DEFINE CLASS dataenvironment AS dataenvironment
 
 ENDDEFINE
 
-DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx" 
+DEFINE CLASS foxget AS vfpxbaseform OF "packages\vfpxframework\vfpxbaselibrary.vcx" 
  	*< CLASSDATA: Baseclass="form" Timestamp="" Scale="" Uniqueid="" />
 
 	*-- OBJECTDATA items order determines ZOrder / El orden de los items OBJECTDATA determina el ZOrder 
@@ -92,28 +92,28 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		Left = 10, ;
 		Name = "chkShowOnlyInstalled", ;
 		Top = 13
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="checkbox" />
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="checkbox" />
 
 	ADD OBJECT 'cmdInstall' AS vfpxbasecommandbutton WITH ;
 		Caption = "Install", ;
 		Left = 385, ;
 		Name = "cmdInstall", ;
 		Top = 393
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="commandbutton" />
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="commandbutton" />
 
 	ADD OBJECT 'cmdUninstall' AS vfpxbasecommandbutton WITH ;
 		Caption = "Uninstall", ;
 		Left = 485, ;
 		Name = "cmdUninstall", ;
 		Top = 393
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="commandbutton" />
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="commandbutton" />
 
 	ADD OBJECT 'cmdUpdate' AS vfpxbasecommandbutton WITH ;
 		Caption = "Update", ;
 		Left = 585, ;
 		Name = "cmdUpdate", ;
 		Top = 393
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="commandbutton" />
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="commandbutton" />
 
 	ADD OBJECT 'edtDescrip' AS vfpxbaseeditbox WITH ;
 		BorderStyle = 0, ;
@@ -127,7 +127,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		ScrollBars = 0, ;
 		Top = 60, ;
 		Width = 420
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="editbox" />
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="editbox" />
 
 	ADD OBJECT 'edtKeywords' AS vfpxbaseeditbox WITH ;
 		BorderStyle = 0, ;
@@ -135,13 +135,13 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		DisabledBackColor = 255,255,255, ;
 		DisabledForeColor = 0,0,0, ;
 		Enabled = .F., ;
-		Height = 30, ;
+		Height = 34, ;
 		Left = 483, ;
 		Name = "edtKeywords", ;
 		ScrollBars = 0, ;
 		Top = 127, ;
 		Width = 322
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="editbox" />
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="editbox" />
 
 	ADD OBJECT 'edtNotes' AS vfpxbaseeditbox WITH ;
 		BorderStyle = 0, ;
@@ -153,9 +153,9 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		Left = 383, ;
 		Name = "edtNotes", ;
 		ScrollBars = 0, ;
-		Top = 320, ;
+		Top = 325, ;
 		Width = 420
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="editbox" />
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="editbox" />
 
 	ADD OBJECT 'edtProgress' AS vfpxbaseeditbox WITH ;
 		Height = 200, ;
@@ -163,37 +163,37 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		Name = "edtProgress", ;
 		Top = 445, ;
 		Width = 795
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="editbox" />
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="editbox" />
 
 	ADD OBJECT 'lblAuthor' AS vfpxbaselabel WITH ;
 		Caption = "Author", ;
 		Left = 485, ;
 		Name = "lblAuthor", ;
-		Top = 160
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		Top = 165
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblAuthorLabel' AS vfpxbaselabel WITH ;
 		Caption = "Author:", ;
 		FontBold = .T., ;
 		Left = 385, ;
 		Name = "lblAuthorLabel", ;
-		Top = 160
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		Top = 165
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblDependencies' AS vfpxbaselabel WITH ;
 		Caption = "Dependencies", ;
 		Left = 485, ;
 		Name = "lblDependencies", ;
-		Top = 220
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		Top = 225
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblDependenciesLabel' AS vfpxbaselabel WITH ;
 		Caption = "Dependencies:", ;
 		FontBold = .T., ;
 		Left = 385, ;
 		Name = "lblDependenciesLabel", ;
-		Top = 220
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		Top = 225
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblDescripLabel' AS vfpxbaselabel WITH ;
 		Caption = "Description:", ;
@@ -201,7 +201,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		Left = 385, ;
 		Name = "lblDescripLabel", ;
 		Top = 40
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblHomeURL' AS vfpxbaselabel WITH ;
 		Caption = "HomeURL", ;
@@ -209,46 +209,46 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		Left = 485, ;
 		MousePointer = 15, ;
 		Name = "lblHomeURL", ;
-		Top = 240
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		Top = 245
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblHomeURLLabel' AS vfpxbaselabel WITH ;
 		Caption = "Project URL:", ;
 		FontBold = .T., ;
 		Left = 385, ;
 		Name = "lblHomeURLLabel", ;
-		Top = 240
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		Top = 245
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblInstalledDate' AS vfpxbaselabel WITH ;
 		Caption = "Installed On", ;
 		Left = 485, ;
 		Name = "lblInstalledDate", ;
-		Top = 280
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		Top = 285
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblInstalledDateLabel' AS vfpxbaselabel WITH ;
 		Caption = "Installed on:", ;
 		FontBold = .T., ;
 		Left = 385, ;
 		Name = "lblInstalledDateLabel", ;
-		Top = 280
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		Top = 285
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblInstalledVersion' AS vfpxbaselabel WITH ;
 		Caption = "Version", ;
 		Left = 485, ;
 		Name = "lblInstalledVersion", ;
-		Top = 260
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		Top = 265
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblInstalledVersionLabel' AS vfpxbaselabel WITH ;
 		Caption = "Installed version:", ;
 		FontBold = .T., ;
 		Left = 385, ;
 		Name = "lblInstalledVersionLabel", ;
-		Top = 260
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		Top = 265
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblKeywordsLabel' AS vfpxbaselabel WITH ;
 		Caption = "Tags:", ;
@@ -256,52 +256,52 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		Left = 385, ;
 		Name = "lblKeywordsLabel", ;
 		Top = 129
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblNotes' AS vfpxbaselabel WITH ;
 		Caption = "Notes:", ;
 		FontBold = .T., ;
 		Left = 385, ;
 		Name = "lblNotes", ;
-		Top = 300
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		Top = 305
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblPubDate' AS vfpxbaselabel WITH ;
 		Caption = "PubDate", ;
 		Left = 485, ;
 		Name = "lblPubDate", ;
-		Top = 180
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		Top = 185
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblPubDateLabel' AS vfpxbaselabel WITH ;
 		Caption = "Date published:", ;
 		FontBold = .T., ;
 		Left = 385, ;
 		Name = "lblPubDateLabel", ;
-		Top = 180
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		Top = 185
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblSearch' AS vfpxbaselabel WITH ;
 		Caption = "Search:", ;
 		Left = 220, ;
 		Name = "lblSearch", ;
 		Top = 13
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblVersion' AS vfpxbaselabel WITH ;
 		Caption = "Version", ;
 		Left = 485, ;
 		Name = "lblVersion", ;
-		Top = 200
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		Top = 205
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lblVersionLabel' AS vfpxbaselabel WITH ;
 		Caption = "Version:", ;
 		FontBold = .T., ;
 		Left = 385, ;
 		Name = "lblVersionLabel", ;
-		Top = 200
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="label" />
+		Top = 205
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="label" />
 
 	ADD OBJECT 'lstPackages' AS vfpxbaselistbox WITH ;
 		Height = 378, ;
@@ -309,7 +309,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		Name = "lstPackages", ;
 		Top = 42, ;
 		Width = 360
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="listbox" />
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="listbox" />
 
 	ADD OBJECT 'txtSearch' AS vfpxbasetextbox WITH ;
 		Height = 23, ;
@@ -317,7 +317,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		Name = "txtSearch", ;
 		Top = 10, ;
 		Width = 270
-		*< END OBJECT: ClassLib="vfpxbaselibrary.vcx" BaseClass="textbox" />
+		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="textbox" />
 	
 	PROCEDURE Destroy
 		release procedure foxget
@@ -450,17 +450,17 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		* Download the FoxGet packages list.
 		
 		set procedure to foxget additive
-		loFiles           = createobject('Collection')
-		loFile            = createobject('FoxGetFile')
-		loFile.cURL       = 'https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/foxgetpackages.dbf'
-		loFile.cLocalFile = This.cWorkingFolder + 'foxgetpackages.dbf'
-		loFiles.Add(loFile)
-		loFile            = createobject('FoxGetFile')
-		loFile.cURL       = 'https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/foxgetpackages.fpt'
-		loFile.cLocalFile = This.cWorkingFolder + 'foxgetpackages.fpt'
-		loFiles.Add(loFile)
-		loInternet = newobject('Internet', 'Internet.prg')
-		llOK = loInternet.Download(loFiles)
+		loInternet  = newobject('VFPXInternet', 'VFPXInternet.prg')
+		lcURL       = 'https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/foxgetpackages.dbf'
+		lcLocalFile = This.cWorkingFolder + 'foxgetpackages.dbf'
+		llOK = loInternet.DownloadFile(lcURL, lcLocalFile)
+		if not llOK
+			messagebox(loInternet.cErrorMessage, 16, 'FoxGet')
+			return .F.
+		endif not llOK
+		lcURL       = 'https://raw.githubusercontent.com/DougHennig/FoxGet/main/Installers/foxgetpackages.fpt'
+		lcLocalFile = This.cWorkingFolder + 'foxgetpackages.fpt'
+		llOK = loInternet.DownloadFile(lcURL, lcLocalFile)
 		if not llOK
 			messagebox(loInternet.cErrorMessage, 16, 'FoxGet')
 			return .F.
@@ -523,14 +523,11 @@ DEFINE CLASS foxget AS vfpxbaseform OF "vfpxbaselibrary.vcx"
 		* Download the installer if necessary.
 		
 		if lower(left(curPackages.InstallURL, 4)) = 'http'
-			lcInstaller       = This.cWorkingFolder + justfname(trim(curPackages.InstallURL))
-			loFiles           = createobject('Collection')
-			loFile            = createobject('FoxGetFile')
-			loFile.cURL       = trim(curPackages.InstallURL)
-			loFile.cLocalFile = lcInstaller
-			loFiles.Add(loFile)
-			loInternet = newobject('Internet', 'Internet.prg')
-			llOK = loInternet.Download(loFiles)
+			lcInstaller = This.cWorkingFolder + justfname(trim(curPackages.InstallURL))
+			lcURL       = trim(curPackages.InstallURL)
+			lcLocalFile = lcInstaller
+			loInternet = newobject('VFPXInternet', 'VFPXInternet.prg')
+			llOK = loInternet.DownloadFile(lcURL, lcLocalFile)
 			if not llOK
 				messagebox(loInternet.cErrorMessage, 16, 'FoxGet')
 				return .F.

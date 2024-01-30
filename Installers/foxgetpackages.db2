@@ -556,7 +556,7 @@
 			<HOMEURL>https:&#47;&#47;github.com&#47;cwollenhaupt&#47;fpCefSharp</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;fpcefsharpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
-			<NOTES></NOTES>
+			<NOTES><![CDATA[See https://github.com/cwollenhaupt/fpCefSharp for implementation details]]></NOTES>
 		</RECORD>
 
 		<RECORD>
@@ -570,6 +570,19 @@
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;formatinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
 			<NOTES></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>VFP2C32</NAME>
+			<AUTHOR>Christian Ehlscheid</AUTHOR>
+			<DESCRIP><![CDATA[Provides an FLL with wrappers for many WinAPI functions]]></DESCRIP>
+			<KEYWORDS><![CDATA[Windows,API,fll]]></KEYWORDS>
+			<VERSION>2.0.0.41</VERSION>
+			<PUBDATE>2023/09/13</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;ChristianEhlscheid&#47;vfp2c32</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;vfp2c32installer.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES><![CDATA[Deploy vfp2c32.fll (VFP2C32 folder)]]></NOTES>
 		</RECORD>
 
 	</RECORDS>

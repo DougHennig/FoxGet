@@ -20,7 +20,7 @@ DEFINE CLASS vfpxbasecheckbox AS checkbox
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	PROTECTED nsavedanchor,omenu
+	PROTECTED nsavedanchor
 	*<PropValue>
 		Alignment = 0
 		AutoSize = .T.
@@ -36,13 +36,13 @@ DEFINE CLASS vfpxbasecheckbox AS checkbox
 		Width = 57
 		_memberdata = <VFPData>
 			<memberdata name="anychange" display="AnyChange"/>
-			<memberdata name="showmenu" display="ShowMenu"/>
 			<memberdata name="updatecontrolsource" display="UpdateControlSource"/>
 			<memberdata name="lsaveanchor" display="lSaveAnchor"/>
 			<memberdata name="lsaveanchor_assign" display="lSaveAnchor_Assign"/>
 			<memberdata name="nsavedanchor" display="nSavedAnchor"/>
-			<memberdata name="omenu" display="oMenu"/>
 			<memberdata name="shortcutmenu" display="ShortcutMenu"/>
+			<memberdata name="showmenu" display="ShowMenu"/>
+			<memberdata name="omenu" display="oMenu"/>
 		</VFPData>
 	*</PropValue>
 	
@@ -57,6 +57,17 @@ DEFINE CLASS vfpxbasecheckbox AS checkbox
 		
 		This.UpdateControlSource()
 		raiseevent(This, 'AnyChange')
+		
+	ENDPROC
+
+	PROCEDURE KeyPress
+		* Prevent Ctrl-0 from inserting a null value.
+		
+		lparameters tnKeyCode, ;
+			tnShiftAltCtrl
+		if tnKeyCode = asc('0') and bittest(tnShiftAltCtrl, 1)
+			nodefault
+		endif tnKeyCode = asc('0') ...
 		
 	ENDPROC
 
@@ -153,7 +164,7 @@ DEFINE CLASS vfpxbasecheckbox AS checkbox
 		
 	ENDPROC
 
-	PROTECTED PROCEDURE showmenu		&& Display a shortcut menu
+	PROCEDURE showmenu		&& Display a shortcut menu
 		local lcLibrary
 		private loObject, ;
 			loForm
@@ -223,6 +234,7 @@ DEFINE CLASS vfpxbasecombobox AS combobox 		&& Base class for ComboBox objects
 		*m: shortcutmenu		&& Populates the shortcut menu
 		*m: showmenu		&& Display a shortcut menu
 		*m: updatecontrolsource		&& Updates the control source
+		*p: laddnewitemtolist		&& .T. to add user-typed values to the list
 		*p: lrequeryoninit		&& .T. to call Requery from Init
 		*p: lsaveanchor		&& This allows a container to use SetAll('lSaveAnchor') to save/reset and then restore Anchor when the form's size is changed but controls shouldn't move
 		*p: nsavedanchor		&& The anchor value saved in lSaveAnchor_Assign
@@ -231,11 +243,12 @@ DEFINE CLASS vfpxbasecombobox AS combobox 		&& Base class for ComboBox objects
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	PROTECTED lrequeryoninit,nsavedanchor,omenu
+	PROTECTED nsavedanchor
 	*<PropValue>
 		BoundTo = .T.
 		FontName = "Segoe UI"
 		ItemTips = .T.
+		laddnewitemtolist = .F.
 		lrequeryoninit = .T.
 		lsaveanchor = .F.
 		Name = "vfpxbasecombobox"
@@ -248,16 +261,17 @@ DEFINE CLASS vfpxbasecombobox AS combobox 		&& Base class for ComboBox objects
 		_memberdata = <VFPData>
 			<memberdata name="about" type="method" display="About"/>
 			<memberdata name="aitems" type="property" display="aItems"/>
-			<memberdata name="lrequeryoninit" type="property" display="lRequeryOnInit" favorites="True"/>
 			<memberdata name="release" type="method" display="Release"/>
-			<memberdata name="showmenu" type="method" display="ShowMenu"/>
 			<memberdata name="lsaveanchor" type="property" display="lSaveAnchor"/>
 			<memberdata name="lsaveanchor_assign" type="property" display="lSaveAnchor_Assign"/>
 			<memberdata name="nsavedanchor" type="property" display="nSavedAnchor"/>
 			<memberdata name="updatecontrolsource" type="method" display="UpdateControlSource"/>
-			<memberdata name="omenu" display="oMenu"/>
 			<memberdata name="anychange" display="AnyChange" favorites="True"/>
 			<memberdata name="shortcutmenu" display="ShortcutMenu" favorites="True"/>
+			<memberdata name="lrequeryoninit" display="lRequeryOnInit" favorites="True"/>
+			<memberdata name="laddnewitemtolist" display="lAddNewItemToList"/>
+			<memberdata name="showmenu" display="ShowMenu"/>
+			<memberdata name="omenu" display="oMenu"/>
 		</VFPData>
 	*</PropValue>
 	
@@ -392,7 +406,7 @@ DEFINE CLASS vfpxbasecombobox AS combobox 		&& Base class for ComboBox objects
 		
 	ENDPROC
 
-	PROTECTED PROCEDURE showmenu		&& Display a shortcut menu
+	PROCEDURE showmenu		&& Display a shortcut menu
 		local lcLibrary
 		private loObject, ;
 			loForm
@@ -450,6 +464,30 @@ DEFINE CLASS vfpxbasecombobox AS combobox 		&& Base class for ComboBox objects
 		
 	ENDPROC
 
+	PROCEDURE Valid
+		* If the user typed a new value, add it to the list if we're supposed to.
+		
+		local lnItems, ;
+			lnCols
+		if This.Style = 0 and This.lAddNewItemToList and ;
+			This.RowSourceType = 5 and This.RowSource = 'This.aItems' and ;
+			ascan(This.aItems, This.DisplayValue) = 0
+			lnItems = iif(empty(This.aItems[1]), 0, alen(This.aItems)) + 1
+			lnCols  = alen(This.aItems, 2)
+			if lnCols = 0
+				dimension This.aItems[lnItems]
+				This.aItems[lnItems] = This.DisplayValue
+			else
+				dimension This.aItems[lnItems, alen(This.aItems, 2)]
+				This.aItems[lnItems, 1] = This.DisplayValue
+			endif lnCols = 0
+			asort(This.aItems)
+			This.Requery()
+			This.Value = This.DisplayValue
+		endif This.Style = 0 ...
+		
+	ENDPROC
+
 ENDDEFINE
 
 DEFINE CLASS vfpxbasecommandbutton AS commandbutton 
@@ -465,7 +503,7 @@ DEFINE CLASS vfpxbasecommandbutton AS commandbutton
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	PROTECTED nsavedanchor,omenu
+	PROTECTED nsavedanchor
 	*<PropValue>
 		Caption = "Command1"
 		FontName = "Segoe UI"
@@ -476,12 +514,12 @@ DEFINE CLASS vfpxbasecommandbutton AS commandbutton
 		omenu = .NULL.
 		Width = 84
 		_memberdata = <VFPData>
-			<memberdata name="showmenu" display="ShowMenu"/>
 			<memberdata name="lsaveanchor" display="lSaveAnchor"/>
 			<memberdata name="lsaveanchor_assign" display="lSaveAnchor_Assign"/>
 			<memberdata name="nsavedanchor" display="nSavedAnchor"/>
-			<memberdata name="omenu" display="oMenu"/>
 			<memberdata name="shortcutmenu" display="ShortcutMenu"/>
+			<memberdata name="showmenu" display="ShowMenu"/>
+			<memberdata name="omenu" display="oMenu"/>
 		</VFPData>
 	*</PropValue>
 	
@@ -571,7 +609,7 @@ DEFINE CLASS vfpxbasecommandbutton AS commandbutton
 		
 	ENDPROC
 
-	PROTECTED PROCEDURE showmenu		&& Display a shortcut menu
+	PROCEDURE showmenu		&& Display a shortcut menu
 		local lcLibrary
 		private loObject, ;
 			loForm
@@ -616,21 +654,24 @@ DEFINE CLASS vfpxbasecontainer AS container 		&& Base class for Container object
  	*< CLASSDATA: Baseclass="container" Timestamp="" Scale="Pixels" Uniqueid="" />
 
 	*<DefinedPropArrayMethod>
+		*m: buildercode		&& Code for a self-contained builder; see notes in the method for instructions
 		*m: enabled_assign
 		*m: lsaveanchor_assign
 		*m: shortcutmenu		&& Populates the shortcut menu
 		*m: showmenu		&& Display a shortcut menu
+		*p: builder		&& Tells Builder.app the name of a specific builder to use for this class (specified as Library,Class) or double-click to call code in BuilderCode *** .BuilderCode(loObject)
 		*p: lsaveanchor		&& This allows a container to use SetAll('lSaveAnchor') to save/reset and then restore Anchor when the form's size is changed but controls shouldn't move
 		*p: nsavedanchor		&& The anchor value saved in lSaveAnchor_Assign
 		*p: omenu		&& A reference to an SFMenuShortcutMenu object
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	PROTECTED nsavedanchor,omenu
+	PROTECTED nsavedanchor
 	*<PropValue>
 		Anchor = 15
 		BackStyle = 0
 		BorderWidth = 0
+		builder = 
 		lsaveanchor = .F.
 		Name = "vfpxbasecontainer"
 		nsavedanchor = 0
@@ -638,15 +679,28 @@ DEFINE CLASS vfpxbasecontainer AS container 		&& Base class for Container object
 		_memberdata = <VFPData>
 			<memberdata name="about" type="method" display="About"/>
 			<memberdata name="enabled_assign" type="method" display="Enabled_Assign"/>
-			<memberdata name="omenu" type="property" display="oMenu"/>
-			<memberdata name="showmenu" type="method" display="ShowMenu"/>
 			<memberdata name="lsaveanchor" type="property" display="lSaveAnchor"/>
 			<memberdata name="lsaveanchor_assign" type="property" display="lSaveAnchor_Assign"/>
 			<memberdata name="nsavedanchor" type="property" display="nSavedAnchor"/>
 			<memberdata name="shortcutmenu" display="ShortcutMenu" favorites="True"/>
+			<memberdata name="showmenu" display="ShowMenu"/>
+			<memberdata name="omenu" display="oMenu"/>
+			<memberdata name="builder" display="Builder"/>
+			<memberdata name="buildercode" display="BuilderCode"/>
 		</VFPData>
 	*</PropValue>
 	
+	PROCEDURE buildercode		&& Code for a self-contained builder; see notes in the method for instructions
+		* This method can hold self-contained builder code. To use it, fill in this
+		* method with code that accepts a parameter (a reference to this object) and
+		* uses that parameter to reference to the object (you can't use "This" because
+		* the code will actually be copied to a script PRG and executed there). Then
+		* simply double-click the Builder property in PEM Editor to invoke the builder.
+		
+		lparameters toThis
+		
+	ENDPROC
+
 	PROCEDURE enabled_assign
 		* Enable or disable member objects.
 		
@@ -696,7 +750,7 @@ DEFINE CLASS vfpxbasecontainer AS container 		&& Base class for Container object
 		
 	ENDPROC
 
-	PROTECTED PROCEDURE showmenu		&& Display a shortcut menu
+	PROCEDURE showmenu		&& Display a shortcut menu
 		local lcLibrary
 		private loObject, ;
 			loForm
@@ -819,24 +873,26 @@ DEFINE CLASS vfpxbaseeditbox AS editbox
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	PROTECTED nsavedanchor,omenu
+	PROTECTED nsavedanchor
 	*<PropValue>
+		Anchor = 15
 		FontName = "Segoe UI"
 		Height = 53
 		lsaveanchor = .F.
 		Name = "vfpxbaseeditbox"
 		nsavedanchor = 0
 		omenu = .NULL.
+		SelectOnEntry = .T.
 		Width = 100
 		_memberdata = <VFPData>
-			<memberdata name="showmenu" display="ShowMenu"/>
 			<memberdata name="updatecontrolsource" display="UpdateControlSource"/>
 			<memberdata name="lsaveanchor" display="lSaveAnchor"/>
 			<memberdata name="lsaveanchor_assign" display="lSaveAnchor_Assign"/>
 			<memberdata name="nsavedanchor" display="nSavedAnchor"/>
-			<memberdata name="omenu" display="oMenu"/>
 			<memberdata name="anychange" display="AnyChange"/>
 			<memberdata name="shortcutmenu" display="ShortcutMenu"/>
+			<memberdata name="showmenu" display="ShowMenu"/>
+			<memberdata name="omenu" display="oMenu"/>
 		</VFPData>
 	*</PropValue>
 	
@@ -851,6 +907,23 @@ DEFINE CLASS vfpxbaseeditbox AS editbox
 		
 		This.UpdateControlSource()
 		raiseevent(This, 'AnyChange')
+		
+	ENDPROC
+
+	PROCEDURE KeyPress
+		* Prevent Ctrl-0 from inserting a null value.
+		
+		lparameters tnKeyCode, ;
+			tnShiftAltCtrl
+		if tnKeyCode = asc('0') and bittest(tnShiftAltCtrl, 1)
+			nodefault
+		endif tnKeyCode = asc('0') ...
+		
+		* Prevent backspace from leaving the control.
+		
+		if tnKeyCode = 127 and This.SelStart = 0 and This.SelLength = 0
+		   nodefault
+		endif tnKeyCode = 127 ...
 		
 	ENDPROC
 
@@ -871,6 +944,13 @@ DEFINE CLASS vfpxbaseeditbox AS editbox
 		* Call a common method for handling changes.
 		
 		raiseevent(This, 'AnyChange')
+		
+	ENDPROC
+
+	PROCEDURE RightClick
+		* Display a right-click menu.
+		
+		This.ShowMenu()
 		
 	ENDPROC
 
@@ -940,7 +1020,7 @@ DEFINE CLASS vfpxbaseeditbox AS editbox
 		
 	ENDPROC
 
-	PROTECTED PROCEDURE showmenu		&& Display a shortcut menu
+	PROCEDURE showmenu		&& Display a shortcut menu
 		local lcLibrary
 		private loObject, ;
 			loForm
@@ -1004,7 +1084,10 @@ DEFINE CLASS vfpxbaseform AS form
  	*< CLASSDATA: Baseclass="form" Timestamp="" Scale="Pixels" Uniqueid="" />
 
 	*<DefinedPropArrayMethod>
+		*m: shortcutmenu		&& Populates the shortcut menu
+		*m: showmenu		&& Display a shortcut menu
 		*p: cregistrykey		&& The Registry key used for persisting settings
+		*p: omenu		&& A reference to an SFMenuShortcutMenu object
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
@@ -1017,12 +1100,18 @@ DEFINE CLASS vfpxbaseform AS form
 		Desktop = .T.
 		DoCreate = .T.
 		FontName = "Segoe UI"
+		KeyPreview = .T.
 		MaxButton = .F.
 		MinButton = .F.
 		Name = "vfpxbaseform"
+		omenu = .NULL.
+		ShowTips = .T.
 		ShowWindow = 1
 		_memberdata = <VFPData>
 			<memberdata name="cregistrykey" display="cRegistryKey"/>
+			<memberdata name="shortcutmenu" display="ShortcutMenu"/>
+			<memberdata name="showmenu" display="ShowMenu"/>
+			<memberdata name="omenu" display="oMenu"/>
 		</VFPData>
 	*</PropValue>
 	
@@ -1066,24 +1155,141 @@ DEFINE CLASS vfpxbaseform AS form
 		
 	ENDPROC
 
+	PROCEDURE RightClick
+		* Display a right-click menu.
+		
+		This.ShowMenu()
+		
+	ENDPROC
+
+	PROCEDURE shortcutmenu		&& Populates the shortcut menu
+		*==============================================================================
+		* Method:			ShortcutMenu
+		* Status:			Public
+		* Purpose:			Populates the specified menu object
+		* Author:			Doug Hennig
+		* Last revision:	03/28/2023
+		* Parameters:		toMenu   - an object reference to a menu object
+		*					tcObject - the name of the variable containing the object
+		*						reference to this object
+		* Returns:			.T.
+		* Environment in:	oLocalizer may contain a reference to a localization object
+		* Environment out:	additional items were added to the menu
+		*==============================================================================
+		
+		lparameters toMenu, ;
+			tcObject
+		local lcCut, ;
+			lcCopy, ;
+			lcPaste, ;
+			lcClear, ;
+			lcSelect
+		if type('oLocalizer.Name') = 'C'
+			lcCut    = oLocalizer.GetLocalizedString('MENU_CUT')
+			lcCopy   = oLocalizer.GetLocalizedString('MENU_COPY')
+			lcPaste  = oLocalizer.GetLocalizedString('MENU_PASTE')
+			lcClear  = oLocalizer.GetLocalizedString('MENU_CLEAR')
+			lcSelect = oLocalizer.GetLocalizedString('MENU_SELECT_ALL')
+		else
+			lcCut    = 'Cu\<t'
+			lcCopy   = '\<Copy'
+			lcPaste  = '\<Paste'
+			lcClear  = 'Cle\<ar'
+			lcSelect = 'Se\<lect All'
+		endif type('oLocalizer.Name') = 'C'
+		with toMenu
+			.AddBar(lcCut, ;
+				"sys(1500, '_MED_CUT',   '_MEDIT')", ;
+				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
+				'CutXPSmall.bmp', ;
+				'_med_cut')
+			.AddBar(lcCopy, ;
+				"sys(1500, '_MED_COPY',  '_MEDIT')", ;
+				, ;
+				'CopyXPSmall.bmp', ;
+				'_med_copy')
+			.AddBar(lcPaste, ;
+				"sys(1500, '_MED_PASTE', '_MEDIT')", ;
+				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
+				'PasteXPSmall.bmp', ;
+				'_med_paste')
+			.AddBar(lcClear, ;
+				"sys(1500, '_MED_CLEAR', '_MEDIT')", ;
+				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
+				'_med_clear', ;
+				'_med_clear')
+			.AddSeparatorBar()
+			.AddBar(lcSelect, ;
+				"sys(1500, '_MED_SLCTA', '_MEDIT')", ;
+				, ;
+				'_med_slcta', ;
+				'_med_slcta')
+		endwith
+		
+	ENDPROC
+
+	PROCEDURE showmenu		&& Display a shortcut menu
+		local lcLibrary
+		private loObject, ;
+			loForm
+		with This
+		
+		* Define reference to objects we might have menu items from in case the action
+		* for a bar is to call a method of an object, which can't be done using "This.
+		* Method" since "This" isn't applicable in a menu.
+		
+			loObject = This
+			loForm   = Thisform
+		
+		* Define the menu if it hasn't already been defined.
+		
+			lcLibrary = 'SFMenu.vcx'
+			if vartype(.oMenu) <> 'O' and file(lcLibrary)
+				.oMenu = newobject('SFMenuShortcutMenu', lcLibrary, '', ;
+					'loObject.oMenu')
+			endif vartype(.oMenu) <> 'O' ...
+			if vartype(.oMenu) = 'O'
+		
+		* If there aren't any bars in the menu, have the ShortcutMenu method populate
+		* it.
+		
+				if .oMenu.Count = 0
+					.ShortcutMenu(.oMenu, 'loObject')
+				endif .oMenu.Count = 0
+		
+		* Activate the menu if necessary.
+		
+				if .oMenu.Count > 0
+					.oMenu.Show()
+				endif .oMenu.Count > 0
+			endif vartype(.oMenu) = 'O' ...
+		endwith
+		
+	ENDPROC
+
 ENDDEFINE
 
 DEFINE CLASS vfpxbasegrid AS grid 
  	*< CLASSDATA: Baseclass="grid" Timestamp="" Scale="Pixels" Uniqueid="" />
 
 	*<DefinedPropArrayMethod>
+		*m: buildercode		&& Code for a self-contained builder; see notes in the method for instructions
 		*m: lsaveanchor_assign
 		*m: shortcutmenu		&& Populates the shortcut menu
 		*m: showmenu		&& Display a shortcut menu
+		*p: builder		&& Tells Builder.app the name of a specific builder to use for this class (specified as Library,Class) or double-click to call code in BuilderCode *** .BuilderCode(loObject)
 		*p: lsaveanchor		&& This allows a container to use SetAll('lSaveAnchor') to save/reset and then restore Anchor when the form's size is changed but controls shouldn't move
 		*p: nsavedanchor		&& The anchor value saved in lSaveAnchor_Assign
 		*p: omenu		&& A reference to an SFMenuShortcutMenu object
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	PROTECTED nsavedanchor,omenu
+	PROTECTED nsavedanchor
 	*<PropValue>
+		AllowHeaderSizing = .F.
+		AllowRowSizing = .F.
 		Anchor = 15
+		builder = VFPXGridBuilder.prg
 		DeleteMark = .F.
 		FontName = "Segoe UI"
 		Height = 200
@@ -1092,17 +1298,31 @@ DEFINE CLASS vfpxbasegrid AS grid
 		nsavedanchor = 0
 		omenu = .NULL.
 		RecordMark = .F.
+		SplitBar = .F.
 		Width = 320
 		_memberdata = <VFPData>
-			<memberdata name="showmenu" display="ShowMenu"/>
 			<memberdata name="lsaveanchor" display="lSaveAnchor"/>
 			<memberdata name="lsaveanchor_assign" display="lSaveAnchor_Assign"/>
 			<memberdata name="nsavedanchor" display="nSavedAnchor"/>
-			<memberdata name="omenu" display="oMenu"/>
 			<memberdata name="shortcutmenu" display="ShortcutMenu"/>
+			<memberdata name="showmenu" display="ShowMenu"/>
+			<memberdata name="omenu" display="oMenu"/>
+			<memberdata name="builder" display="Builder"/>
+			<memberdata name="buildercode" display="BuilderCode"/>
 		</VFPData>
 	*</PropValue>
 	
+	PROCEDURE buildercode		&& Code for a self-contained builder; see notes in the method for instructions
+		* This method can hold self-contained builder code. To use it, fill in this
+		* method with code that accepts a parameter (a reference to this object) and
+		* uses that parameter to reference to the object (you can't use "This" because
+		* the code will actually be copied to a script PRG and executed there). Then
+		* simply double-click the Builder property in PEM Editor to invoke the builder.
+		
+		lparameters toThis
+		
+	ENDPROC
+
 	PROCEDURE lsaveanchor_assign
 		lparameters tlSaveAnchor
 		do case
@@ -1189,7 +1409,84 @@ DEFINE CLASS vfpxbasegrid AS grid
 		
 	ENDPROC
 
-	PROTECTED PROCEDURE showmenu		&& Display a shortcut menu
+	PROCEDURE showmenu		&& Display a shortcut menu
+		local lcLibrary
+		private loObject, ;
+			loForm
+		with This
+		
+		* Define reference to objects we might have menu items from in case the action
+		* for a bar is to call a method of an object, which can't be done using "This.
+		* Method" since "This" isn't applicable in a menu.
+		
+			loObject = This
+			loForm   = Thisform
+		
+		* Define the menu if it hasn't already been defined.
+		
+			lcLibrary = 'SFMenu.vcx'
+			if vartype(.oMenu) <> 'O' and file(lcLibrary)
+				.oMenu = newobject('SFMenuShortcutMenu', lcLibrary, '', ;
+					'loObject.oMenu')
+			endif vartype(.oMenu) <> 'O' ...
+			if vartype(.oMenu) = 'O'
+		
+		* If there aren't any bars in the menu, have the ShortcutMenu method populate
+		* it.
+		
+				if .oMenu.Count = 0
+					.ShortcutMenu(.oMenu, 'loObject')
+				endif .oMenu.Count = 0
+		
+		* Activate the menu if necessary.
+		
+				if .oMenu.Count > 0
+					.oMenu.Show()
+				endif .oMenu.Count > 0
+			endif vartype(.oMenu) = 'O' ...
+		endwith
+		
+	ENDPROC
+
+ENDDEFINE
+
+DEFINE CLASS vfpxbaseimage AS image 
+ 	*< CLASSDATA: Baseclass="image" Timestamp="" Scale="Pixels" Uniqueid="" />
+
+	*<DefinedPropArrayMethod>
+		*m: shortcutmenu		&& Populates the shortcut menu
+		*m: showmenu		&& Display a shortcut menu
+		*p: omenu		&& A reference to an SFMenuShortcutMenu object
+		*p: _memberdata
+	*</DefinedPropArrayMethod>
+
+	*<PropValue>
+		BackStyle = 0
+		Height = 17
+		Name = "vfpxbaseimage"
+		omenu = .NULL.
+		Width = 100
+		_memberdata = <VFPData>
+			<memberdata name="shortcutmenu" display="ShortcutMenu"/>
+			<memberdata name="showmenu" display="ShowMenu"/>
+			<memberdata name="omenu" display="oMenu"/>
+		</VFPData>
+	*</PropValue>
+	
+	PROCEDURE RightClick
+		* Display a right-click menu.
+		
+		This.ShowMenu()
+		
+	ENDPROC
+
+	PROCEDURE shortcutmenu		&& Populates the shortcut menu
+		lparameters toMenu, ;
+			tcObject
+		
+	ENDPROC
+
+	PROCEDURE showmenu		&& Display a shortcut menu
 		local lcLibrary
 		private loObject, ;
 			loForm
@@ -1243,7 +1540,7 @@ DEFINE CLASS vfpxbaselabel AS label
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	PROTECTED nsavedanchor,omenu
+	PROTECTED nsavedanchor
 	*<PropValue>
 		AutoSize = .T.
 		BackStyle = 0
@@ -1256,12 +1553,12 @@ DEFINE CLASS vfpxbaselabel AS label
 		omenu = .NULL.
 		Width = 36
 		_memberdata = <VFPData>
-			<memberdata name="showmenu" display="ShowMenu"/>
 			<memberdata name="lsaveanchor" display="lSaveAnchor"/>
 			<memberdata name="lsaveanchor_assign" display="lSaveAnchor_Assign"/>
 			<memberdata name="nsavedanchor" display="nSavedAnchor"/>
-			<memberdata name="omenu" display="oMenu"/>
 			<memberdata name="shortcutmenu" display="ShortcutMenu"/>
+			<memberdata name="showmenu" display="ShowMenu"/>
+			<memberdata name="omenu" display="oMenu"/>
 		</VFPData>
 	*</PropValue>
 	
@@ -1351,7 +1648,164 @@ DEFINE CLASS vfpxbaselabel AS label
 		
 	ENDPROC
 
-	PROTECTED PROCEDURE showmenu		&& Display a shortcut menu
+	PROCEDURE showmenu		&& Display a shortcut menu
+		local lcLibrary
+		private loObject, ;
+			loForm
+		with This
+		
+		* Define reference to objects we might have menu items from in case the action
+		* for a bar is to call a method of an object, which can't be done using "This.
+		* Method" since "This" isn't applicable in a menu.
+		
+			loObject = This
+			loForm   = Thisform
+		
+		* Define the menu if it hasn't already been defined.
+		
+			lcLibrary = 'SFMenu.vcx'
+			if vartype(.oMenu) <> 'O' and file(lcLibrary)
+				.oMenu = newobject('SFMenuShortcutMenu', lcLibrary, '', ;
+					'loObject.oMenu')
+			endif vartype(.oMenu) <> 'O' ...
+			if vartype(.oMenu) = 'O'
+		
+		* If there aren't any bars in the menu, have the ShortcutMenu method populate
+		* it.
+		
+				if .oMenu.Count = 0
+					.ShortcutMenu(.oMenu, 'loObject')
+				endif .oMenu.Count = 0
+		
+		* Activate the menu if necessary.
+		
+				if .oMenu.Count > 0
+					.oMenu.Show()
+				endif .oMenu.Count > 0
+			endif vartype(.oMenu) = 'O' ...
+		endwith
+		
+	ENDPROC
+
+ENDDEFINE
+
+DEFINE CLASS vfpxbaseline AS line 
+ 	*< CLASSDATA: Baseclass="line" Timestamp="" Scale="Pixels" Uniqueid="" />
+
+	*<DefinedPropArrayMethod>
+		*m: lsaveanchor_assign
+		*m: shortcutmenu		&& Populates the shortcut menu
+		*m: showmenu		&& Display a shortcut menu
+		*p: lsaveanchor		&& This allows a container to use SetAll('lSaveAnchor') to save/reset and then restore Anchor when the form's size is changed but controls shouldn't move
+		*p: nsavedanchor		&& The anchor value saved in lSaveAnchor_Assign
+		*p: omenu		&& A reference to an SFMenuShortcutMenu object
+		*p: _memberdata		&& XML Metadata for customizable properties
+	*</DefinedPropArrayMethod>
+
+	PROTECTED nsavedanchor
+	*<PropValue>
+		lsaveanchor = .F.
+		Name = "vfpxbaseline"
+		nsavedanchor = 0
+		omenu = .NULL.
+		Width = 100
+		_memberdata = <VFPData>
+			<memberdata name="shortcutmenu" type="method" display="ShortcutMenu" favorites="True"/>
+			<memberdata name="showmenu" type="method" display="ShowMenu"/>
+			<memberdata name="lsaveanchor" type="property" display="lSaveAnchor"/>
+			<memberdata name="lsaveanchor_assign" type="property" display="lSaveAnchor_Assign"/>
+			<memberdata name="nsavedanchor" type="property" display="nSavedAnchor"/>
+			<memberdata name="omenu" display="oMenu"/>
+		</VFPData>
+	*</PropValue>
+	
+	PROCEDURE lsaveanchor_assign
+		lparameters tlSaveAnchor
+		do case
+			case tlSaveAnchor and This.nSavedAnchor > 0 and This.Anchor = 0
+			case tlSaveAnchor
+				This.nSavedAnchor = This.Anchor
+				This.Anchor       = 0
+			otherwise
+				This.Anchor = This.nSavedAnchor
+		endcase
+		
+	ENDPROC
+
+	PROCEDURE RightClick
+		* Display a right-click menu.
+		
+		This.ShowMenu()
+		
+	ENDPROC
+
+	PROCEDURE shortcutmenu		&& Populates the shortcut menu
+		*==============================================================================
+		* Method:			ShortcutMenu
+		* Status:			Public
+		* Purpose:			Populates the specified menu object
+		* Author:			Doug Hennig
+		* Last revision:	03/28/2023
+		* Parameters:		toMenu   - an object reference to a menu object
+		*					tcObject - the name of the variable containing the object
+		*						reference to this object
+		* Returns:			.T.
+		* Environment in:	oLocalizer may contain a reference to a localization object
+		* Environment out:	additional items were added to the menu
+		*==============================================================================
+		
+		lparameters toMenu, ;
+			tcObject
+		local lcCut, ;
+			lcCopy, ;
+			lcPaste, ;
+			lcClear, ;
+			lcSelect
+		if type('oLocalizer.Name') = 'C'
+			lcCut    = oLocalizer.GetLocalizedString('MENU_CUT')
+			lcCopy   = oLocalizer.GetLocalizedString('MENU_COPY')
+			lcPaste  = oLocalizer.GetLocalizedString('MENU_PASTE')
+			lcClear  = oLocalizer.GetLocalizedString('MENU_CLEAR')
+			lcSelect = oLocalizer.GetLocalizedString('MENU_SELECT_ALL')
+		else
+			lcCut    = 'Cu\<t'
+			lcCopy   = '\<Copy'
+			lcPaste  = '\<Paste'
+			lcClear  = 'Cle\<ar'
+			lcSelect = 'Se\<lect All'
+		endif type('oLocalizer.Name') = 'C'
+		with toMenu
+			.AddBar(lcCut, ;
+				"sys(1500, '_MED_CUT',   '_MEDIT')", ;
+				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
+				'CutXPSmall.bmp', ;
+				'_med_cut')
+			.AddBar(lcCopy, ;
+				"sys(1500, '_MED_COPY',  '_MEDIT')", ;
+				, ;
+				'CopyXPSmall.bmp', ;
+				'_med_copy')
+			.AddBar(lcPaste, ;
+				"sys(1500, '_MED_PASTE', '_MEDIT')", ;
+				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
+				'PasteXPSmall.bmp', ;
+				'_med_paste')
+			.AddBar(lcClear, ;
+				"sys(1500, '_MED_CLEAR', '_MEDIT')", ;
+				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
+				'_med_clear', ;
+				'_med_clear')
+			.AddSeparatorBar()
+			.AddBar(lcSelect, ;
+				"sys(1500, '_MED_SLCTA', '_MEDIT')", ;
+				, ;
+				'_med_slcta', ;
+				'_med_slcta')
+		endwith
+		
+	ENDPROC
+
+	PROCEDURE showmenu		&& Display a shortcut menu
 		local lcLibrary
 		private loObject, ;
 			loForm
@@ -1410,11 +1864,12 @@ DEFINE CLASS vfpxbaselistbox AS listbox
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	PROTECTED lrequeryoninit,nsavedanchor,omenu
+	PROTECTED nsavedanchor
 	*<PropValue>
 		BoundTo = .T.
 		FontName = "Segoe UI"
 		Height = 170
+		IntegralHeight = .T.
 		ItemTips = .T.
 		lrequeryoninit = .T.
 		lsaveanchor = .F.
@@ -1428,14 +1883,14 @@ DEFINE CLASS vfpxbaselistbox AS listbox
 			<memberdata name="aitems" display="aItems"/>
 			<memberdata name="anychange" display="AnyChange"/>
 			<memberdata name="release" display="Release"/>
-			<memberdata name="showmenu" display="ShowMenu"/>
 			<memberdata name="updatecontrolsource" display="UpdateControlSource"/>
-			<memberdata name="lrequeryoninit" display="lRequeryOnInit"/>
 			<memberdata name="lsaveanchor" display="lSaveAnchor"/>
 			<memberdata name="lsaveanchor_assign" display="lSaveAnchor_Assign"/>
 			<memberdata name="nsavedanchor" display="nSavedAnchor"/>
-			<memberdata name="omenu" display="oMenu"/>
 			<memberdata name="shortcutmenu" display="ShortcutMenu"/>
+			<memberdata name="showmenu" display="ShowMenu"/>
+			<memberdata name="omenu" display="oMenu"/>
+			<memberdata name="lrequeryoninit" display="lRequeryOnInit"/>
 		</VFPData>
 	*</PropValue>
 	
@@ -1564,7 +2019,248 @@ DEFINE CLASS vfpxbaselistbox AS listbox
 		
 	ENDPROC
 
-	PROTECTED PROCEDURE showmenu		&& Display a shortcut menu
+	PROCEDURE showmenu		&& Display a shortcut menu
+		local lcLibrary
+		private loObject, ;
+			loForm
+		with This
+		
+		* Define reference to objects we might have menu items from in case the action
+		* for a bar is to call a method of an object, which can't be done using "This.
+		* Method" since "This" isn't applicable in a menu.
+		
+			loObject = This
+			loForm   = Thisform
+		
+		* Define the menu if it hasn't already been defined.
+		
+			lcLibrary = 'SFMenu.vcx'
+			if vartype(.oMenu) <> 'O' and file(lcLibrary)
+				.oMenu = newobject('SFMenuShortcutMenu', lcLibrary, '', ;
+					'loObject.oMenu')
+			endif vartype(.oMenu) <> 'O' ...
+			if vartype(.oMenu) = 'O'
+		
+		* If there aren't any bars in the menu, have the ShortcutMenu method populate
+		* it.
+		
+				if .oMenu.Count = 0
+					.ShortcutMenu(.oMenu, 'loObject')
+				endif .oMenu.Count = 0
+		
+		* Activate the menu if necessary.
+		
+				if .oMenu.Count > 0
+					.oMenu.Show()
+				endif .oMenu.Count > 0
+			endif vartype(.oMenu) = 'O' ...
+		endwith
+		
+	ENDPROC
+
+	PROTECTED PROCEDURE updatecontrolsource		&& Updates the control source
+		local lnPos, ;
+			lcAlias, ;
+			lcField
+		with This
+			lnPos = at('.', .ControlSource)
+			if lnPos > 0 and not .Value == evaluate(.ControlSource)
+				lcAlias = left(.ControlSource, lnPos - 1)
+				lcField = substr(.ControlSource, lnPos + 1)
+				if used(lcAlias)
+					replace (lcField) with .Value in (lcAlias)
+				else
+					store .Value to (.ControlSource)
+				endif used(lcAlias)
+			endif lnPos > 0 ...
+		endwith
+		
+	ENDPROC
+
+ENDDEFINE
+
+DEFINE CLASS vfpxbaseoptionbutton AS optionbutton 
+ 	*< CLASSDATA: Baseclass="optionbutton" Timestamp="" Scale="Pixels" Uniqueid="" />
+
+	*<PropValue>
+		AutoSize = .T.
+		BackStyle = 0
+		Caption = "Option1"
+		FontName = "Segoe UI"
+		Height = 17
+		Name = "vfpxbaseoptionbutton"
+		Width = 61
+	*</PropValue>
+	
+	PROCEDURE KeyPress
+		* Prevent Ctrl-0 from inserting a null value.
+		
+		lparameters tnKeyCode, ;
+			tnShiftAltCtrl
+		if tnKeyCode = asc('0') and bittest(tnShiftAltCtrl, 1)
+			nodefault
+		endif tnKeyCode = asc('0') ...
+		
+	ENDPROC
+
+ENDDEFINE
+
+DEFINE CLASS vfpxbaseoptiongroup AS optiongroup 
+ 	*< CLASSDATA: Baseclass="optiongroup" Timestamp="" Scale="Pixels" Uniqueid="" />
+
+	*<DefinedPropArrayMethod>
+		*m: anychange		&& Called from the InteractiveChange and ProgrammaticChange events to consolidate change code in one place
+		*m: lsaveanchor_assign
+		*m: shortcutmenu		&& Populates the shortcut menu
+		*m: showmenu		&& Display a shortcut menu
+		*m: updatecontrolsource		&& Updates the control source
+		*p: lsaveanchor		&& This allows a container to use SetAll('lSaveAnchor') to save/reset and then restore Anchor when the form's size is changed but controls shouldn't move
+		*p: nsavedanchor		&& The anchor value saved in lSaveAnchor_Assign
+		*p: omenu		&& A reference to an SFMenuShortcutMenu object
+		*p: _memberdata
+	*</DefinedPropArrayMethod>
+
+	PROTECTED nsavedanchor
+	*<PropValue>
+		AutoSize = .T.
+		BackStyle = 0
+		BorderStyle = 0
+		ButtonCount = 2
+		Height = 46
+		lsaveanchor = .F.
+		MemberClass = "vfpxbaseoptionbutton"
+		MemberClassLibrary = vfpxbaselibrary.vcx
+		Name = "vfpxbaseoptiongroup"
+		nsavedanchor = 0
+		omenu = .NULL.
+		Value = 0
+		Width = 71
+		_memberdata = <VFPData>
+			<memberdata name="anychange" display="AnyChange"/>
+			<memberdata name="shortcutmenu" display="ShortcutMenu"/>
+			<memberdata name="showmenu" display="ShowMenu"/>
+			<memberdata name="updatecontrolsource" display="UpdateControlSource"/>
+			<memberdata name="omenu" display="oMenu"/>
+			<memberdata name="lsaveanchor" display="lSaveAnchor"/>
+			<memberdata name="lsaveanchor_assign" display="lSaveAnchor_Assign"/>
+			<memberdata name="nsavedanchor" display="nSavedAnchor"/>
+		</VFPData>
+		Vfpxbaseoptionbutton1.Left = 5
+		Vfpxbaseoptionbutton1.Name = "Vfpxbaseoptionbutton1"
+		Vfpxbaseoptionbutton1.Top = 5
+		Vfpxbaseoptionbutton2.Left = 5
+		Vfpxbaseoptionbutton2.Name = "Vfpxbaseoptionbutton2"
+		Vfpxbaseoptionbutton2.Top = 24
+	*</PropValue>
+	
+	PROCEDURE anychange		&& Called from the InteractiveChange and ProgrammaticChange events to consolidate change code in one place
+		* Abstract method
+		
+	ENDPROC
+
+	PROCEDURE InteractiveChange
+		* Update the control source in case something binding to our AnyChange event
+		* looks at it.
+		
+		This.UpdateControlSource()
+		raiseevent(This, 'AnyChange')
+		
+	ENDPROC
+
+	PROCEDURE lsaveanchor_assign
+		lparameters tlSaveAnchor
+		do case
+			case tlSaveAnchor and This.nSavedAnchor > 0 and This.Anchor = 0
+			case tlSaveAnchor
+				This.nSavedAnchor = This.Anchor
+				This.Anchor       = 0
+			otherwise
+				This.Anchor = This.nSavedAnchor
+		endcase
+		
+	ENDPROC
+
+	PROCEDURE ProgrammaticChange
+		* Call a common method for handling changes.
+		
+		raiseevent(This, 'AnyChange')
+		
+	ENDPROC
+
+	PROCEDURE RightClick
+		* Display a right-click menu.
+		
+		This.ShowMenu()
+		
+	ENDPROC
+
+	PROCEDURE shortcutmenu		&& Populates the shortcut menu
+		*==============================================================================
+		* Method:			ShortcutMenu
+		* Status:			Public
+		* Purpose:			Populates the specified menu object
+		* Author:			Doug Hennig
+		* Last revision:	03/28/2023
+		* Parameters:		toMenu   - an object reference to a menu object
+		*					tcObject - the name of the variable containing the object
+		*						reference to this object
+		* Returns:			.T.
+		* Environment in:	oLocalizer may contain a reference to a localization object
+		* Environment out:	additional items were added to the menu
+		*==============================================================================
+		
+		lparameters toMenu, ;
+			tcObject
+		local lcCut, ;
+			lcCopy, ;
+			lcPaste, ;
+			lcClear, ;
+			lcSelect
+		if type('oLocalizer.Name') = 'C'
+			lcCut    = oLocalizer.GetLocalizedString('MENU_CUT')
+			lcCopy   = oLocalizer.GetLocalizedString('MENU_COPY')
+			lcPaste  = oLocalizer.GetLocalizedString('MENU_PASTE')
+			lcClear  = oLocalizer.GetLocalizedString('MENU_CLEAR')
+			lcSelect = oLocalizer.GetLocalizedString('MENU_SELECT_ALL')
+		else
+			lcCut    = 'Cu\<t'
+			lcCopy   = '\<Copy'
+			lcPaste  = '\<Paste'
+			lcClear  = 'Cle\<ar'
+			lcSelect = 'Se\<lect All'
+		endif type('oLocalizer.Name') = 'C'
+		with toMenu
+			.AddBar(lcCut, ;
+				"sys(1500, '_MED_CUT',   '_MEDIT')", ;
+				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
+				'CutXPSmall.bmp', ;
+				'_med_cut')
+			.AddBar(lcCopy, ;
+				"sys(1500, '_MED_COPY',  '_MEDIT')", ;
+				, ;
+				'CopyXPSmall.bmp', ;
+				'_med_copy')
+			.AddBar(lcPaste, ;
+				"sys(1500, '_MED_PASTE', '_MEDIT')", ;
+				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
+				'PasteXPSmall.bmp', ;
+				'_med_paste')
+			.AddBar(lcClear, ;
+				"sys(1500, '_MED_CLEAR', '_MEDIT')", ;
+				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
+				'_med_clear', ;
+				'_med_clear')
+			.AddSeparatorBar()
+			.AddBar(lcSelect, ;
+				"sys(1500, '_MED_SLCTA', '_MEDIT')", ;
+				, ;
+				'_med_slcta', ;
+				'_med_slcta')
+		endwith
+		
+	ENDPROC
+
+	PROCEDURE showmenu		&& Display a shortcut menu
 		local lcLibrary
 		private loObject, ;
 			loForm
@@ -1635,22 +2331,20 @@ DEFINE CLASS vfpxbasepage AS page
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	PROTECTED omenu
 	*<PropValue>
 		BackStyle = 0
 		Caption = "Page"
-		Enabled = .T.
 		FontName = "Segoe UI"
-		Height = 194
+		Height = 191
 		Name = "vfpxbasepage"
 		omenu = .NULL.
-		Width = 194
+		Width = 191
 		_memberdata = <VFPData>
 			<memberdata name="enabled" display="Enabled"/>
 			<memberdata name="enabled_assign" display="Enabled_Assign"/>
+			<memberdata name="shortcutmenu" display="ShortcutMenu"/>
 			<memberdata name="showmenu" display="ShowMenu"/>
 			<memberdata name="omenu" display="oMenu"/>
-			<memberdata name="shortcutmenu" display="ShortcutMenu"/>
 		</VFPData>
 	*</PropValue>
 	
@@ -1744,7 +2438,7 @@ DEFINE CLASS vfpxbasepage AS page
 		
 	ENDPROC
 
-	PROTECTED PROCEDURE showmenu		&& Display a shortcut menu
+	PROCEDURE showmenu		&& Display a shortcut menu
 		local lcLibrary
 		private loObject, ;
 			loForm
@@ -1798,11 +2492,10 @@ DEFINE CLASS vfpxbasepageframe AS pageframe
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	PROTECTED nsavedanchor,omenu
+	PROTECTED nsavedanchor
 	*<PropValue>
 		Anchor = 15
 		ErasePage = .T.
-		Height = 169
 		lsaveanchor = .F.
 		MemberClass = "vfpxbasepage"
 		MemberClassLibrary = vfpxbaselibrary.vcx
@@ -1811,14 +2504,13 @@ DEFINE CLASS vfpxbasepageframe AS pageframe
 		omenu = .NULL.
 		PageCount = 1
 		TabStyle = 1
-		Width = 241
 		_memberdata = <VFPData>
-			<memberdata name="showmenu" display="ShowMenu"/>
 			<memberdata name="lsaveanchor" display="lSaveAnchor"/>
 			<memberdata name="lsaveanchor_assign" display="lSaveAnchor_Assign"/>
 			<memberdata name="nsavedanchor" display="nSavedAnchor"/>
-			<memberdata name="omenu" display="oMenu"/>
 			<memberdata name="shortcutmenu" display="ShortcutMenu"/>
+			<memberdata name="showmenu" display="ShowMenu"/>
+			<memberdata name="omenu" display="oMenu"/>
 		</VFPData>
 		Vfpxbasepage1.Name = "Vfpxbasepage1"
 	*</PropValue>
@@ -1909,7 +2601,7 @@ DEFINE CLASS vfpxbasepageframe AS pageframe
 		
 	ENDPROC
 
-	PROTECTED PROCEDURE showmenu		&& Display a shortcut menu
+	PROCEDURE showmenu		&& Display a shortcut menu
 		local lcLibrary
 		private loObject, ;
 			loForm
@@ -1963,7 +2655,7 @@ DEFINE CLASS vfpxbaseshape AS shape 		&& The base class for all Shape objects
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	PROTECTED nsavedanchor,omenu
+	PROTECTED nsavedanchor
 	*<PropValue>
 		BackStyle = 0
 		lsaveanchor = .F.
@@ -2125,10 +2817,9 @@ DEFINE CLASS vfpxbasespinner AS spinner
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	PROTECTED nsavedanchor,omenu
+	PROTECTED nsavedanchor
 	*<PropValue>
 		FontName = "Segoe UI"
-		Height = 24
 		lsaveanchor = .F.
 		Name = "vfpxbasespinner"
 		nsavedanchor = 0
@@ -2136,14 +2827,14 @@ DEFINE CLASS vfpxbasespinner AS spinner
 		SelectOnEntry = .T.
 		Width = 50
 		_memberdata = <VFPData>
-			<memberdata name="showmenu" display="ShowMenu"/>
 			<memberdata name="updatecontrolsource" display="UpdateControlSource"/>
 			<memberdata name="lsaveanchor" display="lSaveAnchor"/>
 			<memberdata name="lsaveanchor_assign" display="lSaveAnchor_Assign"/>
 			<memberdata name="nsavedanchor" display="nSavedAnchor"/>
-			<memberdata name="omenu" display="oMenu"/>
 			<memberdata name="anychange" display="AnyChange"/>
 			<memberdata name="shortcutmenu" display="ShortcutMenu"/>
+			<memberdata name="showmenu" display="ShowMenu"/>
+			<memberdata name="omenu" display="oMenu"/>
 		</VFPData>
 	*</PropValue>
 	
@@ -2254,7 +2945,7 @@ DEFINE CLASS vfpxbasespinner AS spinner
 		
 	ENDPROC
 
-	PROTECTED PROCEDURE showmenu		&& Display a shortcut menu
+	PROCEDURE showmenu		&& Display a shortcut menu
 		local lcLibrary
 		private loObject, ;
 			loForm
@@ -2329,7 +3020,7 @@ DEFINE CLASS vfpxbasetextbox AS textbox
 		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
-	PROTECTED nsavedanchor,omenu
+	PROTECTED nsavedanchor
 	*<PropValue>
 		FontName = "Segoe UI"
 		Height = 23
@@ -2340,14 +3031,14 @@ DEFINE CLASS vfpxbasetextbox AS textbox
 		SelectOnEntry = .T.
 		Width = 100
 		_memberdata = <VFPData>
-			<memberdata name="showmenu" display="ShowMenu"/>
 			<memberdata name="updatecontrolsource" display="UpdateControlSource"/>
 			<memberdata name="lsaveanchor" display="lSaveAnchor"/>
 			<memberdata name="lsaveanchor_assign" display="lSaveAnchor_Assign"/>
 			<memberdata name="nsavedanchor" display="nSavedAnchor"/>
-			<memberdata name="omenu" display="oMenu"/>
 			<memberdata name="anychange" display="AnyChange"/>
 			<memberdata name="shortcutmenu" display="ShortcutMenu"/>
+			<memberdata name="showmenu" display="ShowMenu"/>
+			<memberdata name="omenu" display="oMenu"/>
 		</VFPData>
 	*</PropValue>
 	
@@ -2362,6 +3053,23 @@ DEFINE CLASS vfpxbasetextbox AS textbox
 		
 		This.UpdateControlSource()
 		raiseevent(This, 'AnyChange')
+		
+	ENDPROC
+
+	PROCEDURE KeyPress
+		* Prevent Ctrl-0 from inserting a null value.
+		
+		lparameters tnKeyCode, ;
+			tnShiftAltCtrl
+		if tnKeyCode = asc('0') and bittest(tnShiftAltCtrl, 1)
+			nodefault
+		endif tnKeyCode = asc('0') ...
+		
+		* Prevent backspace from leaving the control.
+		
+		if tnKeyCode = 127 and This.SelStart = 0 and This.SelLength = 0
+		   nodefault
+		endif tnKeyCode = 127 ...
 		
 	ENDPROC
 
@@ -2458,7 +3166,7 @@ DEFINE CLASS vfpxbasetextbox AS textbox
 		
 	ENDPROC
 
-	PROTECTED PROCEDURE showmenu		&& Display a shortcut menu
+	PROCEDURE showmenu		&& Display a shortcut menu
 		local lcLibrary
 		private loObject, ;
 			loForm
@@ -2515,5 +3223,19 @@ DEFINE CLASS vfpxbasetextbox AS textbox
 		endwith
 		
 	ENDPROC
+
+ENDDEFINE
+
+DEFINE CLASS vfpxbasetoolbarbutton AS vfpxbasecommandbutton OF "vfpxbaselibrary.vcx" 
+ 	*< CLASSDATA: Baseclass="commandbutton" Timestamp="" Scale="Pixels" Uniqueid="" />
+
+	*<PropValue>
+		Caption = ""
+		Height = 24
+		Name = "vfpxbasetoolbarbutton"
+		SpecialEffect = 2
+		TabStop = .F.
+		Width = 24
+	*</PropValue>
 
 ENDDEFINE

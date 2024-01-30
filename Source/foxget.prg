@@ -258,14 +258,20 @@ define class FoxGet as Custom
 
 	function DownloadFiles()
 		local loInternet, ;
+			loFile, ;
+			lcURL, ;
 			llReturn
-		loInternet = newobject('Internet', 'Internet.prg')
-		bindevent(loInternet, 'Update', This, 'UpdateAndLog')
-		llReturn = loInternet.Download(This.oFiles)
-		if not llReturn
-			raiseevent(This, 'Update', loInternet.cErrorMessage)
-			This.Log(loInternet.cErrorMessage)
-		endif not llReturn
+		loInternet = newobject('VFPXInternet', 'VFPXInternet.prg')
+		for each loFile in This.oFiles foxobject
+			lcURL = loFile.cURL
+			This.UpdateAndLog('Downloading file ' + justfname(lcURL))
+			llReturn = loInternet.DownloadFile(lcURL, loFile.cLocalFile)
+			if not llReturn
+				raiseevent(This, 'Update', loInternet.cErrorMessage)
+				This.Log(loInternet.cErrorMessage)
+				exit
+			endif not llReturn
+		next loFile
 		return llReturn
 	endfunc
 
@@ -319,56 +325,15 @@ define class FoxGet as Custom
 * Extract a file.
 
 	function ExtractFile(tcSource, tcDestination)
-		local loShell, ;
-			loFiles, ;
-			loException as Exception, ;
-			llResult, ;
-			lcCommand, ;
-			loAPI, ;
-			lcMessage
-
-* Try to use Shell.Application to extract files.
-
-		raiseevent(This, 'Update', 'Extracting ' + justfname(tcSource))
-		This.Log('Extracting ' + tcSource)
-		try
-			loShell = createobject('Shell.Application')
-			loFiles = loShell.NameSpace(tcSource).Items
-			if loFiles.Count > 0
-				loShell.NameSpace(tcDestination).CopyHere(loFiles)
-				llResult = .T.
-				This.Log('Extraction complete')
-			endif loFiles.Count > 0
-		catch to loException
-			This.Log('Error extracting from zip using Shell.Application: ' + ;
-				loException.Message)
-		endtry
-
-* If that failed, use PowerShell.
-
-		if not llResult
-			This.Log('Attempting extracting with PowerShell')
-			lcCommand = 'cmd /c %SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe ' + ;
-				'Microsoft.Powershell.Archive\Expand-Archive ' + ;
-				"-Path '" + tcSource + "' " + ;
-				"-DestinationPath '" + tcDestination + "'"
-			loAPI = newobject('API_AppRun', 'API_AppRun.prg', '', lcCommand, This.cWorkingPath, 'HID')
-			do case
-				case not empty(loAPI.icErrorMessage)
-					lcMessage = loAPI.icErrorMessage
-				case loAPI.LaunchAppAndWait()
-					llResult  = nvl(loAPI.CheckProcessExitCode(), -1) = 0
-					lcMessage = evl(loAPI.icErrorMessage, 'API_AppRun failed on execution')
-				otherwise
-					lcMessage = loAPI.icErrorMessage
-			endcase
-			if llResult
-				This.Log('Extraction complete')
-			else
-				raiseevent(This, 'Update', 'Extraction failed: see log file for details')
-				This.Log('Error extracting from zip via PowerShell: ' + lcMessage)
-			endif llResult
-		endif not llResult
+		local loZip, ;
+			llResult
+		loZip    = newobject('VFPXZip', 'VFPXZip.prg')
+		llResult = loZip.Unzip(tcSource, tcDestination)
+		if llResult
+			This.Log('Extraction complete')
+		else
+			This.Log('Error extracting from zip: ' + loZip.cErrorMessage)
+		endif llResult
 		return llResult
 	endfunc
 

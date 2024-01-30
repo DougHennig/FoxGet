@@ -6,7 +6,8 @@ FoxGet is a package manager for VFP similar to the NuGet Package Manager for .NE
 
 ### 2024-01-30
 
-* Added installers for fpCefSharp and Format.
+* Added installers for fpCefSharp, Format, and VFP2C32.
+* Implemented VFPX Framework.
 
 ### 2024-01-07
 
