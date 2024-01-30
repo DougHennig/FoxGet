@@ -4,7 +4,7 @@ loInstaller = createobject('FormatInstaller')
 loInstaller.Install()
 
 define class FormatInstaller as FoxGet of FoxGet.prg
-	cBaseURL = 'https://raw.githubusercontent.com/DougHennig/FormattingStrings/master/'
+	cBaseURL = 'https://raw.githubusercontent.com/DougHennig/FormattingStrings/main/'
 
 * Define the files to download. Note that URLs are case-sensitive. Also, we'll
 * download directly to the package folder since there's nothing to unzip, and
