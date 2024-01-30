@@ -546,6 +546,32 @@
 			<NOTES></NOTES>
 		</RECORD>
 
+		<RECORD>
+			<NAME>fpCefSharp</NAME>
+			<AUTHOR>Christof Wollenhaupt</AUTHOR>
+			<DESCRIP><![CDATA[With fpCefSharp you can add a modern browser to your Visual FoxPro application.]]></DESCRIP>
+			<KEYWORDS><![CDATA[CEF,browser,CEFSharp]]></KEYWORDS>
+			<VERSION>97.1.61.3</VERSION>
+			<PUBDATE>2023/09/20</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;cwollenhaupt&#47;fpCefSharp</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;fpcefsharpinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>Format</NAME>
+			<AUTHOR>Doug Hennig</AUTHOR>
+			<DESCRIP><![CDATA[Formats strings like .NET's String.Format and C# string interpolation]]></DESCRIP>
+			<KEYWORDS><![CDATA[string,format]]></KEYWORDS>
+			<VERSION>1.0.20231216</VERSION>
+			<PUBDATE>2023/12/16</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;FormattingStrings</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;formatinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
+		</RECORD>
+
 	</RECORDS>
 
 
