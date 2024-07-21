@@ -99,69 +99,6 @@ DEFINE CLASS vfpxbasecheckbox AS checkbox
 	ENDPROC
 
 	PROCEDURE shortcutmenu		&& Populates the shortcut menu
-		*==============================================================================
-		* Method:			ShortcutMenu
-		* Status:			Public
-		* Purpose:			Populates the specified menu object
-		* Author:			Doug Hennig
-		* Last revision:	03/28/2023
-		* Parameters:		toMenu   - an object reference to a menu object
-		*					tcObject - the name of the variable containing the object
-		*						reference to this object
-		* Returns:			.T.
-		* Environment in:	oLocalizer may contain a reference to a localization object
-		* Environment out:	additional items were added to the menu
-		*==============================================================================
-		
-		lparameters toMenu, ;
-			tcObject
-		local lcCut, ;
-			lcCopy, ;
-			lcPaste, ;
-			lcClear, ;
-			lcSelect
-		if type('oLocalizer.Name') = 'C'
-			lcCut    = oLocalizer.GetLocalizedString('MENU_CUT')
-			lcCopy   = oLocalizer.GetLocalizedString('MENU_COPY')
-			lcPaste  = oLocalizer.GetLocalizedString('MENU_PASTE')
-			lcClear  = oLocalizer.GetLocalizedString('MENU_CLEAR')
-			lcSelect = oLocalizer.GetLocalizedString('MENU_SELECT_ALL')
-		else
-			lcCut    = 'Cu\<t'
-			lcCopy   = '\<Copy'
-			lcPaste  = '\<Paste'
-			lcClear  = 'Cle\<ar'
-			lcSelect = 'Se\<lect All'
-		endif type('oLocalizer.Name') = 'C'
-		with toMenu
-			.AddBar(lcCut, ;
-				"sys(1500, '_MED_CUT',   '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'CutXPSmall.bmp', ;
-				'_med_cut')
-			.AddBar(lcCopy, ;
-				"sys(1500, '_MED_COPY',  '_MEDIT')", ;
-				, ;
-				'CopyXPSmall.bmp', ;
-				'_med_copy')
-			.AddBar(lcPaste, ;
-				"sys(1500, '_MED_PASTE', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'PasteXPSmall.bmp', ;
-				'_med_paste')
-			.AddBar(lcClear, ;
-				"sys(1500, '_MED_CLEAR', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'_med_clear', ;
-				'_med_clear')
-			.AddSeparatorBar()
-			.AddBar(lcSelect, ;
-				"sys(1500, '_MED_SLCTA', '_MEDIT')", ;
-				, ;
-				'_med_slcta', ;
-				'_med_slcta')
-		endwith
-		
 	ENDPROC
 
 	PROCEDURE showmenu		&& Display a shortcut menu
@@ -355,55 +292,6 @@ DEFINE CLASS vfpxbasecombobox AS combobox 		&& Base class for ComboBox objects
 	ENDPROC
 
 	PROCEDURE shortcutmenu		&& Populates the shortcut menu
-		lparameters toMenu, ;
-			tcObject
-		local lcCut, ;
-			lcCopy, ;
-			lcPaste, ;
-			lcClear, ;
-			lcSelect
-		if type('oLocalizer.Name') = 'C'
-			lcCut    = oLocalizer.GetLocalizedString('MENU_CUT')
-			lcCopy   = oLocalizer.GetLocalizedString('MENU_COPY')
-			lcPaste  = oLocalizer.GetLocalizedString('MENU_PASTE')
-			lcClear  = oLocalizer.GetLocalizedString('MENU_CLEAR')
-			lcSelect = oLocalizer.GetLocalizedString('MENU_SELECT_ALL')
-		else
-			lcCut    = 'Cu\<t'
-			lcCopy   = '\<Copy'
-			lcPaste  = '\<Paste'
-			lcClear  = 'Cle\<ar'
-			lcSelect = 'Se\<lect All'
-		endif type('oLocalizer.Name') = 'C'
-		with toMenu
-			.AddBar(lcCut, ;
-				"sys(1500, '_MED_CUT',   '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'CutXPSmall.bmp', ;
-				'_med_cut')
-			.AddBar(lcCopy, ;
-				"sys(1500, '_MED_COPY',  '_MEDIT')", ;
-				, ;
-				'CopyXPSmall.bmp', ;
-				'_med_copy')
-			.AddBar(lcPaste, ;
-				"sys(1500, '_MED_PASTE', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'PasteXPSmall.bmp', ;
-				'_med_paste')
-			.AddBar(lcClear, ;
-				"sys(1500, '_MED_CLEAR', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'_med_clear', ;
-				'_med_clear')
-			.AddSeparatorBar()
-			.AddBar(lcSelect, ;
-				"sys(1500, '_MED_SLCTA', '_MEDIT')", ;
-				, ;
-				'_med_slcta', ;
-				'_med_slcta')
-		endwith
-		
 	ENDPROC
 
 	PROCEDURE showmenu		&& Display a shortcut menu
@@ -544,69 +432,6 @@ DEFINE CLASS vfpxbasecommandbutton AS commandbutton
 	ENDPROC
 
 	PROCEDURE shortcutmenu		&& Populates the shortcut menu
-		*==============================================================================
-		* Method:			ShortcutMenu
-		* Status:			Public
-		* Purpose:			Populates the specified menu object
-		* Author:			Doug Hennig
-		* Last revision:	03/28/2023
-		* Parameters:		toMenu   - an object reference to a menu object
-		*					tcObject - the name of the variable containing the object
-		*						reference to this object
-		* Returns:			.T.
-		* Environment in:	oLocalizer may contain a reference to a localization object
-		* Environment out:	additional items were added to the menu
-		*==============================================================================
-		
-		lparameters toMenu, ;
-			tcObject
-		local lcCut, ;
-			lcCopy, ;
-			lcPaste, ;
-			lcClear, ;
-			lcSelect
-		if type('oLocalizer.Name') = 'C'
-			lcCut    = oLocalizer.GetLocalizedString('MENU_CUT')
-			lcCopy   = oLocalizer.GetLocalizedString('MENU_COPY')
-			lcPaste  = oLocalizer.GetLocalizedString('MENU_PASTE')
-			lcClear  = oLocalizer.GetLocalizedString('MENU_CLEAR')
-			lcSelect = oLocalizer.GetLocalizedString('MENU_SELECT_ALL')
-		else
-			lcCut    = 'Cu\<t'
-			lcCopy   = '\<Copy'
-			lcPaste  = '\<Paste'
-			lcClear  = 'Cle\<ar'
-			lcSelect = 'Se\<lect All'
-		endif type('oLocalizer.Name') = 'C'
-		with toMenu
-			.AddBar(lcCut, ;
-				"sys(1500, '_MED_CUT',   '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'CutXPSmall.bmp', ;
-				'_med_cut')
-			.AddBar(lcCopy, ;
-				"sys(1500, '_MED_COPY',  '_MEDIT')", ;
-				, ;
-				'CopyXPSmall.bmp', ;
-				'_med_copy')
-			.AddBar(lcPaste, ;
-				"sys(1500, '_MED_PASTE', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'PasteXPSmall.bmp', ;
-				'_med_paste')
-			.AddBar(lcClear, ;
-				"sys(1500, '_MED_CLEAR', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'_med_clear', ;
-				'_med_clear')
-			.AddSeparatorBar()
-			.AddBar(lcSelect, ;
-				"sys(1500, '_MED_SLCTA', '_MEDIT')", ;
-				, ;
-				'_med_slcta', ;
-				'_med_slcta')
-		endwith
-		
 	ENDPROC
 
 	PROCEDURE showmenu		&& Display a shortcut menu
@@ -1163,69 +988,6 @@ DEFINE CLASS vfpxbaseform AS form
 	ENDPROC
 
 	PROCEDURE shortcutmenu		&& Populates the shortcut menu
-		*==============================================================================
-		* Method:			ShortcutMenu
-		* Status:			Public
-		* Purpose:			Populates the specified menu object
-		* Author:			Doug Hennig
-		* Last revision:	03/28/2023
-		* Parameters:		toMenu   - an object reference to a menu object
-		*					tcObject - the name of the variable containing the object
-		*						reference to this object
-		* Returns:			.T.
-		* Environment in:	oLocalizer may contain a reference to a localization object
-		* Environment out:	additional items were added to the menu
-		*==============================================================================
-		
-		lparameters toMenu, ;
-			tcObject
-		local lcCut, ;
-			lcCopy, ;
-			lcPaste, ;
-			lcClear, ;
-			lcSelect
-		if type('oLocalizer.Name') = 'C'
-			lcCut    = oLocalizer.GetLocalizedString('MENU_CUT')
-			lcCopy   = oLocalizer.GetLocalizedString('MENU_COPY')
-			lcPaste  = oLocalizer.GetLocalizedString('MENU_PASTE')
-			lcClear  = oLocalizer.GetLocalizedString('MENU_CLEAR')
-			lcSelect = oLocalizer.GetLocalizedString('MENU_SELECT_ALL')
-		else
-			lcCut    = 'Cu\<t'
-			lcCopy   = '\<Copy'
-			lcPaste  = '\<Paste'
-			lcClear  = 'Cle\<ar'
-			lcSelect = 'Se\<lect All'
-		endif type('oLocalizer.Name') = 'C'
-		with toMenu
-			.AddBar(lcCut, ;
-				"sys(1500, '_MED_CUT',   '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'CutXPSmall.bmp', ;
-				'_med_cut')
-			.AddBar(lcCopy, ;
-				"sys(1500, '_MED_COPY',  '_MEDIT')", ;
-				, ;
-				'CopyXPSmall.bmp', ;
-				'_med_copy')
-			.AddBar(lcPaste, ;
-				"sys(1500, '_MED_PASTE', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'PasteXPSmall.bmp', ;
-				'_med_paste')
-			.AddBar(lcClear, ;
-				"sys(1500, '_MED_CLEAR', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'_med_clear', ;
-				'_med_clear')
-			.AddSeparatorBar()
-			.AddBar(lcSelect, ;
-				"sys(1500, '_MED_SLCTA', '_MEDIT')", ;
-				, ;
-				'_med_slcta', ;
-				'_med_slcta')
-		endwith
-		
 	ENDPROC
 
 	PROCEDURE showmenu		&& Display a shortcut menu
@@ -1344,69 +1106,6 @@ DEFINE CLASS vfpxbasegrid AS grid
 	ENDPROC
 
 	PROCEDURE shortcutmenu		&& Populates the shortcut menu
-		*==============================================================================
-		* Method:			ShortcutMenu
-		* Status:			Public
-		* Purpose:			Populates the specified menu object
-		* Author:			Doug Hennig
-		* Last revision:	03/28/2023
-		* Parameters:		toMenu   - an object reference to a menu object
-		*					tcObject - the name of the variable containing the object
-		*						reference to this object
-		* Returns:			.T.
-		* Environment in:	oLocalizer may contain a reference to a localization object
-		* Environment out:	additional items were added to the menu
-		*==============================================================================
-		
-		lparameters toMenu, ;
-			tcObject
-		local lcCut, ;
-			lcCopy, ;
-			lcPaste, ;
-			lcClear, ;
-			lcSelect
-		if type('oLocalizer.Name') = 'C'
-			lcCut    = oLocalizer.GetLocalizedString('MENU_CUT')
-			lcCopy   = oLocalizer.GetLocalizedString('MENU_COPY')
-			lcPaste  = oLocalizer.GetLocalizedString('MENU_PASTE')
-			lcClear  = oLocalizer.GetLocalizedString('MENU_CLEAR')
-			lcSelect = oLocalizer.GetLocalizedString('MENU_SELECT_ALL')
-		else
-			lcCut    = 'Cu\<t'
-			lcCopy   = '\<Copy'
-			lcPaste  = '\<Paste'
-			lcClear  = 'Cle\<ar'
-			lcSelect = 'Se\<lect All'
-		endif type('oLocalizer.Name') = 'C'
-		with toMenu
-			.AddBar(lcCut, ;
-				"sys(1500, '_MED_CUT',   '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'CutXPSmall.bmp', ;
-				'_med_cut')
-			.AddBar(lcCopy, ;
-				"sys(1500, '_MED_COPY',  '_MEDIT')", ;
-				, ;
-				'CopyXPSmall.bmp', ;
-				'_med_copy')
-			.AddBar(lcPaste, ;
-				"sys(1500, '_MED_PASTE', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'PasteXPSmall.bmp', ;
-				'_med_paste')
-			.AddBar(lcClear, ;
-				"sys(1500, '_MED_CLEAR', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'_med_clear', ;
-				'_med_clear')
-			.AddSeparatorBar()
-			.AddBar(lcSelect, ;
-				"sys(1500, '_MED_SLCTA', '_MEDIT')", ;
-				, ;
-				'_med_slcta', ;
-				'_med_slcta')
-		endwith
-		
 	ENDPROC
 
 	PROCEDURE showmenu		&& Display a shortcut menu
@@ -1583,69 +1282,6 @@ DEFINE CLASS vfpxbaselabel AS label
 	ENDPROC
 
 	PROCEDURE shortcutmenu		&& Populates the shortcut menu
-		*==============================================================================
-		* Method:			ShortcutMenu
-		* Status:			Public
-		* Purpose:			Populates the specified menu object
-		* Author:			Doug Hennig
-		* Last revision:	03/28/2023
-		* Parameters:		toMenu   - an object reference to a menu object
-		*					tcObject - the name of the variable containing the object
-		*						reference to this object
-		* Returns:			.T.
-		* Environment in:	oLocalizer may contain a reference to a localization object
-		* Environment out:	additional items were added to the menu
-		*==============================================================================
-		
-		lparameters toMenu, ;
-			tcObject
-		local lcCut, ;
-			lcCopy, ;
-			lcPaste, ;
-			lcClear, ;
-			lcSelect
-		if type('oLocalizer.Name') = 'C'
-			lcCut    = oLocalizer.GetLocalizedString('MENU_CUT')
-			lcCopy   = oLocalizer.GetLocalizedString('MENU_COPY')
-			lcPaste  = oLocalizer.GetLocalizedString('MENU_PASTE')
-			lcClear  = oLocalizer.GetLocalizedString('MENU_CLEAR')
-			lcSelect = oLocalizer.GetLocalizedString('MENU_SELECT_ALL')
-		else
-			lcCut    = 'Cu\<t'
-			lcCopy   = '\<Copy'
-			lcPaste  = '\<Paste'
-			lcClear  = 'Cle\<ar'
-			lcSelect = 'Se\<lect All'
-		endif type('oLocalizer.Name') = 'C'
-		with toMenu
-			.AddBar(lcCut, ;
-				"sys(1500, '_MED_CUT',   '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'CutXPSmall.bmp', ;
-				'_med_cut')
-			.AddBar(lcCopy, ;
-				"sys(1500, '_MED_COPY',  '_MEDIT')", ;
-				, ;
-				'CopyXPSmall.bmp', ;
-				'_med_copy')
-			.AddBar(lcPaste, ;
-				"sys(1500, '_MED_PASTE', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'PasteXPSmall.bmp', ;
-				'_med_paste')
-			.AddBar(lcClear, ;
-				"sys(1500, '_MED_CLEAR', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'_med_clear', ;
-				'_med_clear')
-			.AddSeparatorBar()
-			.AddBar(lcSelect, ;
-				"sys(1500, '_MED_SLCTA', '_MEDIT')", ;
-				, ;
-				'_med_slcta', ;
-				'_med_slcta')
-		endwith
-		
 	ENDPROC
 
 	PROCEDURE showmenu		&& Display a shortcut menu
@@ -1740,69 +1376,6 @@ DEFINE CLASS vfpxbaseline AS line
 	ENDPROC
 
 	PROCEDURE shortcutmenu		&& Populates the shortcut menu
-		*==============================================================================
-		* Method:			ShortcutMenu
-		* Status:			Public
-		* Purpose:			Populates the specified menu object
-		* Author:			Doug Hennig
-		* Last revision:	03/28/2023
-		* Parameters:		toMenu   - an object reference to a menu object
-		*					tcObject - the name of the variable containing the object
-		*						reference to this object
-		* Returns:			.T.
-		* Environment in:	oLocalizer may contain a reference to a localization object
-		* Environment out:	additional items were added to the menu
-		*==============================================================================
-		
-		lparameters toMenu, ;
-			tcObject
-		local lcCut, ;
-			lcCopy, ;
-			lcPaste, ;
-			lcClear, ;
-			lcSelect
-		if type('oLocalizer.Name') = 'C'
-			lcCut    = oLocalizer.GetLocalizedString('MENU_CUT')
-			lcCopy   = oLocalizer.GetLocalizedString('MENU_COPY')
-			lcPaste  = oLocalizer.GetLocalizedString('MENU_PASTE')
-			lcClear  = oLocalizer.GetLocalizedString('MENU_CLEAR')
-			lcSelect = oLocalizer.GetLocalizedString('MENU_SELECT_ALL')
-		else
-			lcCut    = 'Cu\<t'
-			lcCopy   = '\<Copy'
-			lcPaste  = '\<Paste'
-			lcClear  = 'Cle\<ar'
-			lcSelect = 'Se\<lect All'
-		endif type('oLocalizer.Name') = 'C'
-		with toMenu
-			.AddBar(lcCut, ;
-				"sys(1500, '_MED_CUT',   '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'CutXPSmall.bmp', ;
-				'_med_cut')
-			.AddBar(lcCopy, ;
-				"sys(1500, '_MED_COPY',  '_MEDIT')", ;
-				, ;
-				'CopyXPSmall.bmp', ;
-				'_med_copy')
-			.AddBar(lcPaste, ;
-				"sys(1500, '_MED_PASTE', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'PasteXPSmall.bmp', ;
-				'_med_paste')
-			.AddBar(lcClear, ;
-				"sys(1500, '_MED_CLEAR', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'_med_clear', ;
-				'_med_clear')
-			.AddSeparatorBar()
-			.AddBar(lcSelect, ;
-				"sys(1500, '_MED_SLCTA', '_MEDIT')", ;
-				, ;
-				'_med_slcta', ;
-				'_med_slcta')
-		endwith
-		
 	ENDPROC
 
 	PROCEDURE showmenu		&& Display a shortcut menu
@@ -1968,55 +1541,6 @@ DEFINE CLASS vfpxbaselistbox AS listbox
 	ENDPROC
 
 	PROCEDURE shortcutmenu		&& Populates the shortcut menu
-		lparameters toMenu, ;
-			tcObject
-		local lcCut, ;
-			lcCopy, ;
-			lcPaste, ;
-			lcClear, ;
-			lcSelect
-		if type('oLocalizer.Name') = 'C'
-			lcCut    = oLocalizer.GetLocalizedString('MENU_CUT')
-			lcCopy   = oLocalizer.GetLocalizedString('MENU_COPY')
-			lcPaste  = oLocalizer.GetLocalizedString('MENU_PASTE')
-			lcClear  = oLocalizer.GetLocalizedString('MENU_CLEAR')
-			lcSelect = oLocalizer.GetLocalizedString('MENU_SELECT_ALL')
-		else
-			lcCut    = 'Cu\<t'
-			lcCopy   = '\<Copy'
-			lcPaste  = '\<Paste'
-			lcClear  = 'Cle\<ar'
-			lcSelect = 'Se\<lect All'
-		endif type('oLocalizer.Name') = 'C'
-		with toMenu
-			.AddBar(lcCut, ;
-				"sys(1500, '_MED_CUT',   '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'CutXPSmall.bmp', ;
-				'_med_cut')
-			.AddBar(lcCopy, ;
-				"sys(1500, '_MED_COPY',  '_MEDIT')", ;
-				, ;
-				'CopyXPSmall.bmp', ;
-				'_med_copy')
-			.AddBar(lcPaste, ;
-				"sys(1500, '_MED_PASTE', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'PasteXPSmall.bmp', ;
-				'_med_paste')
-			.AddBar(lcClear, ;
-				"sys(1500, '_MED_CLEAR', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'_med_clear', ;
-				'_med_clear')
-			.AddSeparatorBar()
-			.AddBar(lcSelect, ;
-				"sys(1500, '_MED_SLCTA', '_MEDIT')", ;
-				, ;
-				'_med_slcta', ;
-				'_med_slcta')
-		endwith
-		
 	ENDPROC
 
 	PROCEDURE showmenu		&& Display a shortcut menu
@@ -2117,7 +1641,7 @@ DEFINE CLASS vfpxbaseoptiongroup AS optiongroup
 		*p: lsaveanchor		&& This allows a container to use SetAll('lSaveAnchor') to save/reset and then restore Anchor when the form's size is changed but controls shouldn't move
 		*p: nsavedanchor		&& The anchor value saved in lSaveAnchor_Assign
 		*p: omenu		&& A reference to an SFMenuShortcutMenu object
-		*p: _memberdata
+		*p: _memberdata		&& XML Metadata for customizable properties
 	*</DefinedPropArrayMethod>
 
 	PROTECTED nsavedanchor
@@ -2195,69 +1719,6 @@ DEFINE CLASS vfpxbaseoptiongroup AS optiongroup
 	ENDPROC
 
 	PROCEDURE shortcutmenu		&& Populates the shortcut menu
-		*==============================================================================
-		* Method:			ShortcutMenu
-		* Status:			Public
-		* Purpose:			Populates the specified menu object
-		* Author:			Doug Hennig
-		* Last revision:	03/28/2023
-		* Parameters:		toMenu   - an object reference to a menu object
-		*					tcObject - the name of the variable containing the object
-		*						reference to this object
-		* Returns:			.T.
-		* Environment in:	oLocalizer may contain a reference to a localization object
-		* Environment out:	additional items were added to the menu
-		*==============================================================================
-		
-		lparameters toMenu, ;
-			tcObject
-		local lcCut, ;
-			lcCopy, ;
-			lcPaste, ;
-			lcClear, ;
-			lcSelect
-		if type('oLocalizer.Name') = 'C'
-			lcCut    = oLocalizer.GetLocalizedString('MENU_CUT')
-			lcCopy   = oLocalizer.GetLocalizedString('MENU_COPY')
-			lcPaste  = oLocalizer.GetLocalizedString('MENU_PASTE')
-			lcClear  = oLocalizer.GetLocalizedString('MENU_CLEAR')
-			lcSelect = oLocalizer.GetLocalizedString('MENU_SELECT_ALL')
-		else
-			lcCut    = 'Cu\<t'
-			lcCopy   = '\<Copy'
-			lcPaste  = '\<Paste'
-			lcClear  = 'Cle\<ar'
-			lcSelect = 'Se\<lect All'
-		endif type('oLocalizer.Name') = 'C'
-		with toMenu
-			.AddBar(lcCut, ;
-				"sys(1500, '_MED_CUT',   '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'CutXPSmall.bmp', ;
-				'_med_cut')
-			.AddBar(lcCopy, ;
-				"sys(1500, '_MED_COPY',  '_MEDIT')", ;
-				, ;
-				'CopyXPSmall.bmp', ;
-				'_med_copy')
-			.AddBar(lcPaste, ;
-				"sys(1500, '_MED_PASTE', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'PasteXPSmall.bmp', ;
-				'_med_paste')
-			.AddBar(lcClear, ;
-				"sys(1500, '_MED_CLEAR', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'_med_clear', ;
-				'_med_clear')
-			.AddSeparatorBar()
-			.AddBar(lcSelect, ;
-				"sys(1500, '_MED_SLCTA', '_MEDIT')", ;
-				, ;
-				'_med_slcta', ;
-				'_med_slcta')
-		endwith
-		
 	ENDPROC
 
 	PROCEDURE showmenu		&& Display a shortcut menu
@@ -2335,10 +1796,10 @@ DEFINE CLASS vfpxbasepage AS page
 		BackStyle = 0
 		Caption = "Page"
 		FontName = "Segoe UI"
-		Height = 191
+		Height = 190
 		Name = "vfpxbasepage"
 		omenu = .NULL.
-		Width = 191
+		Width = 190
 		_memberdata = <VFPData>
 			<memberdata name="enabled" display="Enabled"/>
 			<memberdata name="enabled_assign" display="Enabled_Assign"/>
@@ -2373,69 +1834,6 @@ DEFINE CLASS vfpxbasepage AS page
 	ENDPROC
 
 	PROCEDURE shortcutmenu		&& Populates the shortcut menu
-		*==============================================================================
-		* Method:			ShortcutMenu
-		* Status:			Public
-		* Purpose:			Populates the specified menu object
-		* Author:			Doug Hennig
-		* Last revision:	03/28/2023
-		* Parameters:		toMenu   - an object reference to a menu object
-		*					tcObject - the name of the variable containing the object
-		*						reference to this object
-		* Returns:			.T.
-		* Environment in:	oLocalizer may contain a reference to a localization object
-		* Environment out:	additional items were added to the menu
-		*==============================================================================
-		
-		lparameters toMenu, ;
-			tcObject
-		local lcCut, ;
-			lcCopy, ;
-			lcPaste, ;
-			lcClear, ;
-			lcSelect
-		if type('oLocalizer.Name') = 'C'
-			lcCut    = oLocalizer.GetLocalizedString('MENU_CUT')
-			lcCopy   = oLocalizer.GetLocalizedString('MENU_COPY')
-			lcPaste  = oLocalizer.GetLocalizedString('MENU_PASTE')
-			lcClear  = oLocalizer.GetLocalizedString('MENU_CLEAR')
-			lcSelect = oLocalizer.GetLocalizedString('MENU_SELECT_ALL')
-		else
-			lcCut    = 'Cu\<t'
-			lcCopy   = '\<Copy'
-			lcPaste  = '\<Paste'
-			lcClear  = 'Cle\<ar'
-			lcSelect = 'Se\<lect All'
-		endif type('oLocalizer.Name') = 'C'
-		with toMenu
-			.AddBar(lcCut, ;
-				"sys(1500, '_MED_CUT',   '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'CutXPSmall.bmp', ;
-				'_med_cut')
-			.AddBar(lcCopy, ;
-				"sys(1500, '_MED_COPY',  '_MEDIT')", ;
-				, ;
-				'CopyXPSmall.bmp', ;
-				'_med_copy')
-			.AddBar(lcPaste, ;
-				"sys(1500, '_MED_PASTE', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'PasteXPSmall.bmp', ;
-				'_med_paste')
-			.AddBar(lcClear, ;
-				"sys(1500, '_MED_CLEAR', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'_med_clear', ;
-				'_med_clear')
-			.AddSeparatorBar()
-			.AddBar(lcSelect, ;
-				"sys(1500, '_MED_SLCTA', '_MEDIT')", ;
-				, ;
-				'_med_slcta', ;
-				'_med_slcta')
-		endwith
-		
 	ENDPROC
 
 	PROCEDURE showmenu		&& Display a shortcut menu
@@ -2496,6 +1894,7 @@ DEFINE CLASS vfpxbasepageframe AS pageframe
 	*<PropValue>
 		Anchor = 15
 		ErasePage = .T.
+		Height = 254
 		lsaveanchor = .F.
 		MemberClass = "vfpxbasepage"
 		MemberClassLibrary = vfpxbaselibrary.vcx
@@ -2536,69 +1935,6 @@ DEFINE CLASS vfpxbasepageframe AS pageframe
 	ENDPROC
 
 	PROCEDURE shortcutmenu		&& Populates the shortcut menu
-		*==============================================================================
-		* Method:			ShortcutMenu
-		* Status:			Public
-		* Purpose:			Populates the specified menu object
-		* Author:			Doug Hennig
-		* Last revision:	03/28/2023
-		* Parameters:		toMenu   - an object reference to a menu object
-		*					tcObject - the name of the variable containing the object
-		*						reference to this object
-		* Returns:			.T.
-		* Environment in:	oLocalizer may contain a reference to a localization object
-		* Environment out:	additional items were added to the menu
-		*==============================================================================
-		
-		lparameters toMenu, ;
-			tcObject
-		local lcCut, ;
-			lcCopy, ;
-			lcPaste, ;
-			lcClear, ;
-			lcSelect
-		if type('oLocalizer.Name') = 'C'
-			lcCut    = oLocalizer.GetLocalizedString('MENU_CUT')
-			lcCopy   = oLocalizer.GetLocalizedString('MENU_COPY')
-			lcPaste  = oLocalizer.GetLocalizedString('MENU_PASTE')
-			lcClear  = oLocalizer.GetLocalizedString('MENU_CLEAR')
-			lcSelect = oLocalizer.GetLocalizedString('MENU_SELECT_ALL')
-		else
-			lcCut    = 'Cu\<t'
-			lcCopy   = '\<Copy'
-			lcPaste  = '\<Paste'
-			lcClear  = 'Cle\<ar'
-			lcSelect = 'Se\<lect All'
-		endif type('oLocalizer.Name') = 'C'
-		with toMenu
-			.AddBar(lcCut, ;
-				"sys(1500, '_MED_CUT',   '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'CutXPSmall.bmp', ;
-				'_med_cut')
-			.AddBar(lcCopy, ;
-				"sys(1500, '_MED_COPY',  '_MEDIT')", ;
-				, ;
-				'CopyXPSmall.bmp', ;
-				'_med_copy')
-			.AddBar(lcPaste, ;
-				"sys(1500, '_MED_PASTE', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'PasteXPSmall.bmp', ;
-				'_med_paste')
-			.AddBar(lcClear, ;
-				"sys(1500, '_MED_CLEAR', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'_med_clear', ;
-				'_med_clear')
-			.AddSeparatorBar()
-			.AddBar(lcSelect, ;
-				"sys(1500, '_MED_SLCTA', '_MEDIT')", ;
-				, ;
-				'_med_slcta', ;
-				'_med_slcta')
-		endwith
-		
 	ENDPROC
 
 	PROCEDURE showmenu		&& Display a shortcut menu
@@ -2696,69 +2032,6 @@ DEFINE CLASS vfpxbaseshape AS shape 		&& The base class for all Shape objects
 	ENDPROC
 
 	PROCEDURE shortcutmenu		&& Populates the shortcut menu
-		*==============================================================================
-		* Method:			ShortcutMenu
-		* Status:			Public
-		* Purpose:			Populates the specified menu object
-		* Author:			Doug Hennig
-		* Last revision:	03/28/2023
-		* Parameters:		toMenu   - an object reference to a menu object
-		*					tcObject - the name of the variable containing the object
-		*						reference to this object
-		* Returns:			.T.
-		* Environment in:	oLocalizer may contain a reference to a localization object
-		* Environment out:	additional items were added to the menu
-		*==============================================================================
-		
-		lparameters toMenu, ;
-			tcObject
-		local lcCut, ;
-			lcCopy, ;
-			lcPaste, ;
-			lcClear, ;
-			lcSelect
-		if type('oLocalizer.Name') = 'C'
-			lcCut    = oLocalizer.GetLocalizedString('MENU_CUT')
-			lcCopy   = oLocalizer.GetLocalizedString('MENU_COPY')
-			lcPaste  = oLocalizer.GetLocalizedString('MENU_PASTE')
-			lcClear  = oLocalizer.GetLocalizedString('MENU_CLEAR')
-			lcSelect = oLocalizer.GetLocalizedString('MENU_SELECT_ALL')
-		else
-			lcCut    = 'Cu\<t'
-			lcCopy   = '\<Copy'
-			lcPaste  = '\<Paste'
-			lcClear  = 'Cle\<ar'
-			lcSelect = 'Se\<lect All'
-		endif type('oLocalizer.Name') = 'C'
-		with toMenu
-			.AddBar(lcCut, ;
-				"sys(1500, '_MED_CUT',   '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'CutXPSmall.bmp', ;
-				'_med_cut')
-			.AddBar(lcCopy, ;
-				"sys(1500, '_MED_COPY',  '_MEDIT')", ;
-				, ;
-				'CopyXPSmall.bmp', ;
-				'_med_copy')
-			.AddBar(lcPaste, ;
-				"sys(1500, '_MED_PASTE', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'PasteXPSmall.bmp', ;
-				'_med_paste')
-			.AddBar(lcClear, ;
-				"sys(1500, '_MED_CLEAR', '_MEDIT')", ;
-				'not ' + tcObject + '.Enabled or ' + tcObject + '.ReadOnly', ;
-				'_med_clear', ;
-				'_med_clear')
-			.AddSeparatorBar()
-			.AddBar(lcSelect, ;
-				"sys(1500, '_MED_SLCTA', '_MEDIT')", ;
-				, ;
-				'_med_slcta', ;
-				'_med_slcta')
-		endwith
-		
 	ENDPROC
 
 	PROCEDURE showmenu		&& Display a shortcut menu

@@ -585,6 +585,19 @@
 			<NOTES><![CDATA[Deploy vfp2c32.fll (VFP2C32 folder)]]></NOTES>
 		</RECORD>
 
+		<RECORD>
+			<NAME>VFPXFramework</NAME>
+			<AUTHOR>Doug Hennig</AUTHOR>
+			<DESCRIP><![CDATA[Provides base UI classes and commonly used functions such as reading from or writing to INI files and the Window Registry, getting a filename from the user using a better dialog than GETFILE(), recursive file operations with a dialog such as copying files and deleting folders, and so on.]]></DESCRIP>
+			<KEYWORDS><![CDATA[framework,base classes,INI files,Windows Registry,file operations]]></KEYWORDS>
+			<VERSION>1.0.20240721</VERSION>
+			<PUBDATE>2024/07/21</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;VFPXFramework</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;vfpxframeworkinstaller.prg</INSTALLURL>
+			<DEPENDENT><![CDATA[OOPMenu]]></DEPENDENT>
+			<NOTES><![CDATA[Deploy System.app]]></NOTES>
+		</RECORD>
+
 	</RECORDS>
 
 

@@ -18,7 +18,7 @@ You can search for a package by name, tag, or description by typing in the Searc
 
 To install the selected package, click Install; that button is disabled if the package has already been installed. After a moment, you should see that some files were added to the project and there's a Packages subdirectory of the project folder containing Packages.dbf and the downloaded files in a subdirectory for the component. The package subdirectory also contains a file named <i>Package</i>Installer.prg, which is used to uninstall the package.
 
-You may wonder why FoxGet puts the library into subdirectory of the Packages subdirectory of the project folder rather than in a common location other applications could reference. There are several reasons:
+You may wonder why FoxGet puts the library into a subdirectory of the Packages subdirectory of the project folder rather than in a common location other applications could reference. There are several reasons:
 
 - That's the way NuGet works.
 

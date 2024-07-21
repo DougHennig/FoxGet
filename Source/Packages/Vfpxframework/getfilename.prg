@@ -1,7 +1,8 @@
 lparameters tcExtensions, ;
 	tcFileName, ;
 	tcTitleCaption, ;
-	tlSave
+	tlSave, ;
+	tlMultiSelect
 local lcFileExt, ;
 	lcExtensions, ;
 	loDialog, ;
@@ -53,8 +54,17 @@ with loDialog
 	endif not empty(tcFileName)
 	.lSaveDialog       = tlSave
 	.lOverwritePrompt  = .T.
+	.lAllowMultiSelect = tlMultiSelect
 	.ShowDialog()
-	lcFileName = addbs(.cFilePath) + .cFileTitle
+	if tlMultiSelect
+		lcFileName = ''
+		for lnI = 1 to .nFileCount
+			lcFileName = lcFileName + iif(empty(lcFileName), '', ',') + ;
+				addbs(.cFilePath) + .aFileNames[lnI]
+		next lnI
+	else
+		lcFileName = addbs(.cFilePath) + .cFileTitle
+	endif tlMultiSelect
 endwith
 return lcFileName
  

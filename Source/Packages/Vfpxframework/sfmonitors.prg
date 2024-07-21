@@ -122,7 +122,7 @@ define class SFMonitors as SFSize
 			lcBuffer
 		loSize    = createobject('SFSize')
 		lhMonitor = MonitorFromPoint(tnX, tnY, MONITOR_DEFAULTTONEAREST)
-		if lHMonitor > 0
+		if lHMonitor <> 0
 			lcBuffer = bintoc(40, '4RS') + replicate(chr(0), 36)
 			GetMonitorInfo(lhMonitor, @lcBuffer)
 			with loSize
@@ -146,7 +146,7 @@ define class SFMonitors as SFSize
 				oLogger.LogElapsedMilestone('SFMonitors.GetMonitorSize: using GetPrimaryMonitorSize')
 			endif type('oLogger') = 'O'
 			loSize = This.GetPrimaryMonitorSize()
-		endif lHMonitor > 0
+		endif lHMonitor <> 0
 		return loSize
 	endfunc
 enddefine

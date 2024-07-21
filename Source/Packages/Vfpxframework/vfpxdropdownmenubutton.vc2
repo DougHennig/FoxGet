@@ -15,7 +15,6 @@ DEFINE CLASS vfpxdropdownmenubutton AS vfpxbasecontainer OF "vfpxbaselibrary.vcx
 	#INCLUDE "vfpxbaselibrary.h"
 	*<DefinedPropArrayMethod>
 		*m: buttonclicked		&& Called when the button is clicked
-		*m: luseformshortcutmenu_assign
 		*m: turnoffvisualeffects		&& Turns off visual effects
 		*m: turnonvisualeffects		&& Turns on visual effects
 		*p: lmenuactive		&& .T. when the menu is active
@@ -30,7 +29,6 @@ DEFINE CLASS vfpxdropdownmenubutton AS vfpxbasecontainer OF "vfpxbaselibrary.vcx
 		_memberdata = <VFPData>
 			<memberdata name="buttonclicked" type="method" display="ButtonClicked"/>
 			<memberdata name="lmenuactive" type="property" display="lMenuActive"/>
-			<memberdata name="luseformshortcutmenu_assign" type="method" display="lUseFormShortcutMenu_Assign"/>
 			<memberdata name="turnoffvisualeffects" type="method" display="TurnOffVisualEffects"/>
 			<memberdata name="turnonvisualeffects" type="method" display="TurnOnVisualEffects"/>
 		</VFPData>
@@ -58,11 +56,6 @@ DEFINE CLASS vfpxdropdownmenubutton AS vfpxbasecontainer OF "vfpxbaselibrary.vcx
 			store .ToolTipText   to .cmdMain.ToolTipText,   .cmdMenu.ToolTipText
 			store .StatusBarText to .cmdMain.StatusBarText, .cmdMenu.StatusBarText
 		endwith
-		
-	ENDPROC
-
-	PROCEDURE luseformshortcutmenu_assign
-		lparameters tlValue
 		
 	ENDPROC
 
@@ -134,7 +127,6 @@ DEFINE CLASS vfpxdropdownmenubutton AS vfpxbasecontainer OF "vfpxbaselibrary.vcx
 		* The toolbar isn't docked so handle the height of the toolbar title bar and
 		* window borders.
 		
-		*** The menu is too far above the mouse pointer
 				case not Thisform.Docked 
 					lnRow = lnVPosition + sysmetric(34) + sysmetric(4) - 1
 		
@@ -150,7 +142,7 @@ DEFINE CLASS vfpxdropdownmenubutton AS vfpxbasecontainer OF "vfpxbaselibrary.vcx
 		
 		* The toolbar is docked at one of the sides.
 		
-		*** The menu is too far above or below the mouse pointer, depending on where the toolbar is docked.
+		*** TODO: the menu is too far above or below the mouse pointer, depending on where the toolbar is docked.
 				otherwise
 					lnRow = lnVPosition
 			endcase
@@ -166,13 +158,13 @@ DEFINE CLASS vfpxdropdownmenubutton AS vfpxbasecontainer OF "vfpxbaselibrary.vcx
 		
 		* The toolbar isn't docked, so handle the width of the toolbar window borders.
 		
-		*** The menu is too far to the left of the mouse pointer
+		*** TODO: the menu is too far to the left of the mouse pointer
 				case not Thisform.Docked 
 					lnCol = lnHPosition + sysmetric(3)
 		
 		* The toolbar is docked at the left.
 		
-		*** The menu is too far to the right of the mouse pointer
+		*** TODO: the menu is too far to the right of the mouse pointer
 				case Thisform.DockPosition = 1
 					lnCol = lnHPosition - lnLeftColDockOffset
 		
@@ -201,7 +193,7 @@ DEFINE CLASS vfpxdropdownmenubutton AS vfpxbasecontainer OF "vfpxbaselibrary.vcx
 		
 		* Convert the menu position from pixels to foxels.
 		
-		*** this works for a toolbar at runtime but not in the IDE.
+		*** TODO: this works for a toolbar at runtime but not in the IDE.
 			toMenu.nRow = lnRow * lnFoxelHeight/lnPixelHeight
 			toMenu.nCol = lnCol * lnFoxelWidth /lnPixelWidth
 		endwith

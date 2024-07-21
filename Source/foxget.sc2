@@ -121,7 +121,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "packages\vfpxframework\vfpxbaselibrary.v
 		DisabledBackColor = 255,255,255, ;
 		DisabledForeColor = 0,0,0, ;
 		Enabled = .F., ;
-		Height = 60, ;
+		Height = 64, ;
 		Left = 383, ;
 		Name = "edtDescrip", ;
 		ScrollBars = 0, ;
@@ -149,7 +149,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "packages\vfpxframework\vfpxbaselibrary.v
 		DisabledBackColor = 255,255,255, ;
 		DisabledForeColor = 0,0,0, ;
 		Enabled = .F., ;
-		Height = 60, ;
+		Height = 64, ;
 		Left = 383, ;
 		Name = "edtNotes", ;
 		ScrollBars = 0, ;
@@ -158,7 +158,7 @@ DEFINE CLASS foxget AS vfpxbaseform OF "packages\vfpxframework\vfpxbaselibrary.v
 		*< END OBJECT: ClassLib="packages\vfpxframework\vfpxbaselibrary.vcx" BaseClass="editbox" />
 
 	ADD OBJECT 'edtProgress' AS vfpxbaseeditbox WITH ;
-		Height = 200, ;
+		Height = 203, ;
 		Left = 10, ;
 		Name = "edtProgress", ;
 		Top = 445, ;

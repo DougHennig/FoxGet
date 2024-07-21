@@ -16,7 +16,7 @@
 *					if tuEntry is 0, the number of entries in the array
 * Environment in:	none
 * Environment out:	none
-* Note:				- if the value starts with "0x", it's converted from
+* Note:				if the value starts with "0x", it's converted from
 *						hexBinary because WriteINI does that
 *==============================================================================
 

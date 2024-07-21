@@ -21,7 +21,7 @@ define class VFPXInternet as Custom
 
 			otherwise
 				lcCommand = 'curl.exe -o "' + tcLocalFile + '" -L ' + ;
-					iif(empty(tcServer), '', '" ftp://' + tcServer + ;
+					iif(empty(tcServer), '', 'ftp://' + tcServer + ;
 						iif(right(tcServer, 1) = '/' or left(tcRemoteFile, 1) = '/', '', '/')) + ;
 					tcRemoteFile + iif(empty(tcUserName), '', ' -u ' + tcUserName + ':' + ;
 					tcPassword)

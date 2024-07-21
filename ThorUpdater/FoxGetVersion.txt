@@ -3,8 +3,8 @@ lparameters toUpdateObject
 * Set the properties of the passed updater object.
 
 with toUpdateObject
-	.VersionNumber    = '1.0 - 20240130'
-	.AvailableVersion = 'FoxGet-1.0-update-20240130'
+	.VersionNumber    = '1.0 - 20240721'
+	.AvailableVersion = 'FoxGet-1.0-update-20240721'
 	.Notes            = GetNotes()
 	.RegisterWithThor = GetRegisterWithThor()
 endwith
@@ -83,4 +83,4 @@ endwith
 endproc &&GetRegisterWithThor
 
 
-*created by VFPX Deployment, 01/30/2024 4:12:40 PM
+*created by VFPX Deployment, 07/21/2024 9:30:29 AM

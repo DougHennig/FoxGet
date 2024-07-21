@@ -104,18 +104,31 @@ DEFINE CLASS vfpxdirectory AS vfpxbasecontainer OF "vfpxbaselibrary.vcx" 		&& A 
 		* calculate its width.
 		
 		lparameters tlForce
-		local loSFGDI
+		local loSFGDI, ;
+			lcString, ;
+			lcFontName, ;
+			lnFontSize, ;
+			lcStyle
 		with This
 			if not empty(.cLabelCaption) and ;
 				(not .lblFolder.Caption == .cLabelCaption or tlForce)
 				.lblFolder.Caption = .cLabelCaption
-				if not Thisform.Visible
-					loSFGDI        = newobject('SFGDIMeasureString', ;
-						'SFGDIMeasureString.prg')
-					.lblFolder.Width = loSFGDI.GetWidth(.lblFolder.Caption, ;
-						.lblFolder.FontName, .lblFolder.FontSize, ;
-						iif(.lblFolder.FontBold, 'B', ''))
-				endif not Thisform.Visible
+				do case
+					case Thisform.Visible
+					case file('SFGDIMeasureString.prg') and file('System.app')
+						loSFGDI        = newobject('SFGDIMeasureString', ;
+							'SFGDIMeasureString.prg')
+						.lblFolder.Width = loSFGDI.GetWidth(.lblFolder.Caption, ;
+							.lblFolder.FontName, .lblFolder.FontSize, ;
+							iif(.lblFolder.FontBold, 'B', ''))
+					otherwise
+						lcString   = .lblFolder.Caption
+						lcFontName = .lblFolder.FontName
+						lnFontSize = .lblFolder.FontSize
+						lcStyle    = iif(.lblFolder.FontBold, 'B', '')
+						.lblFolder.Width = txtwidth(lcString, lcFontName, lnFontSize, ;
+							lcStyle) * fontmetric(6, lcFontName, lnFontSize, lcStyle)
+				endcase
 				if .lAdjustPositions
 					.txtFolder.lSaveAnchor    = .T.
 					.txtFolder.Left           = .lblFolder.Width + 5
@@ -341,6 +354,7 @@ DEFINE CLASS vfpxfile AS vfpxbasecontainer OF "vfpxbaselibrary.vcx"
 		*p: clabelcaption		&& The caption to use for the label
 		*p: ladjustpositions		&& .T. if we should adjust the positions of the controls
 		*p: ldisplaylabel		&& .T. to display the label
+		*p: lmultiselect		&& .T. to allow multiple files to be selected
 		*p: lsavedialog		&& .T. to use a Save dialog, .F. to use an Open dialog
 		*p: value		&& The value of the control
 	*</DefinedPropArrayMethod>
@@ -356,6 +370,7 @@ DEFINE CLASS vfpxfile AS vfpxbasecontainer OF "vfpxbaselibrary.vcx"
 		Height = 23
 		ladjustpositions = .T.
 		ldisplaylabel = .T.
+		lmultiselect = .F.
 		lsavedialog = .F.
 		Name = "vfpxfile"
 		value = 
@@ -381,6 +396,7 @@ DEFINE CLASS vfpxfile AS vfpxbasecontainer OF "vfpxbaselibrary.vcx"
 			<memberdata name="_pemeditor_resize" display="_PEMEditor_Resize"/>
 			<memberdata name="ldisplaylabel" display="lDisplayLabel"/>
 			<memberdata name="ldisplaylabel_assign" display="lDisplayLabel_Assign"/>
+			<memberdata name="lmultiselect" display="lMultiSelect"/>
 		</VFPData>
 	*</PropValue>
 
@@ -419,13 +435,22 @@ DEFINE CLASS vfpxfile AS vfpxbasecontainer OF "vfpxbaselibrary.vcx"
 			if not empty(.cLabelCaption) and ;
 				(not .lblFile.Caption == .cLabelCaption or tlForce)
 				.lblFile.Caption = .cLabelCaption
-				if not Thisform.Visible
-					loSFGDI        = newobject('SFGDIMeasureString', ;
-						'SFGDIMeasureString.prg')
-					.lblFile.Width = loSFGDI.GetWidth(.lblFile.Caption, ;
-						.lblFile.FontName, .lblFile.FontSize, ;
-						iif(.lblFile.FontBold, 'B', ''))
-				endif not Thisform.Visible
+				do case
+					case Thisform.Visible
+					case file('SFGDIMeasureString.prg') and file('System.app')
+						loSFGDI        = newobject('SFGDIMeasureString', ;
+							'SFGDIMeasureString.prg')
+						.lblFolder.Width = loSFGDI.GetWidth(.lblFolder.Caption, ;
+							.lblFolder.FontName, .lblFolder.FontSize, ;
+							iif(.lblFolder.FontBold, 'B', ''))
+					otherwise
+						lcString   = .lblFolder.Caption
+						lcFontName = .lblFolder.FontName
+						lnFontSize = .lblFolder.FontSize
+						lcStyle    = iif(.lblFolder.FontBold, 'B', '')
+						.lblFolder.Width = txtwidth(lcString, lcFontName, lnFontSize, ;
+							lcStyle) * fontmetric(6, lcFontName, lnFontSize, lcStyle)
+				endcase
 				if .lAdjustPositions
 					.txtFile.lSaveAnchor    = .T.
 					.txtFile.Left           = iif(.lblFile.Visible, ;
@@ -601,10 +626,11 @@ DEFINE CLASS vfpxfile AS vfpxbasecontainer OF "vfpxbaselibrary.vcx"
 	PROCEDURE cmdGetFile.Click
 		local lcFileName
 		with This
-			.cCaption    = .Parent.cCaption
-			.cExtensions = .Parent.cExtensions
-			lcFileName   = .Parent.cFileName
-			.lSaveDialog = .Parent.lSaveDialog
+			.cCaption     = .Parent.cCaption
+			.cExtensions  = .Parent.cExtensions
+			lcFileName    = .Parent.cFileName
+			.lSaveDialog  = .Parent.lSaveDialog
+			.lMultiSelect = .Parent.lMultiSelect
 			dodefault()
 			if not lcFileName == .Parent.cFileName
 				raiseevent(This.Parent, 'FileChanged')
@@ -634,10 +660,8 @@ DEFINE CLASS vfpxgetdir AS vfpxbasecommandbutton OF "vfpxbaselibrary.vcx" 		&& A
 		*p: leditbox		&& .T. if an editbox should be displayed (only in VFP 7 and later)
 		*p: lincludefiles		&& .T. to display files as well as folders (only in VFP 7 or later)
 		*p: lusenewui		&& .T. if the Windows 2000 interface should be used (only in VFP 7 and later)
-		*p: outility		&& A reference to an SFUtility object
 	*</DefinedPropArrayMethod>
 
-	PROTECTED outility
 	*<PropValue>
 		cafterdone = 
 		Caption = "..."
@@ -649,8 +673,7 @@ DEFINE CLASS vfpxgetdir AS vfpxbasecommandbutton OF "vfpxbaselibrary.vcx" 		&& A
 		leditbox = .F.
 		lincludefiles = .F.
 		lusenewui = .T.
-		Name = "vfpxlibrarygetdir"
-		outility = .NULL.
+		Name = "vfpxgetdir"
 		StatusBarText = "Select a folder"
 		ToolTipText = "Select a folder"
 		Width = 23
@@ -663,7 +686,6 @@ DEFINE CLASS vfpxgetdir AS vfpxbasecommandbutton OF "vfpxbaselibrary.vcx" 		&& A
 			<memberdata name="leditbox" type="property" display="lEditbox" favorites="True"/>
 			<memberdata name="lincludefiles" type="property" display="lIncludeFiles" favorites="True"/>
 			<memberdata name="lusenewui" type="property" display="lUseNewUI" favorites="True"/>
-			<memberdata name="outility" type="property" display="oUtility"/>
 		</VFPData>
 	*</PropValue>
 	
@@ -677,7 +699,7 @@ DEFINE CLASS vfpxgetdir AS vfpxbasecommandbutton OF "vfpxbaselibrary.vcx" 		&& A
 			lcDir
 		with This
 			assert not empty(.cResult) ;
-				message 'SFGetDir: the result container was not defined.'
+				message 'VFPXGetDir: the result container was not defined.'
 		
 		* Build a string of parameters from the properties of this object.
 		
@@ -744,6 +766,7 @@ DEFINE CLASS vfpxgetfile AS vfpxbasecommandbutton OF "vfpxbaselibrary.vcx" 		&& 
 		*p: cextensions		&& The extensions parameter for GETFILE() (surround literal strings in quotes)
 		*p: cfilename		&& The default filename
 		*p: cresult		&& The location where to put the return value into
+		*p: lmultiselect		&& .T. to allow multiple files to be selected
 		*p: lsavedialog		&& .T. to use a Save dialog, .F. to use an Open dialog
 	*</DefinedPropArrayMethod>
 
@@ -755,6 +778,7 @@ DEFINE CLASS vfpxgetfile AS vfpxbasecommandbutton OF "vfpxbaselibrary.vcx" 		&& 
 		cfilename = 
 		cresult = 
 		Height = 23
+		lmultiselect = .F.
 		lsavedialog = .F.
 		Name = "vfpxgetfile"
 		StatusBarText = "Select a file and path"
@@ -767,12 +791,13 @@ DEFINE CLASS vfpxgetfile AS vfpxbasecommandbutton OF "vfpxbaselibrary.vcx" 		&& 
 			<memberdata name="cresult" type="property" display="cResult" favorites="True"/>
 			<memberdata name="lsavedialog" type="property" display="lSaveDialog"/>
 			<memberdata name="cfilename" display="cFileName"/>
+			<memberdata name="lmultiselect" display="lMultiSelect"/>
 		</VFPData>
 	*</PropValue>
 	
 	PROCEDURE Click
-		* Display an Open File dialog, using parameters determined from the properties
-		* of this object.
+		* Display an Open or Save File dialog, using parameters determined from the
+		* properties of this object.
 		
 		local lcResult, ;
 			lcFileName
@@ -780,7 +805,8 @@ DEFINE CLASS vfpxgetfile AS vfpxbasecommandbutton OF "vfpxbaselibrary.vcx" 		&& 
 			assert not empty(.cResult) ;
 				message 'VFPXGetFile: the result container was not defined.'
 			lcResult   = .cResult
-			lcFileName = GetFileName(.cExtensions, .cFileName, .cCaption, .lSaveDialog)
+			lcFileName = GetFileName(.cExtensions, .cFileName, .cCaption, .lSaveDialog, ;
+				.lMultiSelect)
 		
 		* If the user chose a file, store the result in the specified location.
 		
