@@ -187,12 +187,15 @@ DEFINE CLASS api_apprun AS custom
 				*	As long as the other process exists, wait for it
 				DO WHILE WaitOnAppExit(.inProcessHandle, cnHalfASecond) = cnTimedOut
 					*	Give us an out in case the other app hangs - let <Esc> terminate waits
-					IF INKEY() = 27
-						*	Still running but we aren't waiting - return a -1 as a warning
-						.icErrorMessage = 'Process started but user did not wait on termination'
-						uResult = 0
-						EXIT
-					ENDIF
+					try
+						IF INKEY() = 27
+							*	Still running but we aren't waiting - return a -1 as a warning
+							.icErrorMessage = 'Process started but user did not wait on termination'
+							uResult = 0
+							EXIT
+						ENDIF
+					catch
+					endtry
 				ENDDO
 			ELSE
 				*	Return 0 to indicate failure
