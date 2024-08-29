@@ -37,12 +37,12 @@ jobs:
 
           .\cpvu.exe
           
-          echo --------- CPVU.exe errors -----------
-          type .\_TempErrorLog.txt
-          echo -------------------------------------
-          echo ------ Version File errors ----------
-          type .\_TempThorUpdatesErrorLog.txt
-          echo -------------------------------------
+          echo ---------- CPVU.exe error log -----------
+          if exist .\_TempErrorLog.txt (type .\_TempErrorLog.txt) else (echo NO ERRORS) 
+          echo -----------------------------------------
+          echo --- Version Files processing error log ---
+          if exist .\_TempThorUpdatesErrorLog.txt (type .\_TempThorUpdatesErrorLog.txt) else (echo NO ERRORS)
+          echo -----------------------------------------
 
           git add ../../../Installers/foxgetpackages.*
           git commit -m "update foxgetpackages.dbf"
