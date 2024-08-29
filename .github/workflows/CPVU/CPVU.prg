@@ -1,5 +1,5 @@
 #define _CRLF CHR(13)+CHR(10)
-#define FOXGETPACKAGES_PATH "..\Installers\FoxGetPackages.dbf"
+#define FOXGETPACKAGES_PATH "..\..\..\Installers\FoxGetPackages.dbf"
 #define THOR_UPDATES_PATH "_Temp_Thor\Updates\"
 #define ERRORLOG "_TempErrorLog.txt"
 #define THOR_UPDATES_ERRORLOG "_TempThorUpdatesErrorLog.txt"
