@@ -83,6 +83,9 @@ TRY
         *************************************
         LOCAL loUpdateErr
         loUpdateErr = .F.
+
+        LOCAL lcUpdateName
+        lcUpdateName = EVL(loUpdateInfo.VersionFileUrl, JUSTFNAME(lcUpdateFile) + " Version file")
         
         TRY
             LOCAL lcLocalVersionFile
@@ -178,7 +181,7 @@ TRY
         
         CATCH TO loUpdateErr
             LOCAL lcMessage
-            lcMessage = lcUpdateName + " Process version file: " + IIF(loUpdateErr.ErrorNo = 2071, NVL(loUpdateErr.UserValue,""), loUpdateErr.Message)
+            lcMessage = lcUpdateName + " Execute: " + IIF(loUpdateErr.ErrorNo = 2071, NVL(loUpdateErr.UserValue,""), loUpdateErr.Message)
 
             STRTOFILE(lcMessage + REPLICATE(_CRLF,2), THOR_UPDATES_ERRORLOG, 1)
         ENDTRY
