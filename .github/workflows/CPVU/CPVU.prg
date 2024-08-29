@@ -4,7 +4,7 @@
 #define ERRORLOG "_TempErrorLog.txt"
 #define THOR_UPDATES_ERRORLOG "_TempThorUpdatesErrorLog.txt"
 
-SYS(2335, 0)
+SYS(2335, 0) && Unattended mode
 
 SET SAFETY OFF
 SET CONSOLE OFF
@@ -54,7 +54,7 @@ TRY
         loUpdateInfo = NEWOBJECT("clsUpdaterObject", "Thor_Proc_GetUpdaterObject2.PRG")
        
         LOCAL lcUpdateName
-        lcUpdateName = JUSTFNAME(lcUpdateFile)
+        lcUpdateName = lcUpdateFile
         
         
         *************************************
@@ -85,7 +85,7 @@ TRY
         loUpdateErr = .F.
 
         LOCAL lcUpdateName
-        lcUpdateName = EVL(loUpdateInfo.VersionFileUrl, JUSTFNAME(lcUpdateFile) + " Version file")
+        lcUpdateName = EVL(loUpdateInfo.VersionFileUrl, lcUpdateFile + " Version file")
         
         TRY
             LOCAL lcLocalVersionFile
