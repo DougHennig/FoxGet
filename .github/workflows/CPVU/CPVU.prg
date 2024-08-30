@@ -41,6 +41,7 @@ TRY
         THROW lcMessage
     ENDIF
     
+    COMPILE Thor_Proc_GetUpdaterObject2.PRG NODEBUG
 
     FOR liThorUpdates = 1 TO lnThorUpdatesCnt
     

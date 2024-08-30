@@ -38,10 +38,10 @@ jobs:
           .\cpvu.exe
           
           echo ---------- CPVU.exe error log -----------
-          if exist .\_TempErrorLog.txt (type .\_TempErrorLog.txt) else (echo NO ERRORS) 
+          if exist .\_TempErrorLog.txt (type .\_TempErrorLog.txt && exit 1) else (echo NO ERRORS) 
           echo -----------------------------------------
           echo --- Thor Updates processing error log ---
-          if exist .\_TempThorUpdatesErrorLog.txt (type .\_TempThorUpdatesErrorLog.txt && exit 1) else (echo NO ERRORS)
+          if exist .\_TempThorUpdatesErrorLog.txt (type .\_TempThorUpdatesErrorLog.txt) else (echo NO ERRORS)
           echo -----------------------------------------
 
           git add ../../../Installers/foxgetpackages.*
