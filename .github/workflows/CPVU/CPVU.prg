@@ -1,7 +1,7 @@
 #define _CRLF CHR(13)+CHR(10)
 #define FOXGETPACKAGES_PATH "..\..\..\Installers\FoxGetPackages.dbf"
 #define THOR_UPDATES_PATH "_Temp_Thor\Updates\"
-#define THOR_PROC_GETUPDATEROBJECT2_PRG "_Temp_Thor\Thor\Thor\Tools\Procs\Thor_Proc_GetUpdaterObject2.PRG"
+#define THOR_PROC_GETUPDATEROBJECT2_PRG "_Temp_Thor\Thor\Tools\Procs\Thor_Proc_GetUpdaterObject2.PRG"
 #define ERRORLOG "_TempErrorLog.txt"
 #define THOR_UPDATES_ERRORLOG "_TempThorUpdatesErrorLog.txt"
 
@@ -186,7 +186,9 @@ TRY
             LOCATE FOR ALLTRIM(Homeurl) == ALLTRIM(loUpdateInfo.Link)
 
             IF FOUND()
-                REPLACE Version WITH lcVerNum, PubDate WITH ldVerDate
+                IF NOT (ALLTRIM(Version) == ALLTRIM(lcVerNum) AND PubDate = ldVerDate)
+                    REPLACE Version WITH lcVerNum, PubDate WITH ldVerDate
+                ENDIF
             ENDIF
             
             GO TOP

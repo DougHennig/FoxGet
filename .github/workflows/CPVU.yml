@@ -34,21 +34,27 @@ jobs:
           echo Get Thor's Updates.zip
           curl https://raw.githubusercontent.com/VFPX/Thor/master/ThorUpdater/Updates.zip -o _Temp_Thor\Updates.zip
           tar -xf _Temp_Thor\Updates.zip -C _Temp_Thor
+          echo.
 
           echo Get Thor's Thor.zip
           curl https://raw.githubusercontent.com/VFPX/Thor/master/ThorUpdater/Thor.zip -o _Temp_Thor\Thor.zip
           tar -xf _Temp_Thor\Thor.zip -C _Temp_Thor
+          echo.
 
           echo Run CPVU.exe
           .\CPVU.exe
+          echo.
           
           echo ---------- CPVU.exe error log -----------
           if exist .\_TempErrorLog.txt (type .\_TempErrorLog.txt && exit 1) else (echo NO ERRORS) 
           echo -----------------------------------------
+          echo.
           echo --- Thor Updates processing error log ---
           if exist .\_TempThorUpdatesErrorLog.txt (type .\_TempThorUpdatesErrorLog.txt) else (echo NO ERRORS)
           echo -----------------------------------------
+          echo.
 
+          echo Commit foxgetpackages changes
           git add ../../../Installers/foxgetpackages.*
           git commit -m "update foxgetpackages.dbf"
           git push
