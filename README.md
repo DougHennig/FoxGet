@@ -1,4 +1,4 @@
-[![Check Packages Version Updates](https://github.com/DougHennig/FoxGet/actions/workflows/CPVU.yml/badge.svg?branch=main)](https://github.com/dmitriychunikhin/FoxGet/actions/workflows/CPVU.yml)
+[![Check Packages Version Updates](https://github.com/DougHennig/FoxGet/actions/workflows/CPVU.yml/badge.svg?branch=main)](/actions/workflows/CPVU.yml)
 
 ![FoxGetPackages last commit](https://img.shields.io/github/last-commit/DougHennig/FoxGet?path=%2FInstallers%2Ffoxgetpackages.dbf&label=FoxGetPackages%20updated)
 
