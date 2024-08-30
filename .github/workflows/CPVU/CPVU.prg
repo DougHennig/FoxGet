@@ -141,8 +141,6 @@ TRY
             ldVerDate = {.}
             
             
-            STRTOFILE(lcUpdateName + ": " + "AvlbVersion="+NVL(loUpdateInfo.AvailableVersion,"") + " VersionNum="+NVL(loUpdateInfo.VersionNumber,"") + REPLICATE(_CRLF,2), THOR_UPDATES_ERRORLOG, 1)
-            
             DO CASE
             CASE EMPTY(NVL(loUpdateInfo.AvailableVersion,"")) = .F.
                 LOCAL laVerTokens[1], lnVerTokens
