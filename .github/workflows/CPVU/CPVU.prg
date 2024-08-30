@@ -1,10 +1,15 @@
 #define _CRLF CHR(13)+CHR(10)
 #define FOXGETPACKAGES_PATH "..\..\..\Installers\FoxGetPackages.dbf"
 #define THOR_UPDATES_PATH "_Temp_Thor\Updates\"
+#define THOR_PROC_GETUPDATEROBJECT2_PRG "_Temp_Thor\Thor\Thor\Tools\Procs\Thor_Proc_GetUpdaterObject2.PRG"
 #define ERRORLOG "_TempErrorLog.txt"
 #define THOR_UPDATES_ERRORLOG "_TempThorUpdatesErrorLog.txt"
 
 SYS(2335, 0) && Unattended mode
+
+IF INLIST(_VFP.StartMode, 0) =.F.
+    SET RESOURCE OFF
+ENDIF
 
 SET SAFETY OFF
 SET CONSOLE OFF
@@ -41,9 +46,13 @@ TRY
         THROW lcMessage
     ENDIF
     
+    LOCAL lcTHOR_PROC_GETUPDATEROBJECT2_PRG
+    lcTHOR_PROC_GETUPDATEROBJECT2_PRG  = THOR_PROC_GETUPDATEROBJECT2_PRG 
+    
     SYS(2335, 1) && Unattended mode off
-    COMPILE Thor_Proc_GetUpdaterObject2.PRG NODEBUG
+    COMPILE &lcTHOR_PROC_GETUPDATEROBJECT2_PRG NODEBUG
     SYS(2335, 0) && Unattended mode on
+
 
     FOR liThorUpdates = 1 TO lnThorUpdatesCnt
     
@@ -54,7 +63,7 @@ TRY
         lcUpdateCode = FILETOSTR(lcUpdateFile)
         
         LOCAL loUpdateInfo
-        loUpdateInfo = NEWOBJECT("clsUpdaterObject", "Thor_Proc_GetUpdaterObject2.PRG")
+        loUpdateInfo = NEWOBJECT("clsUpdaterObject", lcTHOR_PROC_GETUPDATEROBJECT2_PRG)
        
         LOCAL lcUpdateName
         lcUpdateName = lcUpdateFile

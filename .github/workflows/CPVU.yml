@@ -23,7 +23,7 @@ jobs:
           git config user.name "CPVU bot"
           git config user.email "<>"
 
-      - name: Run CPVU.exe
+      - name: Update packages version
         shell: cmd
         run: |
           echo %cd%
@@ -35,7 +35,12 @@ jobs:
           curl https://raw.githubusercontent.com/VFPX/Thor/master/ThorUpdater/Updates.zip -o _Temp_Thor\Updates.zip
           tar -xf _Temp_Thor\Updates.zip -C _Temp_Thor
 
-          .\cpvu.exe
+          echo Get Thor's Thor.zip
+          curl https://raw.githubusercontent.com/VFPX/Thor/master/ThorUpdater/Thor.zip -o _Temp_Thor\Thor.zip
+          tar -xf _Temp_Thor\Thor.zip -C _Temp_Thor
+
+          echo Run CPVU.exe
+          .\CPVU.exe
           
           echo ---------- CPVU.exe error log -----------
           if exist .\_TempErrorLog.txt (type .\_TempErrorLog.txt && exit 1) else (echo NO ERRORS) 
