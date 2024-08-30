@@ -41,7 +41,9 @@ TRY
         THROW lcMessage
     ENDIF
     
+    SYS(2335, 1) && Unattended mode off
     COMPILE Thor_Proc_GetUpdaterObject2.PRG NODEBUG
+    SYS(2335, 0) && Unattended mode on
 
     FOR liThorUpdates = 1 TO lnThorUpdatesCnt
     
