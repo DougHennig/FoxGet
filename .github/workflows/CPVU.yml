@@ -61,7 +61,8 @@ jobs:
           git add ../../../Installers/foxgetpackages.*
           git commit -m "update foxgetpackages.dbf"
           git push
+          echo.
           
-          echo End of Run CPVU.exe
+          
 
           
