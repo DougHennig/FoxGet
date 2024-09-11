@@ -278,8 +278,8 @@
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[ErrorHandler provides a highly configurable and customizable error handler for any VFP application]]></DESCRIP>
 			<KEYWORDS><![CDATA[error,handling]]></KEYWORDS>
-			<VERSION>1.0.20230218</VERSION>
-			<PUBDATE>2023/02/18</PUBDATE>
+			<VERSION>1.0.20240824</VERSION>
+			<PUBDATE>2024/08/24</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;ErrorHandler</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;errorhandlerinstaller.prg</INSTALLURL>
 			<DEPENDENT><![CDATA[SFMail]]></DEPENDENT>
@@ -356,8 +356,8 @@
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[Provides Object-Oriented menus for use in Visual Foxpro 9.0 development]]></DESCRIP>
 			<KEYWORDS><![CDATA[menus,object oriented,OOP]]></KEYWORDS>
-			<VERSION>1.0.8453</VERSION>
-			<PUBDATE>2023/02/22</PUBDATE>
+			<VERSION>2024.08.24</VERSION>
+			<PUBDATE>2024/08/24</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;OOPMenu</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;oopmenuinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -564,8 +564,8 @@
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[Formats strings like .NET's String.Format and C# string interpolation]]></DESCRIP>
 			<KEYWORDS><![CDATA[string,format]]></KEYWORDS>
-			<VERSION>1.0.20231216</VERSION>
-			<PUBDATE>2023/12/16</PUBDATE>
+			<VERSION>1.0.20240824</VERSION>
+			<PUBDATE>2024/08/24</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;FormattingStrings</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;formatinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -590,8 +590,8 @@
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[Provides base UI classes and commonly used functions such as reading from or writing to INI files and the Window Registry, getting a filename from the user using a better dialog than GETFILE(), recursive file operations with a dialog such as copying files and deleting folders, and so on.]]></DESCRIP>
 			<KEYWORDS><![CDATA[framework,base classes,INI files,Windows Registry,file operations]]></KEYWORDS>
-			<VERSION>1.0.20240721</VERSION>
-			<PUBDATE>2024/07/21</PUBDATE>
+			<VERSION>1.0.20240818</VERSION>
+			<PUBDATE>2024/08/18</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;VFPXFramework</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;vfpxframeworkinstaller.prg</INSTALLURL>
 			<DEPENDENT><![CDATA[OOPMenu]]></DEPENDENT>
