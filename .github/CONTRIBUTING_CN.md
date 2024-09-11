@@ -10,11 +10,11 @@
 
 - Fork 项目：请参阅 [guide](https://www.dataschool.io/how-to-contribute-on-github/)，了解如何设置和使用 fork。
 
-- 有关创建新安装程序的信息，请参阅 README.md/[README_CN.md](..\README_CN.md) 中的 _创建安装包_ 主题。
+- 有关创建新安装程序的信息，请参阅 README.md/README_CN.md 中的 _创建安装包_ 主题。
 
 - 如果您要更改 FoxGet UI 或 FoxGet.prg，且这是一个新的主要版本，请编辑 *BuildProcess\ProjectSettings.txt* 中的版本设置。
 
-- 在 *ChangeLog.md/[ChangeLog_CN.md](..\ChangeLog_CN.md)* 的顶部描述更改。
+- 在 *ChangeLog.md/ChangeLog_CN.md* 的顶部描述更改。
 
 - 如果尚未安装 VFPX Deployment，请安装它：从 “Thor”菜单中选择 “Check for Updates”，选择 VFPX Deployment 的复选框，然后单击 “Install”。
 
