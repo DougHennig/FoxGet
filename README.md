@@ -1,4 +1,5 @@
 # FoxGet Package Manager
+[English](README.md)|[简体中文](README_CN.md)
 
 If you've worked with Visual Studio, you've likely used NuGet, which is a package manager for .NET. The idea is that you can search for libraries you'd like to add to your application, download and install them, and then have them managed (automatically download again if files are missing, update to a new version, etc.). FoxGet is the VFP equivalent of NuGet.
 
