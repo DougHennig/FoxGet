@@ -1,0 +1,68 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Check Packages Version Updates 
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+  schedule:
+      - cron: "0 * * * *" # Every hour
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "CPVU"
+  CPVU:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup git
+        shell: cmd
+        run: |
+          git config user.name "CPVU bot"
+          git config user.email "<>"
+
+      - name: Update packages version
+        shell: cmd
+        run: |
+          echo %cd%
+          cd .\.github\workflows\CPVU
+
+          mkdir _Temp_Thor
+
+          echo Get Thor's Updates.zip
+          curl https://raw.githubusercontent.com/VFPX/Thor/master/ThorUpdater/Updates.zip -o _Temp_Thor\Updates.zip
+          tar -xf _Temp_Thor\Updates.zip -C _Temp_Thor
+          echo.
+
+          echo Get Thor's Thor.zip
+          curl https://raw.githubusercontent.com/VFPX/Thor/master/ThorUpdater/Thor.zip -o _Temp_Thor\Thor.zip
+          tar -xf _Temp_Thor\Thor.zip -C _Temp_Thor
+          echo.
+
+          echo Run CPVU.exe
+          .\CPVU.exe
+          echo.
+          
+          echo ---------- CPVU.exe error log -----------
+          if exist .\_TempErrorLog.txt (type .\_TempErrorLog.txt && exit 1) else (echo NO ERRORS) 
+          echo -----------------------------------------
+          echo.
+          echo --- Thor Updates processing error log ---
+          if exist .\_TempThorUpdatesErrorLog.txt (type .\_TempThorUpdatesErrorLog.txt) else (echo NO ERRORS)
+          echo -----------------------------------------
+          echo.
+
+          echo Commit foxgetpackages changes
+          git add ../../../Installers/foxgetpackages.*
+          git commit -m "update foxgetpackages.dbf"
+          git push
+          echo.
+          
+          
+
+          
