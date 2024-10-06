@@ -1,0 +1,7 @@
+_Temp*
+!/*.dll
+!/*.exe
+foxuser.dbf
+foxuser.fpt
+
+
