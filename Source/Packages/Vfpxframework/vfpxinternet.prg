@@ -20,7 +20,7 @@ define class VFPXInternet as Custom
 * Download the file using curl.
 
 			otherwise
-				lcCommand = 'curl.exe -o "' + tcLocalFile + '" -L ' + ;
+				lcCommand = 'curl.exe --ssl-revoke-best-effort -o "' + tcLocalFile + '" -L ' + ;
 					iif(empty(tcServer), '', 'ftp://' + tcServer + ;
 						iif(right(tcServer, 1) = '/' or left(tcRemoteFile, 1) = '/', '', '/')) + ;
 					tcRemoteFile + iif(empty(tcUserName), '', ' -u ' + tcUserName + ':' + ;

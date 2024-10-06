@@ -183,7 +183,7 @@ define class FoxGet as Custom
 		for lnI = 1 to lnFiles
 			This.AddToRepository(laFiles[lnI])
 		next lnI
-		This.AddToRepository(This.cPackagesPath + 'Packages.dbf')
+		This.AddToRepository(This.cPackagesPath + 'Packages.xml')
 
 * Update the packages files.
 
@@ -281,7 +281,10 @@ define class FoxGet as Custom
 	function ExtractFiles()
 		local llResult, ;
 			loException, ;
-			loFile
+			lnFiles, ;
+			loFile, ;
+			laFiles[1], ;
+			lnNewFiles
 
 * Delete all files in the extraction folder: PowerShell Expand-Archive gets
 * cranky if the files already exist.
@@ -310,12 +313,22 @@ define class FoxGet as Custom
 
 * Extract each compressed file.
 
+		lnFiles = 0
 		for each loFile in This.oFiles foxobject
 			if inlist(upper(justext(loFile.cLocalFile)), 'ZIP', '7Z')
 				llResult = This.ExtractFile(loFile.cLocalFile, This.cExtractionPath)
-				if not llResult
+				if llResult
+					lnNewFiles = adir(laFiles, addbs(This.cExtractionPath) + '*.*')
+					llResult   = lnNewFiles > lnFiles
+					if not llResult
+						This.Log('Extracting ' + loFile.cLocalFile + ' into ' + This.cExtractionPath + ' failed')
+					endif not llResult
+				endif llResult
+				if llResult
+					lnFiles = lnNewFiles
+				else
 					exit
-				endif not llResult
+				endif llResult
 			endif inlist(upper(justext(loFile.cLocalFile)) ...
 		next lcFile
 		return llResult
@@ -381,51 +394,38 @@ define class FoxGet as Custom
 	function UpdatePackages(tlRemove)
 		local lcPackagesFile, ;
 			lnSelect, ;
-			llResult, ;
 			lcMessage
-		lcPackagesFile = This.cPackagesPath + 'packages.dbf'
+		lcPackagesFile = This.cPackagesPath + 'packages.xml'
 		lnSelect       = select()
-		llResult       = .T.
 		This.Log('Updating packages file')
+		create cursor Packages (Name C(60), Version C(20), Date D, RefCount I)
 		if file(lcPackagesFile)
-			select 0
-			use (lcPackagesFile) again
-		else
-			try
-				create table (lcPackagesFile) (Name C(60), Version C(20), Date D, RefCount I)
-			catch
-				lcMessage = 'Cannot create packages file'
-				This.Log(lcMessage)
-				raiseevent(This, 'Update', lcMessage)
-				llResult = .F.
-			endtry
+			xmltocursor(lcPackagesFile, 'Packages', 512 + 8192)
 		endif file(lcPackagesFile)
-		if llResult
-			locate for upper(Name) = upper(This.cPackageName)
-			do case
-				case found() and tlRemove
-					replace RefCount with RefCount - 1 in Packages
-					if Packages.RefCount = 0
-						delete in Packages
-					endif Packages.RefCount = 0
-				case tlRemove
-				case not found()
-					insert into Packages ;
-						values ;
-							(This.cPackageName, ;
-							This.cVersion, ;
-							date(), ;
-							1)
-				otherwise
-					replace Version with This.cVersion, ;
-							Date with date(), ;
-							RefCount with RefCount + 1 ;
-						in Packages
-			endcase
-		endif llResult
+		locate for upper(Name) = upper(This.cPackageName)
+		do case
+			case found() and tlRemove
+				replace RefCount with RefCount - 1 in Packages
+				if Packages.RefCount = 0
+					delete in Packages
+				endif Packages.RefCount = 0
+			case tlRemove
+			case not found()
+				insert into Packages ;
+					values ;
+						(This.cPackageName, ;
+						This.cVersion, ;
+						date(), ;
+						1)
+			otherwise
+				replace Version with This.cVersion, ;
+						Date with date(), ;
+						RefCount with RefCount + 1 ;
+					in Packages
+		endcase
+		cursortoxml('Packages', lcPackagesFile, 1, 512)
 		use in select('Packages')
 		select (lnSelect)
-		return llResult
 	endfunc
 
 
@@ -452,6 +452,8 @@ define class FoxGet as Custom
 	function AddFileToProject(tcFile)
 		local lcMessage, ;
 			lcFile, ;
+			loPE, ;
+			loFile, ;
 			llReturn, ;
 			lcMessage
 		lcMessage = 'Adding ' + tcFile + ' to project'
@@ -463,12 +465,32 @@ define class FoxGet as Custom
 		endif empty(justpath(lcFile))
 		try
 			if type('_screen.oProjectExplorers[1].Name') = 'C'
-				loFile    = _screen.oProjectExplorers[1].AddItem(lcFile)
-				llReturn  = not isnull(loFile)
-				lcMessage = 'Project Explorer failed to add file'
+				loPE = _screen.oProjectExplorers[1]
+				try
+					loFile = loPE.oProject.oProject.Files.Item(justfname(lcFile))
+				catch
+					loFile = NULL
+				endtry
+				if vartype(loFile) <> 'O'
+					loFile    = loPE.AddItem(lcFile)
+					llReturn  = not isnull(loFile)
+					lcMessage = 'Project Explorer failed to add file'
+				else
+					This.Log(loFile.Name + ' is already in the project')
+					llReturn = .T.
+				endif vartype(loFile) <> 'O'
 			else	
-				loFile = This.oProject.Files.Add(lcFile)
-				loFile.Exclude = .F.
+				try
+					loFile = This.oProject.Files.Item(justfname(lcFile))
+				catch
+					loFile = NULL
+				endtry
+				if vartype(loFile) <> 'O'
+					loFile = This.oProject.Files.Add(lcFile)
+					loFile.Exclude = .F.
+				else
+					This.Log(loFile.Name + ' is already in the project')
+				endif vartype(loFile) <> 'O'
 				llReturn = .T.
 			endif type('_screen.oProjectExplorers[1].Name') = 'C'
 		catch to loException
@@ -490,6 +512,7 @@ define class FoxGet as Custom
 			loAPI, ;
 			llReturn, ;
 			lnCode
+*** TODO: don't add to repository if there isn't one.
 		lcCommand = 'git add "' + tcFile + '"'
 		loAPI     = newobject('API_AppRun', 'API_AppRun.prg', '', lcCommand, '', 'HID')
 		llReturn  = loAPI.LaunchAppAndWait()
@@ -512,6 +535,7 @@ define class FoxGet as Custom
 			llOK, ;
 			laFiles[1], ;
 			lnFiles
+		This.cLogFile = This.cPackagesPath + 'log.txt'
 		lcMessage = '===== Uninstalling ' + This.cPackageName
 		raiseevent(This, 'Update', lcMessage)
 		This.Log(lcMessage)
@@ -557,7 +581,8 @@ define class FoxGet as Custom
 	function RemoveFileFromProject(tcFile)
 		local lcMessage, ;
 			lcFile, ;
-			llReturn
+			llReturn, ;
+			loFile
 		lcMessage = 'Removing ' + tcFile + ' from project'
 		raiseevent(This, 'Update', lcMessage)
 		This.Log(lcMessage)
@@ -570,8 +595,16 @@ define class FoxGet as Custom
 				_screen.oProjectExplorers[1].SelectNodeForFile(lcFile)
 				llReturn = _screen.oProjectExplorers[1].RemoveItem(.T.)
 			else
-				loFile = This.oProject.Files.Item(lcFile)
-				loFile.Remove()
+				try
+					loFile = This.oProject.Files.Item(lcFile)
+				catch
+					loFile = NULL
+				endtry
+				if vartype(loFile) = 'O'
+					loFile.Remove()
+				else
+					This.Log(lcFile + ' is not in the project so it was not removed')
+				endif vartype(loFile) = 'O'
 				llReturn = .T.
 			endif type('_screen.oProjectExplorers[1].Name') = 'C' ...
 		catch to loException

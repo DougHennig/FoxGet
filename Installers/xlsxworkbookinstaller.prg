@@ -9,7 +9,7 @@ define class XLSXWorkbookInstaller as FoxGet of FoxGet.prg
 * Define the file to download. Note that URLs are case-sensitive.
 
 	function Setup
-		This.AddFile('WorkbookXLSX%20R39.zip')
+		This.AddFile('WorkbookXLSX%20R44.zip')
 	endfunc
 
 * Custom installation tasks: copy just the class library and include file from

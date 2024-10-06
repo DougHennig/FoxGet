@@ -16,7 +16,7 @@ Select a package to see information about it at the right, including the version
 
 You can search for a package by name, tag, or description by typing in the Search textbox. To show only packages installed in the current project, turn on _Show only installed packages_.
 
-To install the selected package, click Install; that button is disabled if the package has already been installed. After a moment, you should see that some files were added to the project and there's a Packages subdirectory of the project folder containing Packages.dbf and the downloaded files in a subdirectory for the component. The package subdirectory also contains a file named <i>Package</i>Installer.prg, which is used to uninstall the package.
+To install the selected package, click Install; that button is disabled if the package has already been installed. After a moment, you should see that some files were added to the project and there's a Packages subdirectory of the project folder containing Packages.xml and the downloaded files in a subdirectory for the component. The package subdirectory also contains a file named <i>Package</i>Installer.prg, which is used to uninstall the package.
 
 You may wonder why FoxGet puts the library into a subdirectory of the Packages subdirectory of the project folder rather than in a common location other applications could reference. There are several reasons:
 
@@ -28,7 +28,7 @@ You may wonder why FoxGet puts the library into a subdirectory of the Packages s
 
 Since packages go in their own folders, you'll need to set a path to those folders if you run the application in the VFP IDE.
 
-To uninstall the selected package, click the Uninstall button. The files added to the project by the installer are removed from the project, the package folder in the Packages subdirectory is deleted, and Packages.dbf is updated.
+To uninstall the selected package, click the Uninstall button. The files added to the project by the installer are removed from the project, the package folder in the Packages subdirectory is deleted, and Packages.xml is updated.
 
 If there's a newer version of the package available, the Update button is enabled. Clicking it uninstalls the package then installs the new version.
 
@@ -79,7 +79,7 @@ Here are some notes:
     
     - Optionally, a path to download this file to. If it isn't specified, the file is downloaded to a temporary path. In this case, since we don't have anything else to do with the file (such as extracting it if it's a ZIP file), we'll download directly to the folder for the package, specified in the cPackagePath property.
 
-FoxGet creates the Packages folder if it doesn't already exists, creates a folder for the package in Packages, downloads all files you specified by calling AddFile, adds them to the project if the second parameter to AddFile is .T., and updates Packages\Packages.dbf. So, in this installer, there's nothing custom we have to do other than specifying the file to download.
+FoxGet creates the Packages folder if it doesn't already exists, creates a folder for the package in Packages, downloads all files you specified by calling AddFile, adds them to the project if the second parameter to AddFile is .T., and updates Packages\Packages.xml. So, in this installer, there's nothing custom we have to do other than specifying the file to download.
 
 Here's a more complicated installer.
 
