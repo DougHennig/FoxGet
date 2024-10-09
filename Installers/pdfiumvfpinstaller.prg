@@ -4,7 +4,7 @@ loInstaller = createobject('PdfiumVfpInstaller')
 loInstaller.Install()
 
 define class PdfiumVfpInstaller as FoxGet of FoxGet.prg
-    cBaseURL = 'https://raw.githubusercontent.com/dmitriychunikhin/pdfium-vfp/main/Source/'
+    cBaseURL = 'https://raw.githubusercontent.com/dmitriychunikhin/pdfium-vfp/main/Release/'
 
 * Define the files to download. Note that URLs are case-sensitive. Also, we'll
 * download directly to the package folder since there's nothing to unzip, and
