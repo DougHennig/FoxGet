@@ -15,11 +15,8 @@ define class PdfiumVfpInstaller as FoxGet of FoxGet.prg
         This.AddFile('pdfium-vfp.vcx',         .F., This.cPackagePath)
         This.AddFile('pdfium-vfp.vct',         .F., This.cPackagePath)
         This.AddFile('pdfiumreport.app',       .F., This.cPackagePath)
-        This.AddFile('system.app',             .F., This.cPackagePath)
-        This.AddFile('libhpdf.dll',            .F., This.cPackagePath)
         This.AddFile('pdfium.dll',             .F., This.cPackagePath)
         This.AddFile('pdfium-vfp.dll',         .F., This.cPackagePath)
-        This.AddFile('libhpdf64.dll',          .F., This.cPackagePath)
         This.AddFile('pdfium64.dll',           .F., This.cPackagePath)
         This.AddFile('pdfium-vfp64.dll',       .F., This.cPackagePath)
     endfunc
