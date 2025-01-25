@@ -433,8 +433,8 @@
 			<AUTHOR>Bill Anderson</AUTHOR>
 			<DESCRIP><![CDATA[ChilkatVFP is a Visual Foxpro class that wraps the Chilkat library.]]></DESCRIP>
 			<KEYWORDS><![CDATA[internet,control]]></KEYWORDS>
-			<VERSION>1.34</VERSION>
-			<PUBDATE>2024/07/10</PUBDATE>
+			<VERSION>1.41</VERSION>
+			<PUBDATE>2025/01/19</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;billand88&#47;ChilkatVFP</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;chilkatvfpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>

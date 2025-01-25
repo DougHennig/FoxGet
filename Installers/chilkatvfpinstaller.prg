@@ -12,14 +12,18 @@ define class ChilkatVFPInstaller as FoxGet of FoxGet.prg
 * no custom tasks to perform.
 
 	function Setup
-		This.AddFile('Msgsvc.DBF',   .T., This.cPackagePath)
-		This.AddFile('chilkat.VCT',  .F., This.cPackagePath)
-		This.AddFile('chilkat.vcx',  .T., This.cPackagePath)
-		This.AddFile('chilkatvfpeventcallbacks.prg', .T., This.cPackagePath)
-		This.AddFile('foxpro.h',     .T., This.cPackagePath)
-		This.AddFile('ichilkat.vct', .F., This.cPackagePath)
-		This.AddFile('ichilkat.vcx', .T., This.cPackagePath)
-		This.AddFile('msgsvc.cdx',   .T., This.cPackagePath)
-		This.AddFile('msgsvc.prg',   .T., This.cPackagePath)
+		This.AddFile('Msgsvc.DBF',     .T., This.cPackagePath)
+		This.AddFile('chilkatvfp.vct', .F., This.cPackagePath)
+		This.AddFile('chilkatvfp.vcx', .T., This.cPackagePath)
+		This.AddFile('chilkatvfpeventcallbacks.prg',       .T., This.cPackagePath)
+		This.AddFile('chilkatvfpeventcallbacksprev52.prg', .T., This.cPackagePath)
+		This.AddFile('chilkatvfpeventcallbacksprev58.prg', .T., This.cPackagePath)
+		This.AddFile('chilkatvfpeventcallbacksv58.prg',    .T., This.cPackagePath)
+		This.AddFile('chmsgsvc.prg',    .T., This.cPackagePath)
+		This.AddFile('foxpro.h',        .T., This.cPackagePath)
+		This.AddFile('ichilkatvfp.vct', .F., This.cPackagePath)
+		This.AddFile('ichilkatvfp.vcx', .T., This.cPackagePath)
+		This.AddFile('msgsvc.cdx',      .T., This.cPackagePath)
+		This.AddFile('msgsvc.fpt',      .T., This.cPackagePath)
 	endfunc
 enddefine

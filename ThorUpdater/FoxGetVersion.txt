@@ -3,8 +3,8 @@ lparameters toUpdateObject
 * Set the properties of the passed updater object.
 
 with toUpdateObject
-	.VersionNumber    = '1.0 - 20241006'
-	.AvailableVersion = 'FoxGet-1.0-update-20241006'
+	.VersionNumber    = '1.0 - 20250125'
+	.AvailableVersion = 'FoxGet-1.0-update-20250125'
 	.Notes            = GetNotes()
 	.RegisterWithThor = GetRegisterWithThor()
 endwith
@@ -21,11 +21,15 @@ FoxGet is a package manager for VFP similar to the NuGet Package Manager for .NE
 
 ## Releases
 
+### 2025-01-25
+
+* Updated ChilkatVFP installer to 1.41.
+
 ### 2024-10-06
 
 - Packages.dbf was replaced with Packages.xml for easier comparison and merging.
 
-- *** TODO: implement pull request
+- Merged pull request #7, which provides automatic updating of FoxGetPackages.dbf.
 
 - Added a Clear Filter button.
 
@@ -112,4 +116,4 @@ endwith
 endproc &&GetRegisterWithThor
 
 
-*created by VFPX Deployment, 10/06/2024 9:44:20 AM
+*created by VFPX Deployment, 01/25/2025 8:16:12 AM

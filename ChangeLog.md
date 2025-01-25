@@ -4,6 +4,10 @@ FoxGet is a package manager for VFP similar to the NuGet Package Manager for .NE
 
 ## Releases
 
+### 2025-01-25
+
+* Updated ChilkatVFP installer to 1.41.
+
 ### 2024-10-06
 
 - Packages.dbf was replaced with Packages.xml for easier comparison and merging.
