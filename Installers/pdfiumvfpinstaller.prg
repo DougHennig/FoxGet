@@ -4,7 +4,7 @@ loInstaller = createobject('PdfiumVfpInstaller')
 loInstaller.Install()
 
 define class PdfiumVfpInstaller as FoxGet of FoxGet.prg
-    cBaseURL = 'https://raw.githubusercontent.com/dmitriychunikhin/pdfium-vfp/main/Source/'
+    cBaseURL = 'https://raw.githubusercontent.com/dmitriychunikhin/pdfium-vfp/main/Release/'
 
 * Define the files to download. Note that URLs are case-sensitive. Also, we'll
 * download directly to the package folder since there's nothing to unzip, and
@@ -15,11 +15,8 @@ define class PdfiumVfpInstaller as FoxGet of FoxGet.prg
         This.AddFile('pdfium-vfp.vcx',         .F., This.cPackagePath)
         This.AddFile('pdfium-vfp.vct',         .F., This.cPackagePath)
         This.AddFile('pdfiumreport.app',       .F., This.cPackagePath)
-        This.AddFile('system.app',             .F., This.cPackagePath)
-        This.AddFile('libhpdf.dll',            .F., This.cPackagePath)
         This.AddFile('pdfium.dll',             .F., This.cPackagePath)
         This.AddFile('pdfium-vfp.dll',         .F., This.cPackagePath)
-        This.AddFile('libhpdf64.dll',          .F., This.cPackagePath)
         This.AddFile('pdfium64.dll',           .F., This.cPackagePath)
         This.AddFile('pdfium-vfp64.dll',       .F., This.cPackagePath)
     endfunc

@@ -433,7 +433,7 @@
 			<AUTHOR>Bill Anderson</AUTHOR>
 			<DESCRIP><![CDATA[ChilkatVFP is a Visual Foxpro class that wraps the Chilkat library.]]></DESCRIP>
 			<KEYWORDS><![CDATA[internet,control]]></KEYWORDS>
-			<VERSION>1.41</VERSION>
+			<VERSION>1.41.9150</VERSION>
 			<PUBDATE>2025/01/19</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;billand88&#47;ChilkatVFP</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;chilkatvfpinstaller.prg</INSTALLURL>
@@ -602,8 +602,8 @@
 			<AUTHOR>Dmitriy Chunikhin</AUTHOR>
 			<DESCRIP><![CDATA[PDF Viewer and ReportOutput]]></DESCRIP>
 			<KEYWORDS><![CDATA[PDF,Pdfium,Report,ReportOutput]]></KEYWORDS>
-			<VERSION>1.14</VERSION>
-			<PUBDATE>2024/10/04</PUBDATE>
+			<VERSION>1.21</VERSION>
+			<PUBDATE>2024/12/17</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;dmitriychunikhin&#47;pdfium-vfp</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;pdfiumvfpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
