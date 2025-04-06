@@ -226,7 +226,7 @@
 			<DESCRIP><![CDATA[A VFP class to process CSV files.]]></DESCRIP>
 			<KEYWORDS><![CDATA[csv,import,export]]></KEYWORDS>
 			<VERSION></VERSION>
-			<PUBDATE>2024/07/16</PUBDATE>
+			<PUBDATE>2025/02/07</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;atlopes&#47;csv</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;csvprocessorinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -239,7 +239,7 @@
 			<DESCRIP><![CDATA[A DPI-Aware manager for VFP applications.]]></DESCRIP>
 			<KEYWORDS><![CDATA[dpi]]></KEYWORDS>
 			<VERSION></VERSION>
-			<PUBDATE>2024/07/14</PUBDATE>
+			<PUBDATE>2025/02/12</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;atlopes&#47;DPIAwareManager</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;dpiawaremanagerinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -265,7 +265,7 @@
 			<DESCRIP><![CDATA[Parallel Processing Library for Visual FoxPro]]></DESCRIP>
 			<KEYWORDS><![CDATA[parallel,processing]]></KEYWORDS>
 			<VERSION>2.0</VERSION>
-			<PUBDATE>2023/10/01</PUBDATE>
+			<PUBDATE>2024/01/07</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;ParallelFox</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;parallelfoxinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -290,8 +290,8 @@
 			<AUTHOR>Greg Green</AUTHOR>
 			<DESCRIP><![CDATA[VFP Class to Create an XLSX Workbook without Excel Automation or Installed]]></DESCRIP>
 			<KEYWORDS><![CDATA[Excel,import,export]]></KEYWORDS>
-			<VERSION>R44</VERSION>
-			<PUBDATE>2024/06/21</PUBDATE>
+			<VERSION>R45</VERSION>
+			<PUBDATE>2025/03/27</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;ggreen86&#47;XLSX-Workbook-Class</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;xlsxworkbookinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -303,8 +303,8 @@
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[A library to send emails from VFP applications]]></DESCRIP>
 			<KEYWORDS><![CDATA[Email]]></KEYWORDS>
-			<VERSION>1.0.20220917</VERSION>
-			<PUBDATE>2022/09/17</PUBDATE>
+			<VERSION>2025.04.05</VERSION>
+			<PUBDATE>2025/04/05</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;SFMail</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;sfmailinstaller.prg</INSTALLURL>
 			<DEPENDENT><![CDATA[wwDotNetBridge]]></DEPENDENT>
@@ -316,8 +316,8 @@
 			<AUTHOR>Marco Plaza</AUTHOR>
 			<DESCRIP><![CDATA[Provides a set of fast performance, reliable and easy to use Json functions using pure VFP]]></DESCRIP>
 			<KEYWORDS><![CDATA[JSON]]></KEYWORDS>
-			<VERSION>1.123</VERSION>
-			<PUBDATE>2024/08/14</PUBDATE>
+			<VERSION>1.34</VERSION>
+			<PUBDATE>2025/02/27</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;nfJson</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;nfjsoninstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -343,7 +343,7 @@
 			<DESCRIP><![CDATA[.NET Interop for Visual FoxPro made easy]]></DESCRIP>
 			<KEYWORDS><![CDATA[.NET,Interop]]></KEYWORDS>
 			<VERSION>8.1.2</VERSION>
-			<PUBDATE>2024/10/03</PUBDATE>
+			<PUBDATE>2025/12/06</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;RickStrahl&#47;wwDotnetBridge</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;wwdotnetbridgeinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -381,8 +381,8 @@
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[A Microsoft Office 365-like ribbon control for VFP forms]]></DESCRIP>
 			<KEYWORDS><![CDATA[ribbon,Office,control]]></KEYWORDS>
-			<VERSION>1.0.20231223</VERSION>
-			<PUBDATE>2023/12/23</PUBDATE>
+			<VERSION>1.0</VERSION>
+			<PUBDATE>2025/03/29</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;Ribbon</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;ribboninstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -433,8 +433,8 @@
 			<AUTHOR>Bill Anderson</AUTHOR>
 			<DESCRIP><![CDATA[ChilkatVFP is a Visual Foxpro class that wraps the Chilkat library.]]></DESCRIP>
 			<KEYWORDS><![CDATA[internet,control]]></KEYWORDS>
-			<VERSION>1.41.9150</VERSION>
-			<PUBDATE>2025/01/19</PUBDATE>
+			<VERSION>1.43</VERSION>
+			<PUBDATE>2025/02/14</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;billand88&#47;ChilkatVFP</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;chilkatvfpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -473,7 +473,7 @@
 			<DESCRIP><![CDATA[Provides a VFP wrapper for the Log4NET diagnostic logging library]]></DESCRIP>
 			<KEYWORDS><![CDATA[logging,diagnostic]]></KEYWORDS>
 			<VERSION></VERSION>
-			<PUBDATE>2021/01/30</PUBDATE>
+			<PUBDATE>2021/06/17</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;Log4VFP</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;log4vfpinstaller.prg</INSTALLURL>
 			<DEPENDENT><![CDATA[wwDotNetBridge]]></DEPENDENT>
@@ -525,7 +525,7 @@
 			<DESCRIP><![CDATA[Provides powerful and simple to use functions to parse / serialize complex XML]]></DESCRIP>
 			<KEYWORDS><![CDATA[xml]]></KEYWORDS>
 			<VERSION></VERSION>
-			<PUBDATE>2020/12/22</PUBDATE>
+			<PUBDATE>2022/04/02</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;nfXML</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;nfxmlinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -589,8 +589,8 @@
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[Provides base UI classes and commonly used functions such as reading from or writing to INI files and the Window Registry, getting a filename from the user using a better dialog than GETFILE(), recursive file operations with a dialog such as copying files and deleting folders, and so on.]]></DESCRIP>
 			<KEYWORDS><![CDATA[framework,base classes,INI files,Windows Registry,file operations]]></KEYWORDS>
-			<VERSION>1.0.20240818</VERSION>
-			<PUBDATE>2024/08/18</PUBDATE>
+			<VERSION>1.0.20241110</VERSION>
+			<PUBDATE>2024/11/10</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;VFPXFramework</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;vfpxframeworkinstaller.prg</INSTALLURL>
 			<DEPENDENT><![CDATA[OOPMenu]]></DEPENDENT>
@@ -602,8 +602,8 @@
 			<AUTHOR>Dmitriy Chunikhin</AUTHOR>
 			<DESCRIP><![CDATA[PDF Viewer and ReportOutput]]></DESCRIP>
 			<KEYWORDS><![CDATA[PDF,Pdfium,Report,ReportOutput]]></KEYWORDS>
-			<VERSION>1.21</VERSION>
-			<PUBDATE>2024/12/17</PUBDATE>
+			<VERSION>1.22</VERSION>
+			<PUBDATE>2025/04/01</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;dmitriychunikhin&#47;pdfium-vfp</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;pdfiumvfpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
