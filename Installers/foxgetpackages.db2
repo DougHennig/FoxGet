@@ -277,7 +277,7 @@
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[ErrorHandler provides a highly configurable and customizable error handler for any VFP application]]></DESCRIP>
 			<KEYWORDS><![CDATA[error,handling]]></KEYWORDS>
-			<VERSION>1.0.20240824</VERSION>
+			<VERSION>1.0</VERSION>
 			<PUBDATE>2024/08/24</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;ErrorHandler</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;errorhandlerinstaller.prg</INSTALLURL>
@@ -330,7 +330,7 @@
 			<DESCRIP><![CDATA[Draws gauges in VFP applications]]></DESCRIP>
 			<KEYWORDS><![CDATA[gauge,control,graphics]]></KEYWORDS>
 			<VERSION>1.0.6984</VERSION>
-			<PUBDATE>2020/04/13</PUBDATE>
+			<PUBDATE>2019/02/14</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;Gauge</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;gaugeinstaller.prg</INSTALLURL>
 			<DEPENDENT><![CDATA[wwDotNetBridge]]></DEPENDENT>
@@ -355,7 +355,7 @@
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[Provides Object-Oriented menus for use in Visual Foxpro 9.0 development]]></DESCRIP>
 			<KEYWORDS><![CDATA[menus,object oriented,OOP]]></KEYWORDS>
-			<VERSION>2024.08.24</VERSION>
+			<VERSION>1.0.9002</VERSION>
 			<PUBDATE>2024/08/24</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;OOPMenu</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;oopmenuinstaller.prg</INSTALLURL>
@@ -433,8 +433,8 @@
 			<AUTHOR>Bill Anderson</AUTHOR>
 			<DESCRIP><![CDATA[ChilkatVFP is a Visual Foxpro class that wraps the Chilkat library.]]></DESCRIP>
 			<KEYWORDS><![CDATA[internet,control]]></KEYWORDS>
-			<VERSION>1.43</VERSION>
-			<PUBDATE>2025/02/14</PUBDATE>
+			<VERSION>1.50</VERSION>
+			<PUBDATE>2025/05/21</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;billand88&#47;ChilkatVFP</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;chilkatvfpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -602,8 +602,8 @@
 			<AUTHOR>Dmitriy Chunikhin</AUTHOR>
 			<DESCRIP><![CDATA[PDF Viewer and ReportOutput]]></DESCRIP>
 			<KEYWORDS><![CDATA[PDF,Pdfium,Report,ReportOutput]]></KEYWORDS>
-			<VERSION>1.22</VERSION>
-			<PUBDATE>2025/04/01</PUBDATE>
+			<VERSION>1.26</VERSION>
+			<PUBDATE>2025/05/06</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;dmitriychunikhin&#47;pdfium-vfp</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;pdfiumvfpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
