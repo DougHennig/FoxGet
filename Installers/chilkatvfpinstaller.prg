@@ -13,6 +13,7 @@ define class ChilkatVFPInstaller as FoxGet of FoxGet.prg
 
 	function Setup
 		This.AddFile('Msgsvc.DBF',     .T., This.cPackagePath)
+		This.AddFile('chilkatvfp.h',   .F., This.cPackagePath)
 		This.AddFile('chilkatvfp.vct', .F., This.cPackagePath)
 		This.AddFile('chilkatvfp.vcx', .T., This.cPackagePath)
 		This.AddFile('chilkatvfpeventcallbacks.prg',       .T., This.cPackagePath)

@@ -5,6 +5,8 @@
 # FoxGet Package Manager
 [English](README.md)|[简体中文](README_CN.md)
 
+[![ChangeLog](https://img.shields.io/github/last-commit/DougHennig/FoxGet?path=ChangeLog.md&label=Latest%20Release)](ChangeLog.md)
+
 If you've worked with Visual Studio, you've likely used NuGet, which is a package manager for .NET. The idea is that you can search for libraries you'd like to add to your application, download and install them, and then have them managed (automatically download again if files are missing, update to a new version, etc.). FoxGet is the VFP equivalent of NuGet.
 
 The idea is that you run FoxGet when you want to add a library to an application. You search for a library you're interested in and if one is found, you can download, install, and add it to your project with a single mouse click. Of course, you'll have to do the coding part such as calling the library yourself.
