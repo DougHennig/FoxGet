@@ -303,12 +303,12 @@
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[A library to send emails from VFP applications]]></DESCRIP>
 			<KEYWORDS><![CDATA[Email]]></KEYWORDS>
-			<VERSION>2025.04.05</VERSION>
-			<PUBDATE>2025/04/05</PUBDATE>
+			<VERSION>2025.07.29</VERSION>
+			<PUBDATE>2025/07/29</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;SFMail</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;sfmailinstaller.prg</INSTALLURL>
 			<DEPENDENT><![CDATA[wwDotNetBridge]]></DEPENDENT>
-			<NOTES><![CDATA[Deploy BouncyCastle.Crypto.dll, MailKit.dll, MimeKit.dll, SMTPLibrary2.dll (SFMail folder), ClrHost.dll, and wwDotNetBridge.dll (wwDotNetBridge folder)]]></NOTES>
+			<NOTES><![CDATA[Deploy MailKitLite.dll, MimeKitLite.dll, SMTPLibrary2.dll, System.Buffers.dll, System.Formats.Asn1.dll, System.Memory.dll, System.Numerics.Vectors.dll, System.Runtime.CompilerServices.Unsafe.dll, System.Threading.Tasks.Extensions.dll, System.ValueTuple.dll (SFMail folder), ClrHost.dll, and wwDotNetBridge.dll (wwDotNetBridge folder)]]></NOTES>
 		</RECORD>
 
 		<RECORD>
@@ -602,12 +602,25 @@
 			<AUTHOR>Dmitriy Chunikhin</AUTHOR>
 			<DESCRIP><![CDATA[PDF Viewer and ReportOutput]]></DESCRIP>
 			<KEYWORDS><![CDATA[PDF,Pdfium,Report,ReportOutput]]></KEYWORDS>
-			<VERSION>1.26</VERSION>
-			<PUBDATE>2025/05/06</PUBDATE>
+			<VERSION>1.36</VERSION>
+			<PUBDATE>2025/07/12</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;dmitriychunikhin&#47;pdfium-vfp</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;pdfiumvfpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
 			<NOTES></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>Document</NAME>
+			<AUTHOR>Doug Hennig</AUTHOR>
+			<DESCRIP><![CDATA[Document interacts with the Amazon S3 API to manage documents.]]></DESCRIP>
+			<KEYWORDS></KEYWORDS>
+			<VERSION>2025.07.29</VERSION>
+			<PUBDATE>2025/07/29</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;Document</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;documentinstaller.prg</INSTALLURL>
+			<DEPENDENT><![CDATA[wwDotNetBridge]]></DEPENDENT>
+			<NOTES><![CDATA[Deploy AWSSDK.Core.dll, AWSSDK.S3.dll, Document.dll (Document folder), ClrHost.dll, and wwDotNetBridge.dll (wwDotNetBridge folder)]]></NOTES>
 		</RECORD>
 
 	</RECORDS>
