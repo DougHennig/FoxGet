@@ -481,6 +481,13 @@ DEFINE CLASS foxget AS vfpxbaseform OF "packages\vfpxframework\vfpxbaselibrary.v
 			return .F.
 		endif not llOK
 		
+		* Set the path if we're running the form directly.
+		
+		astackinfo(laStack)
+		if lower(justext(laStack[1, 2])) <> 'app'
+			set path to 'Packages\VFPXFramework' additive
+		endif lower(justext(laStack[1, 2])) <> 'app'
+		
 		* Download the FoxGet packages list.
 		
 		set procedure to foxget additive
