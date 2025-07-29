@@ -614,7 +614,7 @@
 			<NAME>Document</NAME>
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[Document interacts with the Amazon S3 API to manage documents.]]></DESCRIP>
-			<KEYWORDS></KEYWORDS>
+			<KEYWORDS><![CDATA[Amazon,S3,document]]></KEYWORDS>
 			<VERSION>2025.07.29</VERSION>
 			<PUBDATE>2025/07/29</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;Document</HOMEURL>
