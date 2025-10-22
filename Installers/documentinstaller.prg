@@ -9,7 +9,7 @@ define class DocumentInstaller as FoxGet of FoxGet.prg
 * Define the files to download. Note that URLs are case-sensitive.
 
 	function Setup
-		This.AddFile('FoxGet/Source.zip')
+		This.AddFile('FoxGet/source.zip')
 	endfunc
 
 * Custom installation tasks: copy the files from the extraction folder to the package folder.
