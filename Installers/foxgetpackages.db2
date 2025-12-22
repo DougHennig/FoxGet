@@ -226,7 +226,7 @@
 			<DESCRIP><![CDATA[A VFP class to process CSV files.]]></DESCRIP>
 			<KEYWORDS><![CDATA[csv,import,export]]></KEYWORDS>
 			<VERSION></VERSION>
-			<PUBDATE>2025/02/07</PUBDATE>
+			<PUBDATE>2025/04/09</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;atlopes&#47;csv</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;csvprocessorinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -239,7 +239,7 @@
 			<DESCRIP><![CDATA[A DPI-Aware manager for VFP applications.]]></DESCRIP>
 			<KEYWORDS><![CDATA[dpi]]></KEYWORDS>
 			<VERSION></VERSION>
-			<PUBDATE>2025/02/12</PUBDATE>
+			<PUBDATE>2025/12/13</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;atlopes&#47;DPIAwareManager</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;dpiawaremanagerinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -290,8 +290,8 @@
 			<AUTHOR>Greg Green</AUTHOR>
 			<DESCRIP><![CDATA[VFP Class to Create an XLSX Workbook without Excel Automation or Installed]]></DESCRIP>
 			<KEYWORDS><![CDATA[Excel,import,export]]></KEYWORDS>
-			<VERSION>R45</VERSION>
-			<PUBDATE>2025/03/27</PUBDATE>
+			<VERSION>R51</VERSION>
+			<PUBDATE>2025/07/09</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;ggreen86&#47;XLSX-Workbook-Class</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;xlsxworkbookinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -317,7 +317,7 @@
 			<DESCRIP><![CDATA[Provides a set of fast performance, reliable and easy to use Json functions using pure VFP]]></DESCRIP>
 			<KEYWORDS><![CDATA[JSON]]></KEYWORDS>
 			<VERSION>1.34</VERSION>
-			<PUBDATE>2025/02/27</PUBDATE>
+			<PUBDATE>2025/04/11</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;nfJson</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;nfjsoninstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -330,7 +330,7 @@
 			<DESCRIP><![CDATA[Draws gauges in VFP applications]]></DESCRIP>
 			<KEYWORDS><![CDATA[gauge,control,graphics]]></KEYWORDS>
 			<VERSION>1.0.6984</VERSION>
-			<PUBDATE>2019/02/14</PUBDATE>
+			<PUBDATE>2020/04/13</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;Gauge</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;gaugeinstaller.prg</INSTALLURL>
 			<DEPENDENT><![CDATA[wwDotNetBridge]]></DEPENDENT>
@@ -420,8 +420,8 @@
 			<AUTHOR>Guillermo Carrero and Luis Maria Guayan</AUTHOR>
 			<DESCRIP><![CDATA[FoxBarcodeQR is a supplement of FoxBarcode class only for QR Code barcodes. This class is an alternative solution for all developers who requested QR Code support.]]></DESCRIP>
 			<KEYWORDS><![CDATA[barcode,QR]]></KEYWORDS>
-			<VERSION>2.10</VERSION>
-			<PUBDATE>2021/02/27</PUBDATE>
+			<VERSION>2.25</VERSION>
+			<PUBDATE>2025/07/29</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;FoxBarCodeQR</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;foxbarcodeqrinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -433,8 +433,8 @@
 			<AUTHOR>Bill Anderson</AUTHOR>
 			<DESCRIP><![CDATA[ChilkatVFP is a Visual Foxpro class that wraps the Chilkat library.]]></DESCRIP>
 			<KEYWORDS><![CDATA[internet,control]]></KEYWORDS>
-			<VERSION>1.51</VERSION>
-			<PUBDATE>2025/08/04</PUBDATE>
+			<VERSION>1.53.9483</VERSION>
+			<PUBDATE>2025/12/18</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;billand88&#47;ChilkatVFP</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;chilkatvfpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -499,7 +499,7 @@
 			<DESCRIP><![CDATA[UTCDatetime is a VFP extension to handle UTC dates and time, including historical points in time, and conversion from and to local time in any timezone.]]></DESCRIP>
 			<KEYWORDS><![CDATA[datetime,UTC]]></KEYWORDS>
 			<VERSION></VERSION>
-			<PUBDATE>2024/10/01</PUBDATE>
+			<PUBDATE>2025/11/07</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;atlopes&#47;UTCDatetime</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;utcdatetimeinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -537,8 +537,8 @@
 			<AUTHOR>Victor Espina</AUTHOR>
 			<DESCRIP><![CDATA[This library allows to parse and creates JSON strings, along with handy utilities to consume JSON-based REST web services.]]></DESCRIP>
 			<KEYWORDS><![CDATA[JSON,REST]]></KEYWORDS>
-			<VERSION>1.29</VERSION>
-			<PUBDATE>2024/04/22</PUBDATE>
+			<VERSION>1.32</VERSION>
+			<PUBDATE>2025/12/01</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;vespina&#47;json</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;jsoninstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -550,8 +550,8 @@
 			<AUTHOR>Christof Wollenhaupt</AUTHOR>
 			<DESCRIP><![CDATA[With fpCefSharp you can add a modern browser to your Visual FoxPro application.]]></DESCRIP>
 			<KEYWORDS><![CDATA[CEF,browser,CEFSharp]]></KEYWORDS>
-			<VERSION>97.1.61.3</VERSION>
-			<PUBDATE>2023/09/20</PUBDATE>
+			<VERSION>143.0.90</VERSION>
+			<PUBDATE>2025/12/18</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;cwollenhaupt&#47;fpCefSharp</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;fpcefsharpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
