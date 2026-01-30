@@ -602,8 +602,8 @@
 			<AUTHOR>Dmitriy Chunikhin</AUTHOR>
 			<DESCRIP><![CDATA[PDF Viewer and ReportOutput]]></DESCRIP>
 			<KEYWORDS><![CDATA[PDF,Pdfium,Report,ReportOutput]]></KEYWORDS>
-			<VERSION>1.37</VERSION>
-			<PUBDATE>2025/08/11</PUBDATE>
+			<VERSION>1.38</VERSION>
+			<PUBDATE>2026/01/22</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;dmitriychunikhin&#47;pdfium-vfp</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;pdfiumvfpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
