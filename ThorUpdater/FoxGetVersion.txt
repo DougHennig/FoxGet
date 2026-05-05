@@ -3,8 +3,8 @@ lparameters toUpdateObject
 * Set the properties of the passed updater object.
 
 with toUpdateObject
-	.VersionNumber    = '1.0 - 20260130'
-	.AvailableVersion = 'FoxGet-1.0-update-20260130'
+	.VersionNumber    = '1.0 - 20260505'
+	.AvailableVersion = 'FoxGet-1.0-update-20260505'
 	.Notes            = GetNotes()
 	.RegisterWithThor = GetRegisterWithThor()
 endwith
@@ -23,7 +23,7 @@ FoxGet is a package manager for VFP similar to the NuGet Package Manager for .NE
 
 ### 2026-01-30
 
-* Added installed for VFP_RegExp.
+* Added installer for VFP_RegExp.
 
 ### 2025-05-23
 
@@ -128,4 +128,4 @@ endwith
 endproc &&GetRegisterWithThor
 
 
-*created by VFPX Deployment, 01/30/2026 4:14:31 PM
+*created by VFPX Deployment, 05/05/2026 11:54:12 AM
