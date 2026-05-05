@@ -226,7 +226,7 @@
 			<DESCRIP><![CDATA[A VFP class to process CSV files.]]></DESCRIP>
 			<KEYWORDS><![CDATA[csv,import,export]]></KEYWORDS>
 			<VERSION></VERSION>
-			<PUBDATE>2025/04/09</PUBDATE>
+			<PUBDATE>2026/03/06</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;atlopes&#47;csv</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;csvprocessorinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -239,7 +239,7 @@
 			<DESCRIP><![CDATA[A DPI-Aware manager for VFP applications.]]></DESCRIP>
 			<KEYWORDS><![CDATA[dpi]]></KEYWORDS>
 			<VERSION></VERSION>
-			<PUBDATE>2025/12/13</PUBDATE>
+			<PUBDATE>2026/01/03</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;atlopes&#47;DPIAwareManager</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;dpiawaremanagerinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -290,8 +290,8 @@
 			<AUTHOR>Greg Green</AUTHOR>
 			<DESCRIP><![CDATA[VFP Class to Create an XLSX Workbook without Excel Automation or Installed]]></DESCRIP>
 			<KEYWORDS><![CDATA[Excel,import,export]]></KEYWORDS>
-			<VERSION>R51</VERSION>
-			<PUBDATE>2025/07/09</PUBDATE>
+			<VERSION>R54</VERSION>
+			<PUBDATE>2026/02/17</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;ggreen86&#47;XLSX-Workbook-Class</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;xlsxworkbookinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -303,8 +303,8 @@
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[A library to send emails from VFP applications]]></DESCRIP>
 			<KEYWORDS><![CDATA[Email]]></KEYWORDS>
-			<VERSION>2025.07.29</VERSION>
-			<PUBDATE>2025/07/29</PUBDATE>
+			<VERSION>2026.02.06</VERSION>
+			<PUBDATE>2026/02/06</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;SFMail</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;sfmailinstaller.prg</INSTALLURL>
 			<DEPENDENT><![CDATA[wwDotNetBridge]]></DEPENDENT>
@@ -317,7 +317,7 @@
 			<DESCRIP><![CDATA[Provides a set of fast performance, reliable and easy to use Json functions using pure VFP]]></DESCRIP>
 			<KEYWORDS><![CDATA[JSON]]></KEYWORDS>
 			<VERSION>1.34</VERSION>
-			<PUBDATE>2025/04/11</PUBDATE>
+			<PUBDATE>2026/04/21</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;nfJson</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;nfjsoninstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -343,7 +343,7 @@
 			<DESCRIP><![CDATA[.NET Interop for Visual FoxPro made easy]]></DESCRIP>
 			<KEYWORDS><![CDATA[.NET,Interop]]></KEYWORDS>
 			<VERSION>8.1.2</VERSION>
-			<PUBDATE>2025/12/06</PUBDATE>
+			<PUBDATE>2025/10/09</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;RickStrahl&#47;wwDotnetBridge</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;wwdotnetbridgeinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -408,7 +408,7 @@
 			<DESCRIP><![CDATA[A 100% Visual FoxPro class that provides a tool for generating images with different bar code symbologies to be used in VFP forms and reports, or exported to other applications]]></DESCRIP>
 			<KEYWORDS><![CDATA[barcode]]></KEYWORDS>
 			<VERSION>1.19</VERSION>
-			<PUBDATE>2019/05/21</PUBDATE>
+			<PUBDATE>2021/02/27</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;FoxBarCode</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;foxbarcodeinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -433,8 +433,8 @@
 			<AUTHOR>Bill Anderson</AUTHOR>
 			<DESCRIP><![CDATA[ChilkatVFP is a Visual Foxpro class that wraps the Chilkat library.]]></DESCRIP>
 			<KEYWORDS><![CDATA[internet,control]]></KEYWORDS>
-			<VERSION>1.53.9483</VERSION>
-			<PUBDATE>2025/12/18</PUBDATE>
+			<VERSION>1.54</VERSION>
+			<PUBDATE>2026/04/24</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;billand88&#47;ChilkatVFP</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;chilkatvfpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -499,7 +499,7 @@
 			<DESCRIP><![CDATA[UTCDatetime is a VFP extension to handle UTC dates and time, including historical points in time, and conversion from and to local time in any timezone.]]></DESCRIP>
 			<KEYWORDS><![CDATA[datetime,UTC]]></KEYWORDS>
 			<VERSION></VERSION>
-			<PUBDATE>2025/11/07</PUBDATE>
+			<PUBDATE>2026/04/05</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;atlopes&#47;UTCDatetime</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;utcdatetimeinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -537,8 +537,8 @@
 			<AUTHOR>Victor Espina</AUTHOR>
 			<DESCRIP><![CDATA[This library allows to parse and creates JSON strings, along with handy utilities to consume JSON-based REST web services.]]></DESCRIP>
 			<KEYWORDS><![CDATA[JSON,REST]]></KEYWORDS>
-			<VERSION>1.32</VERSION>
-			<PUBDATE>2025/12/01</PUBDATE>
+			<VERSION>1.40</VERSION>
+			<PUBDATE>2026/04/09</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;vespina&#47;json</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;jsoninstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -550,8 +550,8 @@
 			<AUTHOR>Christof Wollenhaupt</AUTHOR>
 			<DESCRIP><![CDATA[With fpCefSharp you can add a modern browser to your Visual FoxPro application.]]></DESCRIP>
 			<KEYWORDS><![CDATA[CEF,browser,CEFSharp]]></KEYWORDS>
-			<VERSION>143.0.90</VERSION>
-			<PUBDATE>2025/12/18</PUBDATE>
+			<VERSION>146.0.100</VERSION>
+			<PUBDATE>2026/04/23</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;cwollenhaupt&#47;fpCefSharp</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;fpcefsharpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -576,8 +576,8 @@
 			<AUTHOR>Christian Ehlscheid</AUTHOR>
 			<DESCRIP><![CDATA[Provides an FLL with wrappers for many WinAPI functions]]></DESCRIP>
 			<KEYWORDS><![CDATA[Windows,API,fll]]></KEYWORDS>
-			<VERSION>2.0.0.42</VERSION>
-			<PUBDATE>2024/05/03</PUBDATE>
+			<VERSION>2.0.0.43</VERSION>
+			<PUBDATE>2026/02/22</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;ChristianEhlscheid&#47;vfp2c32</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;vfp2c32installer.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -602,8 +602,8 @@
 			<AUTHOR>Dmitriy Chunikhin</AUTHOR>
 			<DESCRIP><![CDATA[PDF Viewer and ReportOutput]]></DESCRIP>
 			<KEYWORDS><![CDATA[PDF,Pdfium,Report,ReportOutput]]></KEYWORDS>
-			<VERSION>1.38</VERSION>
-			<PUBDATE>2026/01/22</PUBDATE>
+			<VERSION>1.39</VERSION>
+			<PUBDATE>2026/02/19</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;dmitriychunikhin&#47;pdfium-vfp</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;pdfiumvfpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -621,6 +621,19 @@
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;documentinstaller.prg</INSTALLURL>
 			<DEPENDENT><![CDATA[wwDotNetBridge]]></DEPENDENT>
 			<NOTES><![CDATA[Deploy AWSSDK.Core.dll, AWSSDK.S3.dll, Document.dll (Document folder), ClrHost.dll, and wwDotNetBridge.dll (wwDotNetBridge folder)]]></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>VFP_RegExp</NAME>
+			<AUTHOR>Antonio Lopes</AUTHOR>
+			<DESCRIP><![CDATA[A VFP class that interfaces to the PCRE2 Regular Expression library.]]></DESCRIP>
+			<KEYWORDS><![CDATA[RegEx,regular expressions]]></KEYWORDS>
+			<VERSION></VERSION>
+			<PUBDATE>2026/01/01</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;atlopes&#47;VFP_RegExp</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;vfp_regexpinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES><![CDATA[Deploy LibPCRE2-8.dll]]></NOTES>
 		</RECORD>
 
 	</RECORDS>
