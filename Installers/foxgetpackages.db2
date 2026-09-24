@@ -278,7 +278,7 @@
 			<DESCRIP><![CDATA[ErrorHandler provides a highly configurable and customizable error handler for any VFP application]]></DESCRIP>
 			<KEYWORDS><![CDATA[error,handling]]></KEYWORDS>
 			<VERSION>1.0</VERSION>
-			<PUBDATE>2024/08/24</PUBDATE>
+			<PUBDATE>2026/08/10</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;ErrorHandler</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;errorhandlerinstaller.prg</INSTALLURL>
 			<DEPENDENT><![CDATA[SFMail]]></DEPENDENT>
@@ -303,8 +303,8 @@
 			<AUTHOR>Doug Hennig</AUTHOR>
 			<DESCRIP><![CDATA[A library to send emails from VFP applications]]></DESCRIP>
 			<KEYWORDS><![CDATA[Email]]></KEYWORDS>
-			<VERSION>2026.02.06</VERSION>
-			<PUBDATE>2026/02/06</PUBDATE>
+			<VERSION>2026.08.24</VERSION>
+			<PUBDATE>2026/08/24</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;SFMail</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;sfmailinstaller.prg</INSTALLURL>
 			<DEPENDENT><![CDATA[wwDotNetBridge]]></DEPENDENT>
@@ -330,7 +330,7 @@
 			<DESCRIP><![CDATA[Draws gauges in VFP applications]]></DESCRIP>
 			<KEYWORDS><![CDATA[gauge,control,graphics]]></KEYWORDS>
 			<VERSION>1.0.6984</VERSION>
-			<PUBDATE>2020/04/13</PUBDATE>
+			<PUBDATE>2019/02/14</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;Gauge</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;gaugeinstaller.prg</INSTALLURL>
 			<DEPENDENT><![CDATA[wwDotNetBridge]]></DEPENDENT>
@@ -433,8 +433,8 @@
 			<AUTHOR>Bill Anderson</AUTHOR>
 			<DESCRIP><![CDATA[ChilkatVFP is a Visual Foxpro class that wraps the Chilkat library.]]></DESCRIP>
 			<KEYWORDS><![CDATA[internet,control]]></KEYWORDS>
-			<VERSION>1.54</VERSION>
-			<PUBDATE>2026/04/24</PUBDATE>
+			<VERSION>1.57.9747</VERSION>
+			<PUBDATE>2026/09/08</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;billand88&#47;ChilkatVFP</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;chilkatvfpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -602,8 +602,8 @@
 			<AUTHOR>Dmitriy Chunikhin</AUTHOR>
 			<DESCRIP><![CDATA[PDF Viewer and ReportOutput]]></DESCRIP>
 			<KEYWORDS><![CDATA[PDF,Pdfium,Report,ReportOutput]]></KEYWORDS>
-			<VERSION>1.39</VERSION>
-			<PUBDATE>2026/02/19</PUBDATE>
+			<VERSION>1.44</VERSION>
+			<PUBDATE>2026/07/21</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;dmitriychunikhin&#47;pdfium-vfp</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;pdfiumvfpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -634,6 +634,19 @@
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;vfp_regexpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
 			<NOTES><![CDATA[Deploy LibPCRE2-8.dll]]></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>VFPREST</NAME>
+			<AUTHOR>Doug Hennig</AUTHOR>
+			<DESCRIP><![CDATA[Provides classes to make calling REST APIs from VFP easier]]></DESCRIP>
+			<KEYWORDS><![CDATA[REST]]></KEYWORDS>
+			<VERSION>2026.09.24</VERSION>
+			<PUBDATE>2026/09/24</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;VFPREST</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;vfprestinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
 		</RECORD>
 
 	</RECORDS>
