@@ -433,8 +433,8 @@
 			<AUTHOR>Bill Anderson</AUTHOR>
 			<DESCRIP><![CDATA[ChilkatVFP is a Visual Foxpro class that wraps the Chilkat library.]]></DESCRIP>
 			<KEYWORDS><![CDATA[internet,control]]></KEYWORDS>
-			<VERSION>1.57.9747</VERSION>
-			<PUBDATE>2026/09/08</PUBDATE>
+			<VERSION>1.58.9792</VERSION>
+			<PUBDATE>2026/10/23</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;billand88&#47;ChilkatVFP</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;chilkatvfpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -602,8 +602,8 @@
 			<AUTHOR>Dmitriy Chunikhin</AUTHOR>
 			<DESCRIP><![CDATA[PDF Viewer and ReportOutput]]></DESCRIP>
 			<KEYWORDS><![CDATA[PDF,Pdfium,Report,ReportOutput]]></KEYWORDS>
-			<VERSION>1.44</VERSION>
-			<PUBDATE>2026/07/21</PUBDATE>
+			<VERSION>1.45</VERSION>
+			<PUBDATE>2026/10/25</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;dmitriychunikhin&#47;pdfium-vfp</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;pdfiumvfpinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
@@ -645,6 +645,19 @@
 			<PUBDATE>2026/09/24</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;DougHennig&#47;VFPREST</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;vfprestinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>VFPEncryptionFLL</NAME>
+			<AUTHOR>JackRhine</AUTHOR>
+			<DESCRIP><![CDATA[A modern drop-in replacement for vfpencryption.fll]]></DESCRIP>
+			<KEYWORDS><![CDATA[Encryption]]></KEYWORDS>
+			<VERSION>2026.10.30</VERSION>
+			<PUBDATE>2026/10/30</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;VFPEncryptionFLL</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;vfpencryptionfllinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
 			<NOTES></NOTES>
 		</RECORD>
