@@ -4,6 +4,10 @@ FoxGet is a package manager for VFP similar to the NuGet Package Manager for .NE
 
 ## Releases
 
+### 2026-11-03
+
+* Added installer for <a href="https://github.com/VFPX/VFPCompressionFLL" target="_blank">VFPCompressionFLL</a>.
+
 ### 2026-10-30
 
 * Added installer for <a href="https://github.com/VFPX/VFPEncryptionFLL" target="_blank">VFPEncryptionFLL</a>.

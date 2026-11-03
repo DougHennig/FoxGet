@@ -3,8 +3,8 @@ lparameters toUpdateObject
 * Set the properties of the passed updater object.
 
 with toUpdateObject
-	.VersionNumber    = '1.0 - 20260924'
-	.AvailableVersion = 'FoxGet-1.0-update-20260924'
+	.VersionNumber    = '1.0 - 20261103'
+	.AvailableVersion = 'FoxGet-1.0-update-20261103'
 	.Notes            = GetNotes()
 	.RegisterWithThor = GetRegisterWithThor()
 endwith
@@ -20,6 +20,16 @@ text to lcNotes noshow
 FoxGet is a package manager for VFP similar to the NuGet Package Manager for .NET.
 
 ## Releases
+
+### 2026-11-03
+
+* Added installer for <a href="https://github.com/VFPX/VFPCompressionFLL" target="_blank">VFPCompressionFLL</a>.
+
+### 2026-10-30
+
+* Added installer for <a href="https://github.com/VFPX/VFPEncryptionFLL" target="_blank">VFPEncryptionFLL</a>.
+
+* Updated ChilkatVFP installer to 1.58 and pdfium-vfp to 1.45.
 
 ### 2026-09-24
 
@@ -132,4 +142,4 @@ endwith
 endproc &&GetRegisterWithThor
 
 
-*created by VFPX Deployment, 09/24/2026 4:10:45 PM
+*created by VFPX Deployment, 11/03/2026 10:13:43 AM

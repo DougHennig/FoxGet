@@ -651,13 +651,26 @@
 
 		<RECORD>
 			<NAME>VFPEncryptionFLL</NAME>
-			<AUTHOR>JackRhine</AUTHOR>
+			<AUTHOR>John Ryan</AUTHOR>
 			<DESCRIP><![CDATA[A modern drop-in replacement for vfpencryption.fll]]></DESCRIP>
 			<KEYWORDS><![CDATA[Encryption]]></KEYWORDS>
 			<VERSION>2026.10.30</VERSION>
 			<PUBDATE>2026/10/30</PUBDATE>
 			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;VFPEncryptionFLL</HOMEURL>
 			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;vfpencryptionfllinstaller.prg</INSTALLURL>
+			<DEPENDENT></DEPENDENT>
+			<NOTES></NOTES>
+		</RECORD>
+
+		<RECORD>
+			<NAME>VFPCompressionFLL</NAME>
+			<AUTHOR>John Ryan</AUTHOR>
+			<DESCRIP><![CDATA[A modern drop-in replacement for vfpcompression.fll]]></DESCRIP>
+			<KEYWORDS><![CDATA[Compression,zip]]></KEYWORDS>
+			<VERSION>2026.11.03</VERSION>
+			<PUBDATE>2026/11/03</PUBDATE>
+			<HOMEURL>https:&#47;&#47;github.com&#47;VFPX&#47;VFPCompressionFLL</HOMEURL>
+			<INSTALLURL>https:&#47;&#47;raw.githubusercontent.com&#47;DougHennig&#47;FoxGet&#47;main&#47;Installers&#47;vfpcompressionfllinstaller.prg</INSTALLURL>
 			<DEPENDENT></DEPENDENT>
 			<NOTES></NOTES>
 		</RECORD>
